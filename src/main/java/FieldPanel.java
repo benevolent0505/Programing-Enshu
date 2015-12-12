@@ -11,8 +11,15 @@ public class FieldPanel extends JPanel {
     private static final int FIELD_MAGIC = 1;
     private static final int CEMETERY = 1;
 
-    public FieldPanel(){
+    public FieldPanel(String side){
 
+        if(side.equals("self")){
+            JLabel self_field = new JLabel("Self Field");
+            this.add(self_field);
+        } else if(side.equals("enemy")){
+            JLabel enemy_field = new JLabel("Enemy Field");
+            this.add(enemy_field);
+        }
 
     }
 
