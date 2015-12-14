@@ -1,3 +1,5 @@
+package views;
+
 import javax.swing.*;
 
 
@@ -8,5 +10,6 @@ public class PlayerStatusPanel extends JPanel{
     public PlayerStatusPanel(){
         JLabel player_status_label = new JLabel("Player Status");
         this.add(player_status_label);
+
     }
 }
