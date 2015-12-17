@@ -5,8 +5,37 @@ package models;
  */
 public class Player {
 
+    private int lifePoint;
+
     public Player() {
 
     }
 
+    public void draw() {
+
+    }
+
+    public void shuffle() {
+
+    }
+
+    public void addLifePoint() {
+
+    }
+
+    public void setCard() {
+
+    }
+
+    public void reverseCard() {
+
+    }
+
+    public void changeFormat() {
+
+    }
+
+    public void activateCardEffect() {
+
+    }
 }
