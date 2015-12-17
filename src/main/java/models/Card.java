@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.*;
+
 /**
  * Created by Mikio on 2015/12/17.
  */
