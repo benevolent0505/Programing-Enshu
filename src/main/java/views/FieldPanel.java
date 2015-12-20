@@ -19,37 +19,37 @@ public class FieldPanel extends JPanel {
     private static final int CEMETERY = 1;
 
     //並ぶカード
-    private JLabel FieldLabel;
-    private ArrayList<JButton> MonsterButton;
-    private ArrayList<JButton> MagicTrapButton;
-    private JButton DeckButton;
-    private JButton CemeteryButton;
-    private JButton ExtraButton;
-    private JButton FieldMagicButton;
+    private JLabel fieldLabel;
+    private ArrayList<JButton> monsterButtons;
+    private ArrayList<JButton> magicTrapButtons;
+    private JButton deckButton;
+    private JButton cemeteryButton;
+    private JButton extraButton;
+    private JButton fieldMagicButton;
 
     public FieldPanel(String side) {
 
         if (side.equals("self")) {
-             FieldLabel = new JLabel("Self Field");
+             fieldLabel = new JLabel("Player Field");
         } else if (side.equals("enemy")) {
-            FieldLabel = new JLabel("Enemy Field");
+            fieldLabel = new JLabel("Enemy Field");
         }
 
-        MonsterButton = new ArrayList<JButton>();
-        MagicTrapButton = new ArrayList<JButton>();
-        DeckButton = new JButton("Deck");
-        CemeteryButton = new JButton("Cemetery");
-        ExtraButton = new JButton("Extra");
-        FieldMagicButton = new JButton("FieldMagic");
+        monsterButtons = new ArrayList<JButton>();
+        magicTrapButtons = new ArrayList<JButton>();
+        deckButton= new JButton("Deck");
+        cemeteryButton = new JButton("Cemetery");
+        extraButton = new JButton("Extra");
+        fieldMagicButton = new JButton("FieldMagic");
 
         for(int i = 0; i < MAX_MONSTERS; i++){
             JButton tmp = new JButton("Monster"+ i);
-            MonsterButton.add(tmp);
+            monsterButtons.add(tmp);
         }
 
         for(int i = 0; i < MAX_MAGICS_TRAPS; i++){
             JButton tmp = new JButton("MagicTrap"+ i);
-            MagicTrapButton.add(tmp);
+            magicTrapButtons.add(tmp);
         }
 
 
@@ -67,8 +67,8 @@ public class FieldPanel extends JPanel {
         mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(FieldLabel, mainLayoutConstraints);
-        add(FieldLabel);
+        mainLayout.setConstraints(fieldLabel, mainLayoutConstraints);
+        add(fieldLabel);
 
         //FieldMagic
         mainLayoutConstraints.weightx = 0.144;
@@ -78,8 +78,8 @@ public class FieldPanel extends JPanel {
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(FieldMagicButton, mainLayoutConstraints);
-        add(FieldMagicButton);
+        mainLayout.setConstraints(fieldMagicButton, mainLayoutConstraints);
+        add(fieldMagicButton);
 
         //Monsters
         for(int i = 0; i < MAX_MONSTERS; i++) {
@@ -90,8 +90,8 @@ public class FieldPanel extends JPanel {
             mainLayoutConstraints.gridwidth = 1;
             mainLayoutConstraints.gridheight = 1;
             mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(MonsterButton.get(i), mainLayoutConstraints);
-            add(MonsterButton.get(i));
+            mainLayout.setConstraints(monsterButtons.get(i), mainLayoutConstraints);
+            add(monsterButtons.get(i));
         }
 
         for(int i = 0; i < MAX_MAGICS_TRAPS; i++) {
@@ -102,8 +102,8 @@ public class FieldPanel extends JPanel {
             mainLayoutConstraints.gridwidth = 1;
             mainLayoutConstraints.gridheight = 1;
             mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(MagicTrapButton.get(i), mainLayoutConstraints);
-            add(MagicTrapButton.get(i));
+            mainLayout.setConstraints(magicTrapButtons.get(i), mainLayoutConstraints);
+            add(magicTrapButtons.get(i));
         }
 
 
@@ -119,8 +119,8 @@ public class FieldPanel extends JPanel {
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(ExtraButton, mainLayoutConstraints);
-        add(ExtraButton);
+        mainLayout.setConstraints(extraButton, mainLayoutConstraints);
+        add(extraButton);
 
 
         //Cemetery
@@ -131,8 +131,8 @@ public class FieldPanel extends JPanel {
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(CemeteryButton, mainLayoutConstraints);
-        add(CemeteryButton);
+        mainLayout.setConstraints(cemeteryButton, mainLayoutConstraints);
+        add(cemeteryButton);
 
         //Deck
         mainLayoutConstraints.weightx = 0.144;
@@ -142,8 +142,8 @@ public class FieldPanel extends JPanel {
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(DeckButton, mainLayoutConstraints);
-        add(DeckButton);
+        mainLayout.setConstraints(deckButton, mainLayoutConstraints);
+        add(deckButton);
 
 
 
