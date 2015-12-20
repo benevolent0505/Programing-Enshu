@@ -17,25 +17,12 @@ public class CardStatusPanel extends JPanel {
     private JLabel card;
 
 
-    public CardStatusPanel(){
+    public CardStatusPanel() {
         cardStatusLabel = new JLabel("Card Status");
         this.add(cardStatusLabel);
-        cardImage = new ImageIcon("~/programs/YuGiOh/Programing-Enshu/build/classes/main/views/c.png");
+        cardImage = new ImageIcon(getClass().getResource("../c.png"));
         card = new JLabel(cardImage);
 
-
         super.add(card);
-
-
-
-
-
-
-
     }
-
-
-
-
-
 }
