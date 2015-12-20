@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class FieldFrame extends JFrame{
 
+
+
     public FieldFrame() {
         //以下Panelの作成
         FieldPanel self_field = new FieldPanel("self");
@@ -106,8 +108,10 @@ public class FieldFrame extends JFrame{
 
 
         //以下、ベースの設定
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle rect = env.getMaximumWindowBounds();
+        setBounds(rect);
         this.setTitle("Field Frame");
-        this.setSize(683, 768);
         this.setLocation(683, 0);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
