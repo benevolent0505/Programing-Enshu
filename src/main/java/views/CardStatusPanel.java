@@ -2,23 +2,40 @@ package views;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.io.*;
+import javax.imageio.*;
+import java.awt.*;
 
 /**
  * Created by ken on 2015/12/10.
  */
 public class CardStatusPanel extends JPanel {
 
-    //ステータス用カードイメージとテキスト
-    private BufferedImage card_status_image = new BufferedImage();
-    private JLabel card_property_text = new JLabel();
-    private JLabel card_effect_text = new JLabel();
-    private JLabel card_atk_def = new JLabel();
+
+    private JLabel cardStatusLabel;
+    private ImageIcon cardImage;
+    private JLabel card;
+
 
     public CardStatusPanel(){
-        JLabel card_status = new JLabel("Card Status");
-        this.add(card_status);
+        cardStatusLabel = new JLabel("Card Status");
+        this.add(cardStatusLabel);
+        cardImage = new ImageIcon("~/programs/YuGiOh/Programing-Enshu/build/classes/main/views/c.png");
+        card = new JLabel(cardImage);
+
+
+        super.add(card);
+
+
+
+
+
 
 
     }
+
+
+
+
+
 }
