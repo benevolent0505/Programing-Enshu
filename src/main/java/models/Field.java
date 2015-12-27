@@ -25,7 +25,7 @@ public class Field {
         cemeteryZone = new ArrayList();
 
         initDeck();
-        initHand();
+        // initHand();
 
         phase = Phase.DROW_PHASE;
     }
