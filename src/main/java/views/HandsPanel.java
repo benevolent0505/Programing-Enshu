@@ -1,12 +1,14 @@
-package views; /**
- * Created by ken on 2015/12/10.
- */
+package views;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.*;
 
+/**
+ * Created by ken on 2015/12/10.
+ */
 
 public class HandsPanel extends JPanel implements MouseListener {
 
@@ -32,78 +34,67 @@ public class HandsPanel extends JPanel implements MouseListener {
         actionPopup.add(setItem);
 
 
+        handsButton = new ArrayList<JButton>();
 
+        for (int i = 0; i < MAX_HANDS; i++) {
+            JButton tmp = new JButton("Hand" + i);
+            tmp.addMouseListener(this);
+            handsButton.add(tmp);
+        }
 
-    handsButton=new ArrayList<JButton>();
+        GridBagLayout mainLayout = new GridBagLayout();
 
-    for(
-    int i = 0;
-    i<MAX_HANDS;i++)
+        setLayout(mainLayout);
 
-    {
-        JButton tmp = new JButton("Hand" + i);
-        tmp.addMouseListener(this);
-        handsButton.add(tmp);
-    }
+        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
+        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
 
-    GridBagLayout mainLayout = new GridBagLayout();
-
-    setLayout(mainLayout);
-
-    GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-    mainLayoutConstraints.fill=GridBagConstraints.BOTH;
-
-    //handsLabel
-    mainLayoutConstraints.weightx=1.0;  //横の辺の比
-    mainLayoutConstraints.weighty=0.3;
-    mainLayoutConstraints.gridx=0;
-    mainLayoutConstraints.gridy=0;
-    mainLayoutConstraints.gridwidth=GridBagConstraints.REMAINDER;
-    mainLayoutConstraints.gridheight=1;
-    mainLayoutConstraints.anchor=GridBagConstraints.CENTER;
-    mainLayout.setConstraints(handsLabel,mainLayoutConstraints);
-
-    add(handsLabel);
-
-    //handsButton
-    for(
-    int i = 0;
-    i<MAX_HANDS;i++)
-
-    {
-        mainLayoutConstraints.weightx = 0.144;
-        mainLayoutConstraints.weighty = 0.7;
-        mainLayoutConstraints.gridx = i;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
+        //handsLabel
+        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
+        mainLayoutConstraints.weighty = 0.3;
+        mainLayoutConstraints.gridx = 0;
+        mainLayoutConstraints.gridy = 0;
+        mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(handsButton.get(i), mainLayoutConstraints);
-        add(handsButton.get(i));
+        mainLayout.setConstraints(handsLabel, mainLayoutConstraints);
+
+        add(handsLabel);
+
+        //handsButton
+        for (int i = 0; i < MAX_HANDS; i++) {
+            mainLayoutConstraints.weightx = 0.144;
+            mainLayoutConstraints.weighty = 0.7;
+            mainLayoutConstraints.gridx = i;
+            mainLayoutConstraints.gridy = 1;
+            mainLayoutConstraints.gridwidth = 1;
+            mainLayoutConstraints.gridheight = 1;
+            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
+            mainLayout.setConstraints(handsButton.get(i), mainLayoutConstraints);
+            add(handsButton.get(i));
+        }
     }
 
-
-}
-
-    public void mousePressed(java.awt.event.MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         showPopup(e);
     }
 
-    public void mouseClicked(java.awt.event.MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
     }
 
-    public void mouseEntered(java.awt.event.MouseEvent e) {
+    public void mouseEntered(MouseEvent e) {
+        System.out.println(e.getSource());
     }
 
-    public void mouseExited(java.awt.event.MouseEvent e) {
+    public void mouseExited(MouseEvent e) {
     }
 
-    public void mouseReleased(java.awt.event.MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {
         showPopup(e);
     }
 
 
-    private void showPopup(java.awt.event.MouseEvent e) {
+    private void showPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {
             actionPopup.show(e.getComponent(), e.getX(), e.getY());
         }
