@@ -115,5 +115,7 @@ public class FieldFrame extends JFrame{
         this.setLocation(683, 0);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        pack();
     }
 }
