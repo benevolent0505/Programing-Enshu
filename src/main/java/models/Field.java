@@ -36,7 +36,7 @@ public class Field {
         return phase;
     }
 
-    public ArrayList getHands() {
+    public ArrayList<Card> getHands() {
         return hands;
     }
 

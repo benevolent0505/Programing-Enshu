@@ -1,5 +1,8 @@
 package views;
 
+import models.Field;
+import views.components.CardButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -14,13 +17,18 @@ public class HandsPanel extends JPanel implements MouseListener {
 
     //現実的な枚数
     private static final int MAX_HANDS = 7;
+    private static final int START_HANDS = 5;
 
     //カードの画像データ
-    private ArrayList<JButton> handsButton;
+    private ArrayList<CardButton> handsButton;
     private JLabel handsLabel;
     private JPopupMenu actionPopup;
 
-    public HandsPanel(String side) {
+    private Field field;
+
+    public HandsPanel(Field field, String side) {
+        this.field = field;
+
         if (side.equals("self")) {
             handsLabel = new JLabel("Self Hands");
         } else if (side.equals("enemy")) {
@@ -34,11 +42,16 @@ public class HandsPanel extends JPanel implements MouseListener {
         actionPopup.add(setItem);
 
 
-        handsButton = new ArrayList<JButton>();
+        handsButton = new ArrayList();
 
         for (int i = 0; i < MAX_HANDS; i++) {
-            JButton tmp = new JButton("Hand" + i);
+            CardButton tmp = new CardButton("Hand" + i);
             tmp.addMouseListener(this);
+
+            if (i < START_HANDS) {
+                tmp.setCard(field.getHands().get(i));
+            }
+
             handsButton.add(tmp);
         }
 
@@ -83,7 +96,10 @@ public class HandsPanel extends JPanel implements MouseListener {
     }
 
     public void mouseEntered(MouseEvent e) {
-        System.out.println(e.getSource());
+        CardButton button = (CardButton) e.getComponent();
+        if (button.getCard() != null) {
+            System.out.println(button.getCard().getName());
+        }
     }
 
     public void mouseExited(MouseEvent e) {

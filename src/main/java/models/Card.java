@@ -24,4 +24,8 @@ public class Card {
         this.attackPoint = attackPoint;
         this.defensePoint = defensePoint;
     }
+
+    public String getName() {
+        return name;
+    }
 }
