@@ -9,16 +9,28 @@ import java.awt.*;
  */
 
 
-public class PlayerStatusPanel extends JPanel{
+public class PlayerStatusPanel extends JPanel {
     private JLabel playerLife;
     private JLabel playerName;
     private JLabel playerLabel;
     private JLabel enemyLife;
     private JLabel enemyName;
+    private JFrame askPlayerNameFrame;
+    private String nameString;
 
-    public PlayerStatusPanel(){
+    public PlayerStatusPanel() {
+
+        //プレイヤー名を尋ねるダイアログ
+
+
+        askPlayerNameFrame = new JFrame();
+        nameString = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player Name?");
+        if (nameString == null)
+            System.exit(0);
+
+
         playerLabel = new JLabel("Player Status");
-        playerName = new JLabel("PlayerName1:");
+        playerName = new JLabel(nameString + ":");
         playerLife = new JLabel("8000");
         enemyLife = new JLabel("8000");
         enemyName = new JLabel(":EnemyName");
@@ -47,7 +59,7 @@ public class PlayerStatusPanel extends JPanel{
         mainLayoutConstraints.gridy = 1;
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0,100,0,0);
+        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
         mainLayout.setConstraints(playerName, mainLayoutConstraints);
         add(playerName);
@@ -59,7 +71,7 @@ public class PlayerStatusPanel extends JPanel{
         mainLayoutConstraints.gridy = 1;
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0,100,0,0);
+        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
         mainLayout.setConstraints(playerLife, mainLayoutConstraints);
         add(playerLife);
@@ -72,7 +84,7 @@ public class PlayerStatusPanel extends JPanel{
         mainLayoutConstraints.gridy = 1;
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0,100,0,0);
+        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
         mainLayout.setConstraints(enemyLife, mainLayoutConstraints);
         add(enemyLife);
@@ -84,12 +96,10 @@ public class PlayerStatusPanel extends JPanel{
         mainLayoutConstraints.gridy = 1;
         mainLayoutConstraints.gridwidth = 1;
         mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0,100,0,0);
+        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
         mainLayout.setConstraints(enemyName, mainLayoutConstraints);
         add(enemyName);
-
-
 
 
     }
