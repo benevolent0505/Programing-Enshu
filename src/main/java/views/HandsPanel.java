@@ -1,15 +1,16 @@
-package views; /**
+package views;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+/**
  * Created by ken on 2015/12/10.
  */
 
-import models.Field;
-
-import java.awt.*;
-import java.util.ArrayList;
-import javax.swing.*;
-
-
-public class HandsPanel extends JPanel{
+public class HandsPanel extends JPanel implements MouseListener {
 
     //現実的な枚数
     private static final int MAX_HANDS = 7;
@@ -17,23 +18,34 @@ public class HandsPanel extends JPanel{
     //カードの画像データ
     private ArrayList<JButton> handsButton;
     private JLabel handsLabel;
+    private JPopupMenu actionPopup;
 
-    public HandsPanel(Field field, String side){
-        if(side.equals("self")){
-             handsLabel = new JLabel("Self Hands");
-        } else if(side.equals("enemy")){
-             handsLabel = new JLabel("Enemy Hands");
+    public HandsPanel(String side) {
+        if (side.equals("self")) {
+            handsLabel = new JLabel("Self Hands");
+        } else if (side.equals("enemy")) {
+            handsLabel = new JLabel("Enemy Hands");
         }
+
+        actionPopup = new JPopupMenu();
+        JMenuItem summonItem = new JMenuItem("召喚");
+        JMenuItem setItem = new JMenuItem("セット");
+        actionPopup.add(summonItem);
+        actionPopup.add(setItem);
+
 
         handsButton = new ArrayList<JButton>();
 
-        for(int i = 0; i < MAX_HANDS; i++){
-            JButton tmp = new JButton("Hand"+i);
+        for (int i = 0; i < MAX_HANDS; i++) {
+            JButton tmp = new JButton("Hand" + i);
+            tmp.addMouseListener(this);
             handsButton.add(tmp);
         }
 
         GridBagLayout mainLayout = new GridBagLayout();
+
         setLayout(mainLayout);
+
         GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
         mainLayoutConstraints.fill = GridBagConstraints.BOTH;
 
@@ -46,10 +58,11 @@ public class HandsPanel extends JPanel{
         mainLayoutConstraints.gridheight = 1;
         mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
         mainLayout.setConstraints(handsLabel, mainLayoutConstraints);
+
         add(handsLabel);
 
         //handsButton
-        for(int i = 0; i<MAX_HANDS; i++) {
+        for (int i = 0; i < MAX_HANDS; i++) {
             mainLayoutConstraints.weightx = 0.144;
             mainLayoutConstraints.weighty = 0.7;
             mainLayoutConstraints.gridx = i;
@@ -60,8 +73,30 @@ public class HandsPanel extends JPanel{
             mainLayout.setConstraints(handsButton.get(i), mainLayoutConstraints);
             add(handsButton.get(i));
         }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        showPopup(e);
+    }
+
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        System.out.println(e.getSource());
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        showPopup(e);
+    }
 
 
-
+    private void showPopup(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            actionPopup.show(e.getComponent(), e.getX(), e.getY());
+        }
     }
 }

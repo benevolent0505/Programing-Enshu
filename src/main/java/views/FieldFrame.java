@@ -9,14 +9,12 @@ import javax.swing.*;
 
 public class FieldFrame extends JFrame{
 
-
-
     public FieldFrame(Field field1, Field field2) {
         //以下Panelの作成
         FieldPanel self_field = new FieldPanel("self");
         FieldPanel enemy_field = new FieldPanel("enemy");
-        HandsPanel self_hands = new HandsPanel(field1, "self");
-        HandsPanel enemy_hands = new HandsPanel(field2, "enemy");
+        HandsPanel self_hands = new HandsPanel("self");
+        HandsPanel enemy_hands = new HandsPanel("enemy");
         CardStatusPanel card_status = new CardStatusPanel();
         PhasePanel turn_phase = new PhasePanel();
         PlayerStatusPanel player_status = new PlayerStatusPanel();
