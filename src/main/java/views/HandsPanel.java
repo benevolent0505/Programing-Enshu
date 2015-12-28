@@ -2,6 +2,8 @@ package views; /**
  * Created by ken on 2015/12/10.
  */
 
+import models.Field;
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class HandsPanel extends JPanel{
     private ArrayList<JButton> handsButton;
     private JLabel handsLabel;
 
-    public HandsPanel(String side){
+    public HandsPanel(Field field, String side){
         if(side.equals("self")){
              handsLabel = new JLabel("Self Hands");
         } else if(side.equals("enemy")){

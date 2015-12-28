@@ -1,6 +1,8 @@
 package models;
 
+import models.enums.Attribute;
 import models.enums.Phase;
+import models.enums.Species;
 
 import java.util.ArrayList;
 
@@ -25,7 +27,7 @@ public class Field {
         cemeteryZone = new ArrayList();
 
         initDeck();
-        // initHand();
+        initHand();
 
         phase = Phase.DROW_PHASE;
     }
@@ -78,7 +80,9 @@ public class Field {
     }
 
     private void initDeck() {
-
+        for (int i = 0; i < 40; i++) {
+            deck.add(new Card("青眼の白龍", Species.Dragon, Attribute.Light, 8, 3000, 2500));
+        }
     }
 
     private void initHand() {
