@@ -28,4 +28,24 @@ public class Card {
     public String getName() {
         return name;
     }
+
+    public Species getSpecies() {
+        return species;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public int getDefensePoint() {
+        return defensePoint;
+    }
+
+    public int getAttackPoint() {
+        return attackPoint;
+    }
 }

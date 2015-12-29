@@ -64,7 +64,7 @@ public class Field {
         this.fieldMagicZone = fieldMagicZone;
     }
 
-    public ArrayList drow(int number) {
+    public ArrayList draw(int number) {
         ArrayList<Card> tmp = new ArrayList();
 
         for (int i = 0; i < number; i++) {
