@@ -5,11 +5,12 @@ import models.enums.Phase;
 import models.enums.Species;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by Mikio on 2015/12/17.
  */
-public class Field {
+public class Field extends Observable {
 
     private Phase phase;
 
@@ -34,6 +35,12 @@ public class Field {
 
     public Phase getPhase() {
         return phase;
+    }
+
+    public void setPhase(Phase phase) {
+        this.phase = phase;
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Card> getHands() {
@@ -74,6 +81,8 @@ public class Field {
 
         if (phase == Phase.DROW_PHASE) {
             phase = Phase.STAND_BY_PHASE;
+            setChanged();
+            notifyObservers();
         }
 
         return tmp;
