@@ -1,6 +1,7 @@
 package views;
 
 import models.Field;
+import models.Player;
 import models.SelectedCard;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class FieldFrame extends JFrame{
 
     private SelectedCard selectedCard;
 
-    public FieldFrame(Field field1, Field field2) {
+    public FieldFrame(Field field1, Player player1, Field field2, Player player2) {
         selectedCard = new SelectedCard();
 
         //以下Panelの作成
