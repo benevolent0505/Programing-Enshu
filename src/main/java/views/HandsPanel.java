@@ -1,6 +1,7 @@
 package views;
 
 import models.Field;
+import models.SelectedCard;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -25,9 +26,11 @@ public class HandsPanel extends JPanel implements MouseListener {
     private JPopupMenu actionPopup;
 
     private Field field;
+    private SelectedCard selectedCard;
 
-    public HandsPanel(Field field, String side) {
+    public HandsPanel(Field field, SelectedCard selectedCard, String side) {
         this.field = field;
+        this.selectedCard = selectedCard;
 
         if (side.equals("self")) {
             handsLabel = new JLabel("Self Hands");
@@ -98,7 +101,7 @@ public class HandsPanel extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
-            System.out.println(button.getCard().getName());
+            selectedCard.setSelectedCard(button.getCard());
         }
     }
 
@@ -108,7 +111,6 @@ public class HandsPanel extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         showPopup(e);
     }
-
 
     private void showPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {

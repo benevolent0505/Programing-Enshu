@@ -1,16 +1,17 @@
 package views;
 
+import models.Card;
+import models.SelectedCard;
+
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import javax.imageio.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by ken on 2015/12/10.
  */
-public class CardStatusPanel extends JPanel {
-
+public class CardStatusPanel extends JPanel implements Observer {
 
     private JLabel cardStatusLabel;
     private ImageIcon cardImage;
@@ -18,9 +19,9 @@ public class CardStatusPanel extends JPanel {
     private JLabel status;
     private JLabel effect;
 
+    private SelectedCard selectedCard;
 
-
-    public CardStatusPanel() {
+    public CardStatusPanel(SelectedCard selectedCard) {
         cardStatusLabel = new JLabel("Card Status");
         cardImage = new ImageIcon(getClass().getResource("../normalMonster.png"));
         card = new JLabel(cardImage);
@@ -81,6 +82,14 @@ public class CardStatusPanel extends JPanel {
         add(effect);
 
 
+        this.selectedCard = selectedCard;
+        selectedCard.addObserver(this);
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        Card card = selectedCard.getSelectedCard();
+
+        // TODO 以下にカードの情報をJLabelに反映させる処理を書く
     }
 }

@@ -1,6 +1,7 @@
 package views;
 
 import models.Field;
+import models.SelectedCard;
 
 import java.awt.*;
 import javax.swing.*;
@@ -9,13 +10,17 @@ import javax.swing.*;
 
 public class FieldFrame extends JFrame{
 
+    private SelectedCard selectedCard;
+
     public FieldFrame(Field field1, Field field2) {
+        selectedCard = new SelectedCard();
+
         //以下Panelの作成
         FieldPanel self_field = new FieldPanel("self");
         FieldPanel enemy_field = new FieldPanel("enemy");
-        HandsPanel self_hands = new HandsPanel(field1, "self");
-        HandsPanel enemy_hands = new HandsPanel(field2, "enemy");
-        CardStatusPanel card_status = new CardStatusPanel();
+        HandsPanel self_hands = new HandsPanel(field1, selectedCard, "self");
+        HandsPanel enemy_hands = new HandsPanel(field2, selectedCard, "enemy");
+        CardStatusPanel card_status = new CardStatusPanel(selectedCard);
         PhasePanel turn_phase = new PhasePanel();
         PlayerStatusPanel player_status = new PlayerStatusPanel();
 
