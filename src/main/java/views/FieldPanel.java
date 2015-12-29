@@ -1,8 +1,8 @@
 package views;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -232,14 +232,6 @@ public class FieldPanel extends JPanel {
             mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
             mainLayout.setConstraints(deckButton, mainLayoutConstraints);
             add(deckButton);
-
-
         }
-
-
-
-
     }
-
-
 }

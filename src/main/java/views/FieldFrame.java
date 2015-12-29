@@ -4,12 +4,10 @@ import models.Field;
 import models.Player;
 import models.SelectedCard;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
-
-
-public class FieldFrame extends JFrame{
+public class FieldFrame extends JFrame {
 
     private SelectedCard selectedCard;
 
@@ -110,7 +108,6 @@ public class FieldFrame extends JFrame{
         mainLayoutConstraints.gridheight = 1;
         mainLayout.setConstraints(self_hands, mainLayoutConstraints);
         add(self_hands);
-
 
 
         //以下、ベースの設定

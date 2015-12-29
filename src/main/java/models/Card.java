@@ -1,6 +1,9 @@
 package models;
 
-import models.enums.*;
+import models.enums.Attribute;
+import models.enums.CardType;
+import models.enums.Position;
+import models.enums.Species;
 
 /**
  * Created by Mikio on 2015/12/17.
