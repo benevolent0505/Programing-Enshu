@@ -9,6 +9,7 @@ public class SelectedCard extends Observable {
 
     private Card selectedCard;
 
+
     public SelectedCard() {
 
     }
@@ -16,6 +17,8 @@ public class SelectedCard extends Observable {
     public Card getSelectedCard() {
         return selectedCard;
     }
+
+
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;

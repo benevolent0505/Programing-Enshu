@@ -63,7 +63,6 @@ public class PhasePanel extends JPanel {
         gbc.weighty = weighty;
         gbc.anchor = anchor;
         gbc.insets = insets;
-
         layout.setConstraints(comp, gbc);
     }
 }

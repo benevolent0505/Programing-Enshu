@@ -2,6 +2,8 @@ package views;
 
 import models.Field;
 import models.SelectedCard;
+import models.enums.Attribute;
+import models.enums.Species;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -24,6 +26,10 @@ public class HandsPanel extends JPanel implements MouseListener {
     private ArrayList<CardButton> handsButton;
     private JLabel handsLabel;
     private JPopupMenu actionPopup;
+
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
 
     private Field field;
     private SelectedCard selectedCard;
@@ -58,38 +64,41 @@ public class HandsPanel extends JPanel implements MouseListener {
             handsButton.add(tmp);
         }
 
-        GridBagLayout mainLayout = new GridBagLayout();
+        layout = new GridBagLayout();
+        setLayout(layout);
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
 
-        setLayout(mainLayout);
-
-        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
 
         //handsLabel
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.3;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(handsLabel, mainLayoutConstraints);
+        addComponent(handsLabel, 1.0, 0.3, 0, 0, GridBagConstraints.REMAINDER, 1);
 
-        add(handsLabel);
 
         //handsButton
         for (int i = 0; i < MAX_HANDS; i++) {
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.7;
-            mainLayoutConstraints.gridx = i;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(handsButton.get(i), mainLayoutConstraints);
-            add(handsButton.get(i));
+            addComponent(handsButton.get(i), 0.144, 0.7, i, 1, 1, 1);
         }
+
+
+
     }
+
+
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                              int gridwidth, int gridheight){
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+        layout.setConstraints(comp, gbc);
+        add(comp);
+    }
+
+
+
 
     public void mousePressed(MouseEvent e) {
         showPopup(e);

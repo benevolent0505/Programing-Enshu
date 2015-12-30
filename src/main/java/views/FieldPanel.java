@@ -3,12 +3,16 @@ package views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by ken on 2015/12/10.
  */
-public class FieldPanel extends JPanel {
+public class FieldPanel extends JPanel implements Observer, ActionListener{
 
     //フィールドの構成
     private static final int MAX_MAGICS_TRAPS = 5;
@@ -26,6 +30,11 @@ public class FieldPanel extends JPanel {
     private JButton cemeteryButton;
     private JButton extraButton;
     private JButton fieldMagicButton;
+
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
+
 
     public FieldPanel(String side) {
 
@@ -52,186 +61,105 @@ public class FieldPanel extends JPanel {
         //自分サイド
         if (side.equals("self")) {
 
-            GridBagLayout mainLayout = new GridBagLayout();
-            setLayout(mainLayout);
-            GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-            mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+            layout = new GridBagLayout();
+            setLayout(layout);
+            gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.BOTH;
 
 
             //SelfField
-            mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-            mainLayoutConstraints.weighty = 0.2;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 0;
-            mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(fieldLabel, mainLayoutConstraints);
-            add(fieldLabel);
+            addComponent(fieldLabel, 1.0, 0.2, 0, 0, GridBagConstraints.REMAINDER, 1);
 
             //FieldMagic
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(fieldMagicButton, mainLayoutConstraints);
-            add(fieldMagicButton);
+            addComponent(fieldMagicButton, 0.144, 0.4, 0, 1, 1, 1);
 
             //Monsters
             for (int i = 0; i < MAX_MONSTERS; i++) {
-                mainLayoutConstraints.weightx = 0.144;
-                mainLayoutConstraints.weighty = 0.4;
-                mainLayoutConstraints.gridx = i + 1;
-                mainLayoutConstraints.gridy = 1;
-                mainLayoutConstraints.gridwidth = 1;
-                mainLayoutConstraints.gridheight = 1;
-                mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-                mainLayout.setConstraints(monsterButtons.get(i), mainLayoutConstraints);
-                add(monsterButtons.get(i));
+                addComponent(monsterButtons.get(i), 0.144, 0.4, i + 1, 1, 1, 1);
             }
 
             for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
-                mainLayoutConstraints.weightx = 0.144;
-                mainLayoutConstraints.weighty = 0.4;
-                mainLayoutConstraints.gridx = i + 1;
-                mainLayoutConstraints.gridy = 2;
-                mainLayoutConstraints.gridwidth = 1;
-                mainLayoutConstraints.gridheight = 1;
-                mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-                mainLayout.setConstraints(magicTrapButtons.get(i), mainLayoutConstraints);
-                add(magicTrapButtons.get(i));
+                addComponent(magicTrapButtons.get(i), 0.144, 0.4, i + 1, 2, 1, 1);
             }
 
-
             //Extra
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 2;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(extraButton, mainLayoutConstraints);
-            add(extraButton);
-
+            addComponent(extraButton, 0.144, 0.4, 0, 2, 1, 1);
 
             //Cemetery
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 6;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(cemeteryButton, mainLayoutConstraints);
-            add(cemeteryButton);
+            addComponent(cemeteryButton, 0.144, 0.4, 6, 1, 1, 1);
 
             //Deck
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 6;
-            mainLayoutConstraints.gridy = 2;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(deckButton, mainLayoutConstraints);
-            add(deckButton);
+            addComponent(deckButton, 0.144, 0.4, 6, 2, 1, 1);
+
+
 
         }
 
         //相手サイド
-        if(side.equals("enemy")){
+        if(side.equals("enemy")) {
 
-            GridBagLayout mainLayout = new GridBagLayout();
-            setLayout(mainLayout);
-            GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-            mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+            layout = new GridBagLayout();
+            setLayout(layout);
+            gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.BOTH;
 
 
-            //SelfField
-            mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-            mainLayoutConstraints.weighty = 0.2;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 0;
-            mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(fieldLabel, mainLayoutConstraints);
-            add(fieldLabel);
+            //EnemyField
+            addComponent(fieldLabel, 1.0, 0.2, 0, 0, GridBagConstraints.REMAINDER, 1);
 
             //FieldMagic
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 6;
-            mainLayoutConstraints.gridy = 2;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(fieldMagicButton, mainLayoutConstraints);
-            add(fieldMagicButton);
+            addComponent(fieldMagicButton, 0.144, 0.4, 6, 2, 1, 1);
 
             //Monsters
             for (int i = 0; i < MAX_MONSTERS; i++) {
-                mainLayoutConstraints.weightx = 0.144;
-                mainLayoutConstraints.weighty = 0.4;
-                mainLayoutConstraints.gridx = i + 1;
-                mainLayoutConstraints.gridy = 2;
-                mainLayoutConstraints.gridwidth = 1;
-                mainLayoutConstraints.gridheight = 1;
-                mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-                mainLayout.setConstraints(monsterButtons.get(i), mainLayoutConstraints);
-                add(monsterButtons.get(i));
+                addComponent(monsterButtons.get(i), 0.144, 0.4, i + 1, 2, 1, 1);
             }
 
             for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
-                mainLayoutConstraints.weightx = 0.144;
-                mainLayoutConstraints.weighty = 0.4;
-                mainLayoutConstraints.gridx = i + 1;
-                mainLayoutConstraints.gridy = 1;
-                mainLayoutConstraints.gridwidth = 1;
-                mainLayoutConstraints.gridheight = 1;
-                mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-                mainLayout.setConstraints(magicTrapButtons.get(i), mainLayoutConstraints);
-                add(magicTrapButtons.get(i));
+                addComponent(magicTrapButtons.get(i), 0.144, 0.4, i + 1, 1, 1, 1);
             }
 
-
             //Extra
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 6;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(extraButton, mainLayoutConstraints);
-            add(extraButton);
-
+            addComponent(extraButton, 0.144, 0.4, 6, 1, 1, 1);
 
             //Cemetery
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 2;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(cemeteryButton, mainLayoutConstraints);
-            add(cemeteryButton);
+            addComponent(cemeteryButton, 0.144, 0.4, 0, 2, 1, 1);
 
             //Deck
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.4;
-            mainLayoutConstraints.gridx = 0;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(deckButton, mainLayoutConstraints);
-            add(deckButton);
+            addComponent(deckButton, 0.144, 0.4, 0, 1, 1, 1);
+
+
+
+
         }
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+    }
+
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                              int gridwidth, int gridheight) {
+
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+
+        layout.setConstraints(comp, gbc);
+        add(comp);
+    }
+
+
 }
+
+
+
