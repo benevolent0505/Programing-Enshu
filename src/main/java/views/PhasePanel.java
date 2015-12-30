@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class PhasePanel extends JPanel{
     private ArrayList<String> phaseNames;
-    private ArrayList<JButton> phaseButtons;
+    private ArrayList<JLabel> phaseLabels;
 
 
     public PhasePanel(){
@@ -26,10 +26,10 @@ public class PhasePanel extends JPanel{
         phaseNames.add(("Main2"));
         phaseNames.add("End");
 
-        phaseButtons = new ArrayList<JButton>();
+        phaseLabels = new ArrayList<JLabel>();
         for(String s: phaseNames){
-            JButton tmp = new JButton(s);
-            phaseButtons.add(tmp);
+            JLabel tmp = new JLabel(s);
+            phaseLabels.add(tmp);
         }
 
 
@@ -57,8 +57,9 @@ public class PhasePanel extends JPanel{
             mainLayoutConstraints.gridwidth = 1;
             mainLayoutConstraints.gridheight = 1;
             mainLayoutConstraints.anchor = GridBagConstraints.EAST;
-            mainLayout.setConstraints(phaseButtons.get(i), mainLayoutConstraints);
-            add(phaseButtons.get(i));
+            mainLayoutConstraints.insets = new Insets(0, 50, 0, 50);
+            mainLayout.setConstraints(phaseLabels.get(i), mainLayoutConstraints);
+            add(phaseLabels.get(i));
         }
 
 
