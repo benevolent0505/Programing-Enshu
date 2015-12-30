@@ -23,6 +23,7 @@ public class PhasePanel extends JPanel {
 
         // フェイズラベル作成
         phaseLabels.add(new JLabel("Draw"));
+        phaseLabels.add(new JLabel("Stand-By"));
         phaseLabels.add(new JLabel("Main1"));
         phaseLabels.add(new JLabel("Battle"));
         phaseLabels.add(new JLabel("Main2"));
