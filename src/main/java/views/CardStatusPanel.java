@@ -18,6 +18,11 @@ public class CardStatusPanel extends JPanel implements Observer {
     private JLabel card;
     private JLabel status;
     private JLabel effect;
+    private JButton summonButton;
+    private JButton setButton;
+
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
 
     private SelectedCard selectedCard;
 
@@ -30,61 +35,60 @@ public class CardStatusPanel extends JPanel implements Observer {
         status = new JLabel("名前/属性/種族/効果/ATK:0000/DEF:0000");
         effect = new JLabel("このカード以下の効果うんたらかんたら:");
 
+        summonButton = new JButton("召喚");
+        setButton = new JButton("セット");
 
-        GridBagLayout mainLayout = new GridBagLayout();
-        setLayout(mainLayout);
-        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+
+        layout = new GridBagLayout();
+        setLayout(layout);
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
 
         //Title
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.05;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(cardStatusLabel, mainLayoutConstraints);
-        add(cardStatusLabel);
+        addComponent(cardStatusLabel, 1.0, 0.05, 0, 0, GridBagConstraints.REMAINDER, 1);
+
 
 
         //cardImage
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.45;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(card, mainLayoutConstraints);
-        add(card);
+        addComponent(card, 1.0, 0.45, 0, 1, 1, 1);
 
 
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.05;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 2;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(status, mainLayoutConstraints);
-        add(status);
+        //status
+        addComponent(status, 1.0, 0.05, 0, 2, 1, 1);
 
 
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.45;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 3;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(effect, mainLayoutConstraints);
-        add(effect);
+
+        //effect
+        addComponent(effect, 1.0, 0.30, 0, 3, 1, 1);
+
+
+        //summonButton
+        addComponent(summonButton, 1.0, 0.05, 0, 4, 1, 1);
+
+
+
+        //setButton
+        addComponent(setButton, 1.0, 0.05, 0, 5, 1, 1);
+        
 
 
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
     }
+
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                         int gridwidth, int gridheight){
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+        layout.setConstraints(comp, gbc);
+        add(comp);
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
