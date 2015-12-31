@@ -3,7 +3,6 @@ package views;
 
 import models.Card;
 import models.Field;
-import models.enums.Phase;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -17,7 +16,7 @@ import java.util.Observer;
 /**
  * Created by ken on 2015/12/10.
  */
-public class FieldPanel extends JPanel implements Observer, ActionListener{
+public class FieldPanel extends JPanel implements Observer, ActionListener {
 
     //フィールドの構成
     private static final int MAX_MAGICS_TRAPS = 5;
@@ -44,26 +43,26 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
     public FieldPanel(Field field, String side) {
 
 
-            fieldLabel = new JLabel("Player Field");
-            monsterButtons = new ArrayList<CardButton>();
-            magicTrapButtons = new ArrayList<CardButton>();
-            deckButton = new JButton("Deck");
-            cemeteryButton = new JButton("Cemetery");
-            extraButton = new JButton("Extra");
-            fieldMagicButton = new JButton("FieldMagic");
+        fieldLabel = new JLabel("Player Field");
+        monsterButtons = new ArrayList<>();
+        magicTrapButtons = new ArrayList<>();
+        deckButton = new JButton("Deck");
+        cemeteryButton = new JButton("Cemetery");
+        extraButton = new JButton("Extra");
+        fieldMagicButton = new JButton("FieldMagic");
 
-            this.field = field;
-            field.addObserver(this);
+        this.field = field;
+        field.addObserver(this);
 
-            for (int i = 0; i < MAX_MONSTERS; i++) {
-                CardButton tmp = new CardButton("Monster" + i);
-                monsterButtons.add(tmp);
-            }
+        for (int i = 0; i < MAX_MONSTERS; i++) {
+            CardButton tmp = new CardButton("Monster" + i);
+            monsterButtons.add(tmp);
+        }
 
-            for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
-                CardButton tmp = new CardButton("MagicTrap" + i);
-                magicTrapButtons.add(tmp);
-            }
+        for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
+            CardButton tmp = new CardButton("MagicTrap" + i);
+            magicTrapButtons.add(tmp);
+        }
 
 
         //自分サイド
@@ -98,13 +97,10 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
             //Deck
             addComponent(deckButton, 0.144, 0.4, 6, 2, 1, 1);
-
-
-
         }
 
         //相手サイド
-        if(side.equals("enemy")) {
+        if (side.equals("enemy")) {
 
             layout = new GridBagLayout();
             setLayout(layout);
@@ -135,10 +131,6 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
             //Deck
             addComponent(deckButton, 0.144, 0.4, 0, 1, 1, 1);
-
-
-
-
         }
     }
 
@@ -184,8 +176,6 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
         layout.setConstraints(comp, gbc);
         add(comp);
     }
-
-
 }
 
 

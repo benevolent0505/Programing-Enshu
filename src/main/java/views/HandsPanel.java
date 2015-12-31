@@ -3,8 +3,6 @@ package views;
 import models.Card;
 import models.Field;
 import models.SelectedCard;
-import models.enums.Attribute;
-import models.enums.Species;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -19,7 +17,7 @@ import java.util.Observer;
  * Created by ken on 2015/12/10.
  */
 
-public class HandsPanel extends JPanel implements MouseListener, Observer{
+public class HandsPanel extends JPanel implements MouseListener, Observer {
 
     //現実的な枚数
     private static final int MAX_HANDS = 7;
@@ -71,7 +69,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
         }
 
         //初期手札のテキストを表示
-        for(int i = 0; i < START_HANDS; i++){
+        for (int i = 0; i < START_HANDS; i++) {
             handButtons.get(i).setText(handButtons.get(i).getCard().getName());
         }
 
@@ -90,14 +88,11 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
         for (int i = 0; i < MAX_HANDS; i++) {
             addComponent(handButtons.get(i), 0.144, 0.7, i, 1, 1, 1);
         }
-
-
-
     }
 
 
     private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
-                              int gridwidth, int gridheight){
+                              int gridwidth, int gridheight) {
         gbc.weightx = weightx;
         gbc.weighty = weighty;
         gbc.gridx = gridx;
