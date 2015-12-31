@@ -151,7 +151,8 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
     @Override
     public void update(Observable o, Object arg) {
         for (int i = 0; i < MAX_MONSTERS; i++) {
-            monsterButtons.get(i).setText(field.getMonsterZone().get(i).getName());
+            monsterButtons.get(i).setCard(field.getMonsterZone().get(i));
+            monsterButtons.get(i).setText(monsterButtons.get(i).getCard().getName());
         }
     }
 

@@ -26,7 +26,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
     private static final int START_HANDS = 5;
 
     //カードの画像データ
-    private ArrayList<CardButton> handsButton;
+    private ArrayList<CardButton> handButtons;
     private JLabel handsLabel;
     private JPopupMenu actionPopup;
 
@@ -57,7 +57,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
         actionPopup.add(setItem);
 
 
-        handsButton = new ArrayList();
+        handButtons = new ArrayList();
 
         for (int i = 0; i < MAX_HANDS; i++) {
             CardButton tmp = new CardButton("Hand" + i);
@@ -67,12 +67,12 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
                 tmp.setCard(field.getHands().get(i));
             }
 
-            handsButton.add(tmp);
+            handButtons.add(tmp);
         }
 
         //初期手札のテキストを表示
         for(int i = 0; i < START_HANDS; i++){
-            handsButton.get(i).setText(handsButton.get(i).getCard().getName());
+            handButtons.get(i).setText(handButtons.get(i).getCard().getName());
         }
 
 
@@ -88,7 +88,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
 
         //handsButton
         for (int i = 0; i < MAX_HANDS; i++) {
-            addComponent(handsButton.get(i), 0.144, 0.7, i, 1, 1, 1);
+            addComponent(handButtons.get(i), 0.144, 0.7, i, 1, 1, 1);
         }
 
 
@@ -111,14 +111,23 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
 
 
     @Override
+    // fieldのphase変更時、draw時、summon時に呼ばれる
     public void update(Observable o, Object arg) {
+        ArrayList hands = field.getHands();
+        ​
+        for (int i = 0; i < hands.size(); i++) {
+            CardButton handButton = handButtons.get(i);
 
-        int handsSize = field.getHands().size();
-
-        for(int i = 0; i < handsSize; i++){
-            handsButton.get(i).setText(handsButton.get(i).getCard().getName());
+            handButtons.get(i).setCard(hands.getCard(i));
+            handButtons.get(i).setText(hands.getCard(i).getName());
         }
     }
+
+
+
+
+
+
 
     public void mousePressed(MouseEvent e) {
         showPopup(e);

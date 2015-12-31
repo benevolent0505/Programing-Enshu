@@ -46,7 +46,8 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         summonButton = new JButton("召喚");
         setButton = new JButton("セット");
-
+        summonButton.addActionListener(this);
+        setButton.addActionListener(this);
 
         layout = new GridBagLayout();
         setLayout(layout);
