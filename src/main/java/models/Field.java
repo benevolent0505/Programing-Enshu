@@ -112,28 +112,24 @@ public class Field extends Observable {
     }
 
     private void initMonsterZone() {
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             monsterZone.add(null);
         }
     }
 
-
     public void summon(Card card) {
-        // 召喚するカードが手札にあったら
         if (hands.contains(card)) {
-            // 手札から召喚するカードを取り除く処理
             hands.remove(hands.indexOf(card));
-            // TODO: モンスターカードゾーンに追加する処理
-            for(int i = 0; i < 5; i++) {
-                if(monsterZone.get(i) == null) {
+
+            for (int i = 0; i < monsterZone.size(); i++) {
+                if (monsterZone.get(i) == null) {
                     monsterZone.set(i, card);
                     break;
                 }
             }
-            // 通知
+
             setChanged();
             notifyObservers();
         }
     }
-
 }
