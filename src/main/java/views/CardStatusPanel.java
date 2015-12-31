@@ -1,6 +1,7 @@
 package views;
 
 import models.Card;
+import models.Field;
 import models.SelectedCard;
 import models.enums.CardType;
 
@@ -102,16 +103,12 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         // TODO 以下にカードの情報をJLabelに反映させる処理を書く
 
         Card card = selectedCard.getSelectedCard();
+
         name.setText(card.getName());
-        status.setText(
-                "星:"+card.getLevel()+
-                "/属性:"+card.getSpecies()+
-                "/種族:"+card.getAttribute()
-        );
+
+        status.setText("星:"+card.getLevel()+ "/属性:"+card.getSpecies()+ "/種族:"+card.getAttribute());
+
         power.setText("ATK:"+card.getAttackPoint()+"/DEF:"+card.getDefensePoint());
-
-
-
 
         if(card.getCardType() == CardType.NormalMonster)
             cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
@@ -120,8 +117,6 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         if(card.getCardType() == CardType.RitualMonster)
             cardIcon = new ImageIcon(getClass().getResource("../ritualMonster.png"));
         cardImage.setIcon(cardIcon);
-
-
 
 
     }

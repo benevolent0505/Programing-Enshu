@@ -107,6 +107,8 @@ public class Field extends Observable {
         for (int i = 0; i < 5; i++) {
             hands.add(deck.get(0));
             deck.remove(0);
+            setChanged();
+            notifyObservers();
         }
     }
 }

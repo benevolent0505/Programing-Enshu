@@ -1,5 +1,6 @@
 package views;
 
+import models.Card;
 import models.Field;
 import models.SelectedCard;
 import models.enums.Attribute;
@@ -11,12 +12,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by ken on 2015/12/10.
  */
 
-public class HandsPanel extends JPanel implements MouseListener {
+public class HandsPanel extends JPanel implements MouseListener, Observer{
 
     //現実的な枚数
     private static final int MAX_HANDS = 7;
@@ -64,6 +67,12 @@ public class HandsPanel extends JPanel implements MouseListener {
             handsButton.add(tmp);
         }
 
+        //初期手札のテキストを表示
+        for(int i = 0; i < START_HANDS; i++){
+            handsButton.get(i).setText(handsButton.get(i).getCard().getName());
+        }
+
+
         layout = new GridBagLayout();
         setLayout(layout);
         gbc = new GridBagConstraints();
@@ -98,7 +107,15 @@ public class HandsPanel extends JPanel implements MouseListener {
     }
 
 
+    @Override
+    public void update(Observable o, Object arg) {
 
+        int handsSize = field.getHands().size();
+
+        for(int i = 0; i < handsSize; i++){
+            handsButton.get(i).setText(handsButton.get(i).getCard().getName());
+        }
+    }
 
     public void mousePressed(MouseEvent e) {
         showPopup(e);
