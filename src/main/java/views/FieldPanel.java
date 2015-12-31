@@ -3,6 +3,7 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.enums.Phase;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -56,13 +57,11 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
             for (int i = 0; i < MAX_MONSTERS; i++) {
                 CardButton tmp = new CardButton("Monster" + i);
-                tmp.setCard(field.getMonsterZone().get(i));
                 monsterButtons.add(tmp);
             }
 
             for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
                 CardButton tmp = new CardButton("MagicTrap" + i);
-                tmp.setCard(field.getMonsterZone().get(i));
                 magicTrapButtons.add(tmp);
             }
 
@@ -148,11 +147,26 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
     }
 
+    // fieldのphase後、draw後、summon後に呼ばれる
     @Override
     public void update(Observable o, Object arg) {
-        for (int i = 0; i < MAX_MONSTERS; i++) {
-            monsterButtons.get(i).setCard(field.getMonsterZone().get(i));
-            monsterButtons.get(i).setText(monsterButtons.get(i).getCard().getName());
+        // TODO: if (field.getPhase() == Phase.MAIN_PHASE_1 || field.getPhase() == Phase.MAIN_PHASE_2) の処理が必要
+
+        ArrayList<Card> monsters = field.getMonsterZone();
+
+        for (int i = 0; i < monsters.size(); i++) {
+            CardButton monsterButton = monsterButtons.get(i);
+
+            monsterButton.setCard(monsters.get(i));
+            monsterButton.setText(monsters.get(i).getName());
+        }
+
+        // 空のmonsterButtonsの後始末
+        if (monsters.size() < monsterButtons.size()) {
+            for (int i = monsters.size(); i < monsterButtons.size(); i++) {
+                monsterButtons.get(i).setCard(null);
+                monsterButtons.get(i).setText("");
+            }
         }
     }
 
