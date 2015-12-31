@@ -13,6 +13,8 @@ import java.util.Observable;
  */
 public class Field extends Observable {
 
+    private static final int MAX_MONSTER_ZONE_SIZE = 5;
+
     private Phase phase;
 
     private ArrayList<Card> deck;
@@ -30,7 +32,6 @@ public class Field extends Observable {
 
         initDeck();
         initHand();
-        initMonsterZone();
 
         phase = Phase.DROW_PHASE;
     }
@@ -111,22 +112,12 @@ public class Field extends Observable {
         }
     }
 
-    private void initMonsterZone() {
-        for (int i = 0; i < 5; i++) {
-            monsterZone.add(null);
-        }
-    }
-
     public void summon(Card card) {
-        if (hands.contains(card)) {
+        // モンスターカードゾーンに召喚できる条件
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
             hands.remove(hands.indexOf(card));
 
-            for (int i = 0; i < monsterZone.size(); i++) {
-                if (monsterZone.get(i) == null) {
-                    monsterZone.set(i, card);
-                    break;
-                }
-            }
+            monsterZone.add(card);
 
             setChanged();
             notifyObservers();
