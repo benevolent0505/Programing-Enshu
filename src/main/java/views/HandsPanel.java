@@ -39,7 +39,10 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
 
     public HandsPanel(Field field, SelectedCard selectedCard, String side) {
         this.field = field;
+        field.addObserver(this);
         this.selectedCard = selectedCard;
+        selectedCard.addObserver(this);
+
 
         if (side.equals("self")) {
             handsLabel = new JLabel("Self Hands");

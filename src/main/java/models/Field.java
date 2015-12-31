@@ -30,6 +30,7 @@ public class Field extends Observable {
 
         initDeck();
         initHand();
+        initMonsterZone();
 
         phase = Phase.DROW_PHASE;
     }
@@ -123,7 +124,12 @@ public class Field extends Observable {
             // 手札から召喚するカードを取り除く処理
             hands.remove(hands.indexOf(card));
             // TODO: モンスターカードゾーンに追加する処理
-            monsterZone.add(card);
+            for(int i = 0; i < 5; i++) {
+                if(monsterZone.get(i) == null) {
+                    monsterZone.set(i, card);
+                    break;
+                }
+            }
             // 通知
             setChanged();
             notifyObservers();

@@ -8,28 +8,12 @@ import java.util.Observable;
 public class SelectedCard extends Observable {
 
     private Card selectedCard;
-    private boolean summonedFlag;
-    private boolean setFlag;
 
     public SelectedCard() {}
 
     public Card getSelectedCard() {
         return selectedCard;
     }
-
-    public void setSummoned() {
-        summonedFlag = true;
-        setChanged();
-        notifyObservers();
-    }
-
-    public void setSetFlag() {
-        setFlag = true;
-        setChanged();
-        notifyObservers();
-    }
-
-
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;

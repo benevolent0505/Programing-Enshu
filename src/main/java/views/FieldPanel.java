@@ -52,6 +52,7 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
             fieldMagicButton = new JButton("FieldMagic");
 
             this.field = field;
+            field.addObserver(this);
 
             for (int i = 0; i < MAX_MONSTERS; i++) {
                 CardButton tmp = new CardButton("Monster" + i);
@@ -149,7 +150,9 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
     @Override
     public void update(Observable o, Object arg) {
-        monsterButtons.get(0).setText(field.getMonsterZone().get(0).getName());
+        for (int i = 0; i < MAX_MONSTERS; i++) {
+            monsterButtons.get(i).setText(field.getMonsterZone().get(i).getName());
+        }
     }
 
     private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,

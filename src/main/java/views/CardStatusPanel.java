@@ -82,6 +82,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
 
         this.field = field;
+        field.addObserver(this);
 
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
@@ -129,6 +130,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == summonButton){
+
             Card card = selectedCard.getSelectedCard();
             field.summon(card);
 
