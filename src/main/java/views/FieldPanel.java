@@ -1,6 +1,10 @@
 package views;
 
 
+import models.Card;
+import models.Field;
+import views.components.CardButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,8 +28,8 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
     //並ぶカード
     private JLabel fieldLabel;
-    private ArrayList<JButton> monsterButtons;
-    private ArrayList<JButton> magicTrapButtons;
+    private ArrayList<CardButton> monsterButtons;
+    private ArrayList<CardButton> magicTrapButtons;
     private JButton deckButton;
     private JButton cemeteryButton;
     private JButton extraButton;
@@ -34,26 +38,30 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
+    private Field field;
 
-
-    public FieldPanel(String side) {
+    public FieldPanel(Field field, String side) {
 
 
             fieldLabel = new JLabel("Player Field");
-            monsterButtons = new ArrayList<JButton>();
-            magicTrapButtons = new ArrayList<JButton>();
+            monsterButtons = new ArrayList<CardButton>();
+            magicTrapButtons = new ArrayList<CardButton>();
             deckButton = new JButton("Deck");
             cemeteryButton = new JButton("Cemetery");
             extraButton = new JButton("Extra");
             fieldMagicButton = new JButton("FieldMagic");
 
+            this.field = field;
+
             for (int i = 0; i < MAX_MONSTERS; i++) {
-                JButton tmp = new JButton("Monster" + i);
+                CardButton tmp = new CardButton("Monster" + i);
+                tmp.setCard(field.getMonsterZone().get(i));
                 monsterButtons.add(tmp);
             }
 
             for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
-                JButton tmp = new JButton("MagicTrap" + i);
+                CardButton tmp = new CardButton("MagicTrap" + i);
+                tmp.setCard(field.getMonsterZone().get(i));
                 magicTrapButtons.add(tmp);
             }
 
@@ -141,6 +149,7 @@ public class FieldPanel extends JPanel implements Observer, ActionListener{
 
     @Override
     public void update(Observable o, Object arg) {
+        monsterButtons.get(0).setText(field.getMonsterZone().get(0).getName());
     }
 
     private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,

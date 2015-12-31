@@ -109,4 +109,25 @@ public class Field extends Observable {
             deck.remove(0);
         }
     }
+
+    private void initMonsterZone() {
+        for(int i = 0; i < 5; i++){
+            monsterZone.add(null);
+        }
+    }
+
+
+    public void summon(Card card) {
+        // 召喚するカードが手札にあったら
+        if (hands.contains(card)) {
+            // 手札から召喚するカードを取り除く処理
+            hands.remove(hands.indexOf(card));
+            // TODO: モンスターカードゾーンに追加する処理
+            monsterZone.add(card);
+            // 通知
+            setChanged();
+            notifyObservers();
+        }
+    }
+
 }

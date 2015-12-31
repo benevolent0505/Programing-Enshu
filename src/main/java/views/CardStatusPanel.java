@@ -30,9 +30,11 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
+    private Field field;
     private SelectedCard selectedCard;
 
-    public CardStatusPanel(SelectedCard selectedCard) {
+    public CardStatusPanel(Field field, SelectedCard selectedCard) {
+
         cardStatusLabel = new JLabel("Card Status");
         cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
         cardImage = new JLabel(cardIcon);
@@ -79,6 +81,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         addComponent(setButton, 1.0, 0.05, 0, 7, 1, 1);
 
 
+        this.field = field;
 
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
@@ -127,6 +130,8 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         if(e.getSource() == summonButton){
             Card card = selectedCard.getSelectedCard();
+            field.summon(card);
+
 
 
         }
