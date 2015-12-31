@@ -132,13 +132,13 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
     }
 
     public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setSelectedCard(button.getCard());
         }
+    }
+
+    public void mouseEntered(MouseEvent e) {
     }
 
     public void mouseExited(MouseEvent e) {
