@@ -109,24 +109,27 @@ public class HandsPanel extends JPanel implements MouseListener, Observer{
         add(comp);
     }
 
-
+    // fieldのphase後、draw後、summon後に呼ばれる
     @Override
-    // fieldのphase変更時、draw時、summon時に呼ばれる
     public void update(Observable o, Object arg) {
-        ArrayList hands = field.getHands();
-        ​
+
+        ArrayList<Card> hands = field.getHands();
+
         for (int i = 0; i < hands.size(); i++) {
             CardButton handButton = handButtons.get(i);
 
-            handButtons.get(i).setCard(hands.getCard(i));
-            handButtons.get(i).setText(hands.getCard(i).getName());
+            handButton.setCard(hands.get(i));
+            handButton.setText(hands.get(i).getName());
+        }
+
+        // 空のhandButtonの後始末
+        if (hands.size() < handButtons.size()) {
+            for (int i = hands.size(); i < handButtons.size(); i++) {
+                handButtons.get(i).setCard(null);
+                handButtons.get(i).setText("");
+            }
         }
     }
-
-
-
-
-
 
 
     public void mousePressed(MouseEvent e) {
