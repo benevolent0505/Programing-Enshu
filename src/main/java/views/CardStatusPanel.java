@@ -134,14 +134,14 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == summonButton){
-
             Card card = selectedCard.getSelectedCard();
             field.summon(card);
-
-
-
         }
 
+        if(e.getSource() == setButton){
+            Card card = selectedCard.getSelectedCard();
+            field.set(card);
+        }
 
     }
 }
