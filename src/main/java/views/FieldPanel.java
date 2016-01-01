@@ -3,12 +3,13 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.SelectedCard;
 import views.components.CardButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +17,7 @@ import java.util.Observer;
 /**
  * Created by ken on 2015/12/10.
  */
-public class FieldPanel extends JPanel implements Observer, ActionListener {
+public class FieldPanel extends JPanel implements Observer, MouseListener{
 
     //フィールドの構成
     private static final int MAX_MAGICS_TRAPS = 5;
@@ -39,8 +40,9 @@ public class FieldPanel extends JPanel implements Observer, ActionListener {
     private GridBagConstraints gbc;
 
     private Field field;
+    private SelectedCard selectedCard;
 
-    public FieldPanel(Field field, String side) {
+    public FieldPanel(Field field, SelectedCard selectedCard, String side) {
 
 
         fieldLabel = new JLabel("Player Field");
@@ -53,14 +55,18 @@ public class FieldPanel extends JPanel implements Observer, ActionListener {
 
         this.field = field;
         field.addObserver(this);
+        this.selectedCard = selectedCard;
+
 
         for (int i = 0; i < MAX_MONSTERS; i++) {
             CardButton tmp = new CardButton("Monster" + i);
+            tmp.addMouseListener(this);
             monsterButtons.add(tmp);
         }
 
         for (int i = 0; i < MAX_MAGICS_TRAPS; i++) {
             CardButton tmp = new CardButton("MagicTrap" + i);
+            tmp.addMouseListener(this);
             magicTrapButtons.add(tmp);
         }
 
@@ -134,10 +140,7 @@ public class FieldPanel extends JPanel implements Observer, ActionListener {
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 
     // fieldのphase後、draw後、summon後に呼ばれる
     @Override
@@ -176,7 +179,32 @@ public class FieldPanel extends JPanel implements Observer, ActionListener {
         layout.setConstraints(comp, gbc);
         add(comp);
     }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        CardButton button = (CardButton) e.getComponent();
+        if (button.getCard() != null) {
+            selectedCard.setSelectedCard(button.getCard());
+
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
 }
+
+
+
 
 
 

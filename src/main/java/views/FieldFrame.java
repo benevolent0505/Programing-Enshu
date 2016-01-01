@@ -18,8 +18,8 @@ public class FieldFrame extends JFrame {
         selectedCard = new SelectedCard();
 
         //以下Panelの作成
-        FieldPanel selfField = new FieldPanel(field1, "self");
-        FieldPanel enemyField = new FieldPanel(field2, "enemy");
+        FieldPanel selfField = new FieldPanel(field1, selectedCard, "self");
+        FieldPanel enemyField = new FieldPanel(field2, selectedCard, "enemy");
         HandsPanel selfHands = new HandsPanel(field1, selectedCard, "self");
         HandsPanel enemyHands = new HandsPanel(field2, selectedCard, "enemy");
         CardStatusPanel cardStatus = new CardStatusPanel(field1, selectedCard);

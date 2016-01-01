@@ -9,7 +9,9 @@ public class SelectedCard extends Observable {
 
     private Card selectedCard;
 
+
     public SelectedCard() {}
+
 
     public Card getSelectedCard() {
         return selectedCard;

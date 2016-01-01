@@ -111,17 +111,20 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         name.setText(card.getName());
 
-        status.setText("星:"+card.getLevel()+ "/属性:"+card.getSpecies()+ "/種族:"+card.getAttribute());
+        status.setText("星:" + card.getLevel() + "/属性:" + card.getSpecies() + "/種族:" + card.getAttribute());
 
-        power.setText("ATK:"+card.getAttackPoint()+"/DEF:"+card.getDefensePoint());
+        power.setText("ATK:" + card.getAttackPoint() + "/DEF:" + card.getDefensePoint() + "/表示形式:" + card.getPosition());
 
-        if(card.getCardType() == CardType.NormalMonster)
+        if (card.getCardType() == CardType.NormalMonster)
             cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
-        if(card.getCardType() == CardType.EffectMonster)
+        if (card.getCardType() == CardType.EffectMonster)
             cardIcon = new ImageIcon(getClass().getResource("../effectiveMonster.png"));
-        if(card.getCardType() == CardType.RitualMonster)
+        if (card.getCardType() == CardType.RitualMonster)
             cardIcon = new ImageIcon(getClass().getResource("../ritualMonster.png"));
         cardImage.setIcon(cardIcon);
+
+
+
 
 
     }

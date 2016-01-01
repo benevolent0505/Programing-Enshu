@@ -22,6 +22,7 @@ public class Card {
     private CardType cardType;
 
 
+
     public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint, CardType cardType) {
         this.name = name;
         this.species = species;
@@ -56,7 +57,9 @@ public class Card {
 
     public CardType getCardType() {return cardType;}
 
+    public Position getPosition(){return position; }
 
+    public void setPosition(Position p) {position = p; }
 
 
 }

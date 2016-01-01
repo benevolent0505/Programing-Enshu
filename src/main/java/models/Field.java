@@ -1,9 +1,6 @@
 package models;
 
-import models.enums.Attribute;
-import models.enums.CardType;
-import models.enums.Phase;
-import models.enums.Species;
+import models.enums.*;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -116,11 +113,24 @@ public class Field extends Observable {
         // モンスターカードゾーンに召喚できる条件
         if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
             hands.remove(hands.indexOf(card));
-
+            card.setPosition(Position.Attack);
             monsterZone.add(card);
 
             setChanged();
             notifyObservers();
         }
     }
+
+    public void set(Card card){
+        // モンスターカードゾーンに召喚できる条件
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
+            hands.remove(hands.indexOf(card));
+            card.setPosition(Position.Set);
+            monsterZone.add(card);
+
+            setChanged();
+            notifyObservers();
+        }
+    }
+
 }

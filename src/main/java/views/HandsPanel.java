@@ -127,6 +127,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
     }
 
 
+
     public void mousePressed(MouseEvent e) {
         showPopup(e);
     }
@@ -135,6 +136,8 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setSelectedCard(button.getCard());
+
+
         }
     }
 
@@ -153,4 +156,5 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
             actionPopup.show(e.getComponent(), e.getX(), e.getY());
         }
     }
+
 }
