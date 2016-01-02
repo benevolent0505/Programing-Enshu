@@ -1,8 +1,7 @@
 package models;
 
-import models.enums.Attribute;
 import models.enums.Phase;
-import models.enums.Species;
+import utilities.CardDBManager;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -89,9 +88,8 @@ public class Field extends Observable {
     }
 
     private void initDeck() {
-        for (int i = 0; i < 40; i++) {
-            deck.add(new Card("青眼の白龍", Species.Dragon, Attribute.Light, 8, 3000, 2500));
-        }
+        // TODO: 2016/01/03 デッキ名を引数に取る
+        deck = CardDBManager.getDeck("hogehoge");
     }
 
     private void initHand() {
