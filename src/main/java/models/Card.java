@@ -23,6 +23,7 @@ public class Card {
 
 
 
+
     public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint, CardType cardType) {
         this.name = name;
         this.species = species;

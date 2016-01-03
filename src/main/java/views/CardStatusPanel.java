@@ -4,6 +4,7 @@ import models.Card;
 import models.Field;
 import models.SelectedCard;
 import models.enums.CardType;
+import models.enums.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +25,8 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     private JLabel status;
     private JLabel power;
     private JLabel effect;
-    private JButton summonButton;
-    private JButton setButton;
+    private JButton actionButton1;
+    private JButton actionButton2;
 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
@@ -44,10 +45,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         power = new JLabel("ATK:0000/DEF:0000");
         effect = new JLabel("このカード以下の効果うんたらかんたら:");
 
-        summonButton = new JButton("召喚");
-        setButton = new JButton("セット");
-        summonButton.addActionListener(this);
-        setButton.addActionListener(this);
+        actionButton1 = new JButton();
+        actionButton2 = new JButton();
+        actionButton1.addActionListener(this);
+        actionButton2.addActionListener(this);
 
         layout = new GridBagLayout();
         setLayout(layout);
@@ -74,12 +75,12 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
 
         //summonButton
-        addComponent(summonButton, 1.0, 0.05, 0, 6, 1, 1);
+        addComponent(actionButton1, 1.0, 0.05, 0, 6, 1, 1);
 
 
 
         //setButton
-        addComponent(setButton, 1.0, 0.05, 0, 7, 1, 1);
+        addComponent(actionButton2, 1.0, 0.05, 0, 7, 1, 1);
 
 
         this.field = field;
@@ -109,11 +110,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         Card card = selectedCard.getSelectedCard();
 
+        // 手札・フィールドで共通な処理
         name.setText(card.getName());
-
         status.setText("星:" + card.getLevel() + "/属性:" + card.getSpecies() + "/種族:" + card.getAttribute());
-
-        power.setText("ATK:" + card.getAttackPoint() + "/DEF:" + card.getDefensePoint() + "/表示形式:" + card.getPosition());
+        power.setText("ATK:" + card.getAttackPoint() + "/DEF:" + card.getDefensePoint());
 
         if (card.getCardType() == CardType.NormalMonster)
             cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
@@ -123,24 +123,50 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
             cardIcon = new ImageIcon(getClass().getResource("../ritualMonster.png"));
         cardImage.setIcon(cardIcon);
 
+        if(selectedCard.getPlace().equals("Hand")) {
+            actionButton1.setText("召喚");
+            actionButton2.setText("セット");
+        }
 
 
+        if(selectedCard.getPlace().equals("Field")){
+            power.setText("ATK:" + card.getAttackPoint() + "/DEF:" + card.getDefensePoint() + "/表示形式:" + card.getPosition());
+            actionButton1.setText("攻撃");
+            actionButton2.setText("表示形式変更");
+        }
 
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == summonButton){
-            Card card = selectedCard.getSelectedCard();
-            field.summon(card);
+        Card card = selectedCard.getSelectedCard();
+        String place = selectedCard.getPlace();
+
+        if(e.getSource() == actionButton1){
+
+            //手札で選択なら召喚
+            if(place.equals("Hand")) {
+                field.summon(card);
+            }
+
+            //TODO: フィールドで選択なら攻撃
+
         }
 
-        if(e.getSource() == setButton){
-            Card card = selectedCard.getSelectedCard();
-            field.set(card);
+        if(e.getSource() == actionButton2){
+
+            //手札で選択ならセット
+            if(place.equals("Hand")) {
+                field.set(card);
+            }
+
+            //フィールドで選択なら表示形式変更
+            if(place.equals("Field")){
+                field.changePosition(card);
+            }
+
         }
 
     }

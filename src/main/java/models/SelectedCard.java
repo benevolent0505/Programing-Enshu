@@ -1,5 +1,6 @@
 package models;
 
+import javax.swing.*;
 import java.util.Observable;
 
 /**
@@ -7,11 +8,20 @@ import java.util.Observable;
  */
 public class SelectedCard extends Observable {
 
+    private String place;
+
     private Card selectedCard;
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+
+        this.place = place;
+    }
 
     public SelectedCard() {}
-
 
     public Card getSelectedCard() {
         return selectedCard;

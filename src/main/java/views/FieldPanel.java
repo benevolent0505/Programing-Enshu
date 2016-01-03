@@ -185,6 +185,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
     public void mouseClicked(MouseEvent e) {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
+            selectedCard.setPlace("Field");
             selectedCard.setSelectedCard(button.getCard());
 
         }

@@ -2,6 +2,7 @@ package models;
 
 import models.enums.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -132,5 +133,54 @@ public class Field extends Observable {
             notifyObservers();
         }
     }
+
+    public void changePosition(Card card){
+
+        int option;
+        switch(card.getPosition()){
+
+            case Attack:
+                option = JOptionPane.showOptionDialog(
+                        null, "表示形式を守備表示へ変更しますか？", "表示形式変更",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        null,
+                        null
+                );
+                if(option == JOptionPane.YES_OPTION) card.setPosition(Position.Deffence);
+                break;
+
+            case Deffence:
+                    option = JOptionPane.showOptionDialog(
+                        null, "表示形式を攻撃表示へ変更しますか？", "表示形式変更",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        null,
+                        null
+                );
+                if(option == JOptionPane.YES_OPTION) card.setPosition(Position.Attack);
+                break;
+
+            case Set:
+                String selectValues[] = {"攻撃表示", "守備表示"};
+
+                    option = JOptionPane.showOptionDialog(
+                        null, "表示形式は何へ変更しますか？", "表示形式変更",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        selectValues,
+                        selectValues[0]
+                    );
+                if(option == 0) card.setPosition(Position.Attack);
+                if(option == 1) card.setPosition(Position.Deffence);
+        }
+
+        setChanged();
+        notifyObservers();
+    }
+
 
 }
