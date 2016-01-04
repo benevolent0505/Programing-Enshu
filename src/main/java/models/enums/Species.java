@@ -5,7 +5,15 @@ package models.enums;
  */
 public enum Species {
     Dragon,
-    Magician,
-    Soldier,
+    Spellcaster,
+    Warrior,
     Devil,
+    Beast_Warrior,
+    Beast,
+    Rock,
+    Zombie,
+    Fish,
+    Dinosaur,
+    Aqua,
+    Fairy,
 }

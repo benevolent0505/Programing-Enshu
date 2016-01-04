@@ -1,8 +1,8 @@
 package models;
 
-import models.enums.*;
-
-import javax.swing.*;
+import models.enums.Phase;
+import models.enums.Position;
+import utilities.CardDBManager;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -90,17 +90,8 @@ public class Field extends Observable {
     }
 
     private void initDeck() {
-
-        deck.add(new Card("青眼の白龍", Species.Dragon, Attribute.Light, 8, 3000, 2500, CardType.NormalMonster));
-        deck.add(new Card("クリボー", Species.Devil, Attribute.Dark, 1, 300, 200, CardType.EffectMonster));
-        deck.add(new Card("カオス・ソルジャー", Species.Soldier, Attribute.Dark, 8, 2500, 2000, CardType.RitualMonster));
-        deck.add(new Card("バスターブレイダー", Species.Soldier, Attribute.Graund, 7, 2400, 2000, CardType.EffectMonster));
-        deck.add(new Card("ブラック・マジシャン", Species.Magician, Attribute.Dark, 8, 2500, 2000, CardType.NormalMonster));
-
-
-        for (int i = 5; i < 40; i++) {
-            deck.add(new Card("青眼の白龍", Species.Dragon, Attribute.Light, 8, 3000, 2500, CardType.NormalMonster));
-        }
+        // TODO: 2016/01/03 デッキ名を引数に取る
+        deck = CardDBManager.getDeck("hogehoge");
     }
 
     private void initHand() {
