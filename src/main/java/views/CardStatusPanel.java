@@ -168,7 +168,49 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
             //フィールドで選択なら表示形式変更
             if(place == Place.MONSTER_ZONE){
-                field.changePosition(card);
+
+                int option;
+                switch(card.getPosition()){
+
+                    case Attack:
+                        option = JOptionPane.showOptionDialog(
+                                null, "表示形式を守備表示へ変更しますか？", "表示形式変更",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                null,
+                                null
+                        );
+                        if(option == JOptionPane.YES_OPTION) field.changePosition(card, Position.Deffence);
+                        break;
+
+                    case Deffence:
+                        option = JOptionPane.showOptionDialog(
+                                null, "表示形式を攻撃表示へ変更しますか？", "表示形式変更",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                null,
+                                null
+                        );
+                        if(option == JOptionPane.YES_OPTION) field.changePosition(card, Position.Attack);
+                        break;
+
+                    case Set:
+                        String selectValues[] = {"攻撃表示", "守備表示"};
+
+                        option = JOptionPane.showOptionDialog(
+                                null, "表示形式は何へ変更しますか？", "表示形式変更",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                selectValues,
+                                selectValues[0]
+                        );
+                        if(option == 0) field.changePosition(card, Position.Attack);
+                        if(option == 1) field.changePosition(card, Position.Deffence);
+                }
+
             }
 
         }
