@@ -21,17 +21,13 @@ public class Card {
     private int defensePoint;
     private CardType cardType;
 
-
-
-
-    public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint, CardType cardType) {
+    public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint) {
         this.name = name;
         this.species = species;
         this.attribute = attribute;
         this.level = level;
         this.attackPoint = attackPoint;
         this.defensePoint = defensePoint;
-        this.cardType = cardType;
     }
 
     public String getName() {
