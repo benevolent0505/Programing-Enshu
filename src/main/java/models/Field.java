@@ -6,6 +6,7 @@ import models.enums.Species;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.jar.Pack200;
 
 /**
  * Created by Mikio on 2015/12/17.
@@ -30,18 +31,19 @@ public class Field extends Observable {
         initDeck();
         initHand();
 
-        phase = Phase.DROW_PHASE;
+        setPhase(Phase.DROW_PHASE);
     }
 
     public Phase getPhase() {
         return phase;
     }
 
-    public void setPhase(Phase phase) {
-        this.phase = phase;
+    public void setPhase(Phase p) {
+        this.phase = p;
         setChanged();
         notifyObservers();
     }
+
 
     public ArrayList<Card> getHands() {
         return hands;

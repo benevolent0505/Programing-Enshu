@@ -14,13 +14,15 @@ public class FieldFrame extends JFrame {
     public FieldFrame(Field field1, Player player1, Field field2, Player player2) {
         selectedCard = new SelectedCard();
 
+        Field field = new Field();
+
         //以下Panelの作成
         FieldPanel self_field = new FieldPanel("self");
         FieldPanel enemy_field = new FieldPanel("enemy");
         HandsPanel self_hands = new HandsPanel(field1, selectedCard, "self");
         HandsPanel enemy_hands = new HandsPanel(field2, selectedCard, "enemy");
         CardStatusPanel card_status = new CardStatusPanel(selectedCard);
-        PhasePanel turn_phase = new PhasePanel();
+        PhasePanel turn_phase = new PhasePanel(field);
         PlayerStatusPanel player_status = new PlayerStatusPanel();
 
         //以下Panelの貼り付け
