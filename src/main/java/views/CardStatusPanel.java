@@ -4,6 +4,7 @@ import models.Card;
 import models.Field;
 import models.SelectedCard;
 import models.enums.CardType;
+import models.enums.Place;
 import models.enums.Position;
 
 import javax.swing.*;
@@ -123,13 +124,13 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
             cardIcon = new ImageIcon(getClass().getResource("../ritualMonster.png"));
         cardImage.setIcon(cardIcon);
 
-        if(selectedCard.getPlace().equals("Hand")) {
+        if(selectedCard.getPlace() == Place.HAND) {
             actionButton1.setText("召喚");
             actionButton2.setText("セット");
         }
 
 
-        if(selectedCard.getPlace().equals("Field")){
+        if(selectedCard.getPlace() == Place.MONSTER_ZONE){
             power.setText("ATK:" + card.getAttackPoint() + "/DEF:" + card.getDefensePoint() + "/表示形式:" + card.getPosition());
             actionButton1.setText("攻撃");
             actionButton2.setText("表示形式変更");
@@ -142,28 +143,31 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     public void actionPerformed(ActionEvent e) {
 
         Card card = selectedCard.getSelectedCard();
-        String place = selectedCard.getPlace();
+        Place place = selectedCard.getPlace();
 
         if(e.getSource() == actionButton1){
 
             //手札で選択なら召喚
-            if(place.equals("Hand")) {
+            if(place == Place.HAND) {
                 field.summon(card);
             }
 
             //TODO: フィールドで選択なら攻撃
+            if(place == Place.MONSTER_ZONE){
+                field.attack(card);
+            }
 
         }
 
         if(e.getSource() == actionButton2){
 
             //手札で選択ならセット
-            if(place.equals("Hand")) {
+            if(place == Place.HAND) {
                 field.set(card);
             }
 
             //フィールドで選択なら表示形式変更
-            if(place.equals("Field")){
+            if(place == Place.MONSTER_ZONE){
                 field.changePosition(card);
             }
 

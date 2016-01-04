@@ -4,6 +4,7 @@ package views;
 import models.Card;
 import models.Field;
 import models.SelectedCard;
+import models.enums.Place;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -185,7 +186,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
     public void mouseClicked(MouseEvent e) {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
-            selectedCard.setPlace("Field");
+            selectedCard.setPlace(Place.MONSTER_ZONE);
             selectedCard.setSelectedCard(button.getCard());
 
         }

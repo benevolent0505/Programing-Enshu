@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.Place;
+
 import javax.swing.*;
 import java.util.Observable;
 
@@ -8,15 +10,15 @@ import java.util.Observable;
  */
 public class SelectedCard extends Observable {
 
-    private String place;
+    private Place place;
 
     private Card selectedCard;
 
-    public String getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(String place) {
+    public void setPlace(Place place) {
 
         this.place = place;
     }

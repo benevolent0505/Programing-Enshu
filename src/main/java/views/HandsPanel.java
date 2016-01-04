@@ -3,6 +3,7 @@ package views;
 import models.Card;
 import models.Field;
 import models.SelectedCard;
+import models.enums.Place;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -135,7 +136,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
     public void mouseClicked(MouseEvent e) {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
-            selectedCard.setPlace("Hand");
+            selectedCard.setPlace(Place.HAND);
             selectedCard.setSelectedCard(button.getCard());
 
         }
