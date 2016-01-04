@@ -1,9 +1,8 @@
 package models;
 
-import models.enums.Attribute;
 import models.enums.Phase;
-import models.enums.Species;
-
+import models.enums.Position;
+import utilities.CardDBManager;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.jar.Pack200;
@@ -12,6 +11,8 @@ import java.util.jar.Pack200;
  * Created by Mikio on 2015/12/17.
  */
 public class Field extends Observable {
+
+    private static final int MAX_MONSTER_ZONE_SIZE = 5;
 
     private Phase phase;
 
@@ -91,9 +92,8 @@ public class Field extends Observable {
     }
 
     private void initDeck() {
-        for (int i = 0; i < 40; i++) {
-            deck.add(new Card("青眼の白龍", Species.Dragon, Attribute.Light, 8, 3000, 2500));
-        }
+        // TODO: 2016/01/03 デッキ名を引数に取る
+        deck = CardDBManager.getDeck("hogehoge");
     }
 
     private void initHand() {
@@ -102,4 +102,41 @@ public class Field extends Observable {
             deck.remove(0);
         }
     }
+
+    public void summon(Card card) {
+        // モンスターカードゾーンに召喚できる条件
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
+            hands.remove(hands.indexOf(card));
+            card.setPosition(Position.Attack);
+            monsterZone.add(card);
+
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    public void set(Card card){
+        // モンスターカードゾーンに召喚できる条件
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
+            hands.remove(hands.indexOf(card));
+            card.setPosition(Position.Set);
+            monsterZone.add(card);
+
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    public void attack(Card card){
+
+
+    }
+
+
+    public void changePosition(Card card, Position position){
+        card.setPosition(position);
+        setChanged();
+        notifyObservers();
+    }
+
 }

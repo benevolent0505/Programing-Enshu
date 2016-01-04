@@ -11,105 +11,63 @@ public class FieldFrame extends JFrame {
 
     private SelectedCard selectedCard;
 
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
     public FieldFrame(Field field1, Player player1, Field field2, Player player2) {
         selectedCard = new SelectedCard();
 
         Field field = new Field();
 
         //以下Panelの作成
-        FieldPanel self_field = new FieldPanel("self");
-        FieldPanel enemy_field = new FieldPanel("enemy");
-        HandsPanel self_hands = new HandsPanel(field1, selectedCard, "self");
-        HandsPanel enemy_hands = new HandsPanel(field2, selectedCard, "enemy");
-        CardStatusPanel card_status = new CardStatusPanel(selectedCard);
-        PhasePanel turn_phase = new PhasePanel(field);
         PlayerStatusPanel player_status = new PlayerStatusPanel();
+        FieldPanel selfField = new FieldPanel(field1, selectedCard, "self");
+        FieldPanel enemyField = new FieldPanel(field2, selectedCard, "enemy");
+        HandsPanel selfHands = new HandsPanel(field1, selectedCard, "self");
+        HandsPanel enemyHands = new HandsPanel(field2, selectedCard, "enemy");
+        CardStatusPanel cardStatus = new CardStatusPanel(field1, selectedCard);
+        PhasePanel phaseStatus = new PhasePanel(field);
+        PlayerStatusPanel playerStatus = new PlayerStatusPanel();
 
         //以下Panelの貼り付け
-        GridBagLayout mainLayout = new GridBagLayout();
-        setLayout(mainLayout);
-        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+        layout = new GridBagLayout();
+        setLayout(layout);
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
 
         //Status
-        card_status.setBorder(new javax.swing.border.LineBorder(Color.RED));
-        mainLayoutConstraints.weightx = 0.3;  //横の辺の比
-        mainLayoutConstraints.weighty = 1.0;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = GridBagConstraints.REMAINDER; //左端宣言
-        mainLayout.setConstraints(card_status, mainLayoutConstraints);
-        add(card_status);
+        cardStatus.setBorder(new javax.swing.border.LineBorder(Color.RED));
+        addComponent(cardStatus, 0.3, 1.0, 0, 0, 1, GridBagConstraints.REMAINDER);
 
         //PayerStatus
-        player_status.setBorder(new javax.swing.border.LineBorder(Color.CYAN));
-        mainLayoutConstraints.weightx = 0.7;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.05;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(player_status, mainLayoutConstraints);
-        add(player_status);
+        playerStatus.setBorder(new javax.swing.border.LineBorder(Color.CYAN));
+        addComponent(playerStatus, 0.7, 0.05, 1, 0, 1, 1);
 
 
         //Enemy_Hands
-        enemy_hands.setBorder(new javax.swing.border.LineBorder(Color.BLUE));
-        mainLayoutConstraints.weightx = 0.7;
-        mainLayoutConstraints.weighty = 0.1;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(enemy_hands, mainLayoutConstraints);
-        add(enemy_hands);
+        enemyHands.setBorder(new javax.swing.border.LineBorder(Color.BLUE));
+        addComponent(enemyHands, 0.7, 0.1, 1, 1, 1, 1);
+
 
         //Enemy_Field
-        enemy_field.setBorder(new javax.swing.border.LineBorder(Color.GREEN));
-        mainLayoutConstraints.weightx = 0.7;
-        mainLayoutConstraints.weighty = 0.2;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 2;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(enemy_field, mainLayoutConstraints);
-        add(enemy_field);
+        enemyField.setBorder(new javax.swing.border.LineBorder(Color.GREEN));
+        addComponent(enemyField, 0.7, 0.2, 1, 2, 1, 1);
 
 
         //Phase
-        turn_phase.setBorder(new javax.swing.border.LineBorder(Color.GRAY));
-        mainLayoutConstraints.weightx = 0.7;
-        mainLayoutConstraints.weighty = 0.05;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 3;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(turn_phase, mainLayoutConstraints);
-        add(turn_phase);
+        phaseStatus.setBorder(new javax.swing.border.LineBorder(Color.GRAY));
+        addComponent(phaseStatus, 0.7, 0.05, 1, 3, 1, 1);
 
 
         //Self_Field
-        self_field.setBorder(new javax.swing.border.LineBorder(Color.ORANGE));
-        mainLayoutConstraints.weightx = 0.7;
-        mainLayoutConstraints.weighty = 0.2;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 4;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(self_field, mainLayoutConstraints);
-        add(self_field);
+        selfField.setBorder(new javax.swing.border.LineBorder(Color.ORANGE));
+        addComponent(selfField, 0.7, 0.2, 1, 4, 1, 1);
+
 
         //Self_Hands
-        self_hands.setBorder(new javax.swing.border.LineBorder(Color.MAGENTA));
-        mainLayoutConstraints.weightx = 0.15;
-        mainLayoutConstraints.weighty = 0.1;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 5;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayout.setConstraints(self_hands, mainLayoutConstraints);
-        add(self_hands);
+        selfHands.setBorder(new javax.swing.border.LineBorder(Color.MAGENTA));
+        addComponent(selfHands, 0.7, 0.1, 1, 5, 1, 1);
+
 
 
         //以下、ベースの設定
@@ -123,4 +81,19 @@ public class FieldFrame extends JFrame {
 
         pack();
     }
+
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                              int gridwidth, int gridheight){
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+        layout.setConstraints(comp, gbc);
+        add(comp);
+    }
+
+
 }

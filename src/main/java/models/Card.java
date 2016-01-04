@@ -5,6 +5,8 @@ import models.enums.CardType;
 import models.enums.Position;
 import models.enums.Species;
 
+import java.util.Observable;
+
 /**
  * Created by Mikio on 2015/12/17.
  */
@@ -40,9 +42,7 @@ public class Card {
         return level;
     }
 
-    public Attribute getAttribute() {
-        return attribute;
-    }
+    public Attribute getAttribute() {return attribute;}
 
     public int getDefensePoint() {
         return defensePoint;
@@ -51,4 +51,12 @@ public class Card {
     public int getAttackPoint() {
         return attackPoint;
     }
+
+    public CardType getCardType() {return cardType;}
+
+    public Position getPosition(){return position; }
+
+    public void setPosition(Position p) {position = p; }
+
+
 }
