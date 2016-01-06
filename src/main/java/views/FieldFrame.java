@@ -26,7 +26,6 @@ public class FieldFrame extends JFrame {
         Field field = new Field();
 
         //以下Panelの作成
-        PlayerStatusPanel player_status = new PlayerStatusPanel();
         FieldPanel selfField = new FieldPanel(field1, selectedCard, Side.Player1);
         FieldPanel enemyField = new FieldPanel(field2, selectedCard, Side.Player2);
         HandsPanel selfHands = new HandsPanel(field1, selectedCard, Side.Player1);
