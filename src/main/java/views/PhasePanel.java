@@ -3,11 +3,11 @@ package views;
 import models.Field;
 import models.enums.Phase;
 import views.components.PhaseButton;
+import views.components.PhaseLabel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import views.components.PhaseLabel;
 
 /**
  * Created by ken on 2015/12/11.
@@ -23,17 +23,17 @@ public class PhasePanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public PhasePanel(Field field ) {
+    public PhasePanel(Field field) {
         // タイトル
         phase = new JLabel("Phase");
 
         // フェイズボタン作成
-        phaseLabels.add(new PhaseLabel(field,Phase.DROW_PHASE));
-        phaseLabels.add(new PhaseLabel(field,Phase.STAND_BY_PHASE));
-        phaseLabels.add(new PhaseLabel(field,Phase.MAIN_PHASE_1));
-        phaseButtons.add(new PhaseButton(field,Phase.BATTLE_PHAES));
-        phaseButtons.add(new PhaseButton(field,Phase.MAIN_PHASE_2));
-        phaseButtons.add(new PhaseButton(field,Phase.END_PHASE));
+        phaseLabels.add(new PhaseLabel(field, Phase.DROW_PHASE));
+        phaseLabels.add(new PhaseLabel(field, Phase.STAND_BY_PHASE));
+        phaseLabels.add(new PhaseLabel(field, Phase.MAIN_PHASE_1));
+        phaseButtons.add(new PhaseButton(field, Phase.BATTLE_PHAES));
+        phaseButtons.add(new PhaseButton(field, Phase.MAIN_PHASE_2));
+        phaseButtons.add(new PhaseButton(field, Phase.END_PHASE));
 
         layout = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -56,6 +56,13 @@ public class PhasePanel extends JPanel {
             addComponent(phaseButtons.get(i), i, 1, 1, 1, 0.2, 0.7,
                     GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
             add(phaseButtons.get(i));
+        }
+
+
+        for (int i = 0; i < phaseLabels.size(); i++) {
+            addComponent(phaseLabels.get(i), i, 1, 1, 1, 0.2, 0.7,
+                    GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
+            add(phaseLabels.get(i));
         }
     }
 
