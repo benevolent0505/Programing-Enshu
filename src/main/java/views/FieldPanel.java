@@ -43,6 +43,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
 
     private Field field;
     private SelectedCard selectedCard;
+    private Side side;
 
     public FieldPanel(Field field, SelectedCard selectedCard, Side side) {
 
@@ -58,6 +59,8 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         this.field = field;
         field.addObserver(this);
         this.selectedCard = selectedCard;
+
+        this.side = side;
 
 
         for (int i = 0; i < MAX_MONSTERS; i++) {
@@ -188,6 +191,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setPlace(Place.MONSTER_ZONE);
+            selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
 
         }

@@ -149,10 +149,11 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         Card card = selectedCard.getSelectedCard();
         Place place = selectedCard.getPlace();
         Side side = selectedCard.getSide();
+
         Field field = field1;
 
-        if(side == Side.Player1) field = field1;
-        if(side == Side.Player2) field = field2;
+        if(side == Side.Player1)  field = field1;
+        if(side == Side.Player2)  field = field2;
 
 
         if(e.getSource() == actionButton1){

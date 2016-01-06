@@ -36,12 +36,15 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
 
     private Field field;
     private SelectedCard selectedCard;
+    private Side side;
 
     public HandsPanel(Field field, SelectedCard selectedCard, Side side) {
+
         this.field = field;
         field.addObserver(this);
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
+        this.side = side;
 
 
         if (side == Side.Player1) handsLabel = new JLabel("Self Hands");
@@ -136,6 +139,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setPlace(Place.HAND);
+            selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
 
         }
