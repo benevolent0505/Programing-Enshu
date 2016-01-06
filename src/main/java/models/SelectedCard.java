@@ -1,6 +1,7 @@
 package models;
 
 import models.enums.Place;
+import models.enums.Side;
 
 import javax.swing.*;
 import java.util.Observable;
@@ -11,6 +12,15 @@ import java.util.Observable;
 public class SelectedCard extends Observable {
 
     private Place place;
+    private Side side;
+
+    public Side getSide() {
+        return side;
+    }
+
+    public void setSide(Side side) {
+        this.side = side;
+    }
 
     private Card selectedCard;
 
