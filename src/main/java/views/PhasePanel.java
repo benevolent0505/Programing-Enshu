@@ -7,6 +7,7 @@ import views.components.PhaseButton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import views.components.PhaseLabel;
 
 /**
  * Created by ken on 2015/12/11.
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class PhasePanel extends JPanel {
 
     private final ArrayList<JButton> phaseButtons = new ArrayList<>();
+    private final ArrayList<JLabel> phaseLabels = new ArrayList<>();
 
     private JLabel phase;
 
@@ -26,9 +28,9 @@ public class PhasePanel extends JPanel {
         phase = new JLabel("Phase");
 
         // フェイズボタン作成
-        phaseButtons.add(new PhaseButton(field,Phase.DROW_PHASE));
-        phaseButtons.add(new PhaseButton(field,Phase.STAND_BY_PHASE));
-        phaseButtons.add(new PhaseButton(field,Phase.MAIN_PHASE_1));
+        phaseLabels.add(new PhaseLabel(field,Phase.DROW_PHASE));
+        phaseLabels.add(new PhaseLabel(field,Phase.STAND_BY_PHASE));
+        phaseLabels.add(new PhaseLabel(field,Phase.MAIN_PHASE_1));
         phaseButtons.add(new PhaseButton(field,Phase.BATTLE_PHAES));
         phaseButtons.add(new PhaseButton(field,Phase.MAIN_PHASE_2));
         phaseButtons.add(new PhaseButton(field,Phase.END_PHASE));
