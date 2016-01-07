@@ -2,6 +2,7 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.Player;
 import models.SelectedCard;
 import models.enums.CardType;
 import models.enums.Place;
@@ -33,9 +34,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     private GridBagConstraints gbc;
 
     private Field field;
+    private Player player;
     private SelectedCard selectedCard;
 
-    public CardStatusPanel(Field field, SelectedCard selectedCard) {
+    public CardStatusPanel(Player player, SelectedCard selectedCard) {
 
         cardStatusLabel = new JLabel("Card Status");
         cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
@@ -84,8 +86,9 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         addComponent(actionButton2, 1.0, 0.05, 0, 7, 1, 1);
 
 
-        this.field = field;
-        field.addObserver(this);
+        this.player = player;
+        this.field = player.getField();
+        player.addObserver(this);
 
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);

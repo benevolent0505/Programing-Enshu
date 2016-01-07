@@ -3,6 +3,7 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.Player;
 import models.SelectedCard;
 import models.enums.Place;
 import views.components.CardButton;
@@ -43,7 +44,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
     private Field field;
     private SelectedCard selectedCard;
 
-    public FieldPanel(Field field, SelectedCard selectedCard, String side) {
+    public FieldPanel(Player player, SelectedCard selectedCard, String side) {
 
 
         fieldLabel = new JLabel("Player Field");
@@ -54,8 +55,8 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         extraButton = new JButton("Extra");
         fieldMagicButton = new JButton("FieldMagic");
 
-        this.field = field;
-        field.addObserver(this);
+        this.field = player.getField();
+        player.addObserver(this);
         this.selectedCard = selectedCard;
 
 

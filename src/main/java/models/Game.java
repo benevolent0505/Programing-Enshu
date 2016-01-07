@@ -13,8 +13,6 @@ public class Game extends Observable {
     public Game(Player p1, Player p2) {
         player1 = p1;
         player2 = p2;
-        TurnPlayer = player1;
-        TurnPlayer.ProgressPhase();
     }
 
     public Player getTurnPlayer() {

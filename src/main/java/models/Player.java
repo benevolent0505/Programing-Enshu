@@ -71,6 +71,10 @@ public class Player extends Observable implements Observer {
         return PlayerTurn;
     }
 
+    public Field getField(){
+        return field;
+    }
+
     public String getName() {
         return name;
     }
