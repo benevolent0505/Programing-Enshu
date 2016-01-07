@@ -6,9 +6,10 @@ import models.SelectedCard;
 import models.enums.CardType;
 import models.enums.Place;
 import models.enums.Position;
+import models.enums.Side;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -32,10 +33,11 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    private Field field;
+    private Field field1;
+    private Field field2;
     private SelectedCard selectedCard;
 
-    public CardStatusPanel(Field field, SelectedCard selectedCard) {
+    public CardStatusPanel(Field field1, Field field2,  SelectedCard selectedCard) {
 
         cardStatusLabel = new JLabel("Card Status");
         cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
@@ -84,8 +86,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         addComponent(actionButton2, 1.0, 0.05, 0, 7, 1, 1);
 
 
-        this.field = field;
-        field.addObserver(this);
+        this.field1 = field1;
+        this.field2 = field2;
+        field1.addObserver(this);
+        field2.addObserver(this);
 
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
@@ -144,6 +148,13 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         Card card = selectedCard.getSelectedCard();
         Place place = selectedCard.getPlace();
+        Side side = selectedCard.getSide();
+
+        Field field = field1;
+
+        if(side == Side.Player1)  field = field1;
+        if(side == Side.Player2)  field = field2;
+
 
         if(e.getSource() == actionButton1){
 

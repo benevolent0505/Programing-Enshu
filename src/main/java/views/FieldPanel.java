@@ -5,6 +5,7 @@ import models.Card;
 import models.Field;
 import models.SelectedCard;
 import models.enums.Place;
+import models.enums.Side;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -42,8 +43,9 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
 
     private Field field;
     private SelectedCard selectedCard;
+    private Side side;
 
-    public FieldPanel(Field field, SelectedCard selectedCard, String side) {
+    public FieldPanel(Field field, SelectedCard selectedCard, Side side) {
 
 
         fieldLabel = new JLabel("Player Field");
@@ -57,6 +59,8 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         this.field = field;
         field.addObserver(this);
         this.selectedCard = selectedCard;
+
+        this.side = side;
 
 
         for (int i = 0; i < MAX_MONSTERS; i++) {
@@ -73,7 +77,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
 
 
         //自分サイド
-        if (side.equals("self")) {
+        if (side == Side.Player1) {
 
             layout = new GridBagLayout();
             setLayout(layout);
@@ -107,7 +111,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         }
 
         //相手サイド
-        if (side.equals("enemy")) {
+        if (side == Side.Player2) {
 
             layout = new GridBagLayout();
             setLayout(layout);
@@ -187,6 +191,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setPlace(Place.MONSTER_ZONE);
+            selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
 
         }

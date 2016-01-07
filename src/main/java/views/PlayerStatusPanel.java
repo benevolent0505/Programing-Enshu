@@ -16,7 +16,8 @@ public class PlayerStatusPanel extends JPanel {
     private JLabel enemyLife;
     private JLabel enemyName;
     private JFrame askPlayerNameFrame;
-    private String nameString;
+    private String name1;
+    private String name2;
 
     public PlayerStatusPanel() {
 
@@ -24,16 +25,21 @@ public class PlayerStatusPanel extends JPanel {
 
 
         askPlayerNameFrame = new JFrame();
-        nameString = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player Name?");
-        if (nameString == null)
+        name1 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player1's Name?");
+        if (name1 == null)
+            System.exit(0);
+
+        askPlayerNameFrame = new JFrame();
+        name2 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player2's Name?");
+        if (name2 == null)
             System.exit(0);
 
 
         playerLabel = new JLabel("Player Status");
-        playerName = new JLabel(nameString + ":");
+        playerName = new JLabel(name1 + ":");
         playerLife = new JLabel("8000");
         enemyLife = new JLabel("8000");
-        enemyName = new JLabel(":EnemyName");
+        enemyName = new JLabel(":" + name2);
 
         GridBagLayout mainLayout = new GridBagLayout();
         setLayout(mainLayout);
