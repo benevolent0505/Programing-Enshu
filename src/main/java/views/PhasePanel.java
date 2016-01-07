@@ -52,7 +52,7 @@ public class PhasePanel extends JPanel {
 
         for (int i = 0; i < phaseButtons.size(); i++) {
             addComponent(phaseButtons.get(i), i, 1, 1, 1, 0.2, 0.7,
-                    GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
+                    GridBagConstraints.EAST, new Insets(0, 0, 0, 0));
             add(phaseButtons.get(i));
         }
     }
