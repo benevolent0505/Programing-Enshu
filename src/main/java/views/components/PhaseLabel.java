@@ -14,22 +14,30 @@ import java.util.Observer;
  */
 public class PhaseLabel extends JLabel implements Observer {
     private Phase phase;
-    private Player player;
+    private Player player1, player2;
+    private Player TurnPlayer;
 
-    public PhaseLabel(Player pl, Phase ph) {
+    public PhaseLabel(Player p1, Player p2, Phase ph) {
         this.phase = ph;
-        player = pl;
+        TurnPlayer = p1;
+        player1 = p1;
+        player2 = p2;
         setText(phase.toString());
         setBackground(Color.WHITE);
-        player.addObserver(this);
+        TurnPlayer.addObserver(this);
     }
 
     public void update(Observable field, Object arg) {
-        Phase p2 = this.player.getPhase();
-        if(p2 == phase) {
-            this.setBackground(Color.BLUE);
+        if (TurnPlayer.getPlayerTurn() == false) {
+            if (TurnPlayer == player1) {
+                TurnPlayer = player2;
+            } else TurnPlayer = player1;
         }
-        else
+
+        Phase p2 = this.TurnPlayer.getPhase();
+        if (p2 == phase) {
+            this.setBackground(Color.BLUE);
+        } else
             this.setBackground(Color.WHITE);
     }
 }

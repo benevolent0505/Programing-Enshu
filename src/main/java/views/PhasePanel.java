@@ -25,17 +25,17 @@ public class PhasePanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public PhasePanel(Player player) {
+    public PhasePanel(Player player1,Player player2) {
         // タイトル
         phase = new JLabel("Phase");
 
         // フェイズボタン作成
-        phaseLabels.add(new PhaseLabel(player, Phase.DROW_PHASE));
-        phaseLabels.add(new PhaseLabel(player, Phase.STAND_BY_PHASE));
-        phaseLabels.add(new PhaseLabel(player, Phase.MAIN_PHASE_1));
-        phaseButtons.add(new PhaseButton(player, Phase.BATTLE_PHAES));
-        phaseButtons.add(new PhaseButton(player, Phase.MAIN_PHASE_2));
-        phaseButtons.add(new PhaseButton(player, Phase.END_PHASE));
+        phaseLabels.add(new PhaseLabel(player1,player2, Phase.DROW_PHASE));
+        phaseLabels.add(new PhaseLabel(player1,player2, Phase.STAND_BY_PHASE));
+        phaseLabels.add(new PhaseLabel(player1,player2, Phase.MAIN_PHASE_1));
+        phaseButtons.add(new PhaseButton(player1,player2, Phase.BATTLE_PHAES));
+        phaseButtons.add(new PhaseButton(player1,player2, Phase.MAIN_PHASE_2));
+        phaseButtons.add(new PhaseButton(player1,player2, Phase.END_PHASE));
 
         layout = new GridBagLayout();
         gbc = new GridBagConstraints();

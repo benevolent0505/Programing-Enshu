@@ -34,21 +34,14 @@ public class Field {
         initDeck();
         initHand();
 
-        ProgressPhase();
     }
 
-    public void ProgressPhase() {
-        setPhase(Phase.DROW_PHASE);
-        draw(1);
-        setPhase(Phase.STAND_BY_PHASE);
-        setPhase(Phase.MAIN_PHASE_1);
-    }
 
     public Phase getPhase() {
         return phase;
     }
 
-    public void setPhase(Phase sp){
+    public void setPhase(Phase sp) {
         phase = sp;
     }
 

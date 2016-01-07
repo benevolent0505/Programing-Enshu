@@ -18,31 +18,38 @@ import java.util.Observer;
  */
 public class PhaseButton extends JButton implements Observer, ActionListener {
     private Phase phase;
-    private Player player;
+    private Player player1, player2;
+    private Player TurnPlayer;
 
-    public PhaseButton(Player pl,Phase ph) {
+    public PhaseButton(Player p1, Player p2, Phase ph) {
         this.phase = ph;
-        player = pl;
+        player1 = p1;
+        player2 = p2;
         setText(phase.toString());
         setBackground(Color.WHITE);
-        player.addObserver(this);
+        TurnPlayer.addObserver(this);
         addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
-        Phase p1 = this.player.getPhase();
-        if (phase.compareTo(p1)>0) {
+        Phase ph1 = this.TurnPlayer.getPhase();
+        if (phase.compareTo(ph1) > 0) {
             this.setBackground(Color.WHITE);
-            player.setPhase(phase);
+            TurnPlayer.setPhase(phase);
         }
     }
 
     public void update(Observable player, Object arg) {
-        Phase p2 = this.player.getPhase();
-        if(p2 == phase) {
-            this.setBackground(Color.BLUE);
+        if (TurnPlayer.getPlayerTurn() == false) {
+            if (TurnPlayer == player1) {
+                TurnPlayer = player2;
+            } else TurnPlayer = player1;
         }
-        else
+
+        Phase p2 = this.TurnPlayer.getPhase();
+        if (p2 == phase) {
+            this.setBackground(Color.BLUE);
+        } else
             this.setBackground(Color.WHITE);
     }
 }

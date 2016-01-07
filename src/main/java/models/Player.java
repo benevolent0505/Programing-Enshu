@@ -47,17 +47,28 @@ public class Player extends Observable implements Observer {
     }
 
     public void ProgressPhase() {
-        field.ProgressPhase();
+        setPhase(Phase.DROW_PHASE);
+        draw(1);
+        setPhase(Phase.STAND_BY_PHASE);
+        setPhase(Phase.MAIN_PHASE_1);
     }
 
     public void update(Observable game, Object arg) {
         if (this == this.game.getTurnPlayer()) {
             PlayerTurn = true;
+            setChanged();
+            notifyObservers();
             ProgressPhase();
         } else {
             PlayerTurn = false;
+            setChanged();
+            notifyObservers();
             setPhase(null);
         }
+    }
+
+    public boolean getPlayerTurn() {
+        return PlayerTurn;
     }
 
     public String getName() {
