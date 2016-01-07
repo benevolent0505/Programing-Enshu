@@ -1,5 +1,6 @@
 package views.components;
 
+import models.Player;
 import models.enums.Phase;
 import models.Field;
 
@@ -13,18 +14,18 @@ import java.util.Observer;
  */
 public class PhaseLabel extends JLabel implements Observer {
     private Phase phase;
-    private Field field;
+    private Player player;
 
-    public PhaseLabel(Field f, Phase p) {
-        this.phase = p;
-        field = f;
+    public PhaseLabel(Player pl, Phase ph) {
+        this.phase = ph;
+        player = pl;
         setText(phase.toString());
         setBackground(Color.WHITE);
-        field.addObserver(this);
+        player.addObserver(this);
     }
 
     public void update(Observable field, Object arg) {
-        Phase p2 = this.field.getPhase();
+        Phase p2 = this.player.getPhase();
         if(p2 == phase) {
             this.setBackground(Color.BLUE);
         }

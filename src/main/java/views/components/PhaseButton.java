@@ -1,6 +1,7 @@
 package views.components;
 
 import models.Field;
+import models.Player;
 import models.enums.Phase;
 
 import javax.swing.*;
@@ -17,27 +18,27 @@ import java.util.Observer;
  */
 public class PhaseButton extends JButton implements Observer, ActionListener {
     private Phase phase;
-    private Field field;
+    private Player player;
 
-    public PhaseButton(Field f,Phase p) {
-        this.phase = p;
-        field = f;
+    public PhaseButton(Player pl,Phase ph) {
+        this.phase = ph;
+        player = pl;
         setText(phase.toString());
         setBackground(Color.WHITE);
-        field.addObserver(this);
+        player.addObserver(this);
         addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
-        Phase p1 = this.field.getPhase();
+        Phase p1 = this.player.getPhase();
         if (phase.compareTo(p1)>0) {
             this.setBackground(Color.WHITE);
-            field.setPhase(phase);
+            player.setPhase(phase);
         }
     }
 
-    public void update(Observable field, Object arg) {
-        Phase p2 = this.field.getPhase();
+    public void update(Observable player, Object arg) {
+        Phase p2 = this.player.getPhase();
         if(p2 == phase) {
             this.setBackground(Color.BLUE);
         }

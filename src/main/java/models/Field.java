@@ -3,6 +3,7 @@ package models;
 import models.enums.Phase;
 import models.enums.Position;
 import utilities.CardDBManager;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.jar.Pack200;
@@ -10,11 +11,12 @@ import java.util.jar.Pack200;
 /**
  * Created by Mikio on 2015/12/17.
  */
-public class Field extends Observable {
+public class Field {
 
     private static final int MAX_MONSTER_ZONE_SIZE = 5;
 
     private Phase phase;
+
 
     private ArrayList<Card> deck;
     private ArrayList<Card> hands;
@@ -32,19 +34,23 @@ public class Field extends Observable {
         initDeck();
         initHand();
 
+        ProgressPhase();
+    }
+
+    public void ProgressPhase() {
         setPhase(Phase.DROW_PHASE);
+        draw(1);
+        setPhase(Phase.STAND_BY_PHASE);
+        setPhase(Phase.MAIN_PHASE_1);
     }
 
     public Phase getPhase() {
         return phase;
     }
 
-    public void setPhase(Phase p) {
-        this.phase = p;
-        setChanged();
-        notifyObservers();
+    public void setPhase(Phase sp){
+        phase = sp;
     }
-
 
     public ArrayList<Card> getHands() {
         return hands;
@@ -82,12 +88,6 @@ public class Field extends Observable {
             deck.remove(0);
         }
 
-        if (phase == Phase.DROW_PHASE) {
-            phase = Phase.STAND_BY_PHASE;
-            setChanged();
-            notifyObservers();
-        }
-
         return tmp;
     }
 
@@ -110,33 +110,33 @@ public class Field extends Observable {
             card.setPosition(Position.Attack);
             monsterZone.add(card);
 
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
         }
     }
 
-    public void set(Card card){
+    public void set(Card card) {
         // モンスターカードゾーンに召喚できる条件
         if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Set);
             monsterZone.add(card);
 
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
         }
     }
 
-    public void attack(Card card){
+    public void attack(Card card) {
 
 
     }
 
 
-    public void changePosition(Card card, Position position){
+    public void changePosition(Card card, Position position) {
         card.setPosition(position);
-        setChanged();
-        notifyObservers();
+        //setChanged();
+        //notifyObservers();
     }
 
 }
