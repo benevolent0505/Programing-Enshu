@@ -12,8 +12,11 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
+
 
 /**
  * Created by ken on 2015/12/10.
@@ -165,7 +168,13 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
             //TODO: フィールドで選択なら攻撃
             if(place == Place.MONSTER_ZONE){
-                field.attack(card);
+
+                Card attackMonster = card;
+                Card attackedMonster = null;
+                if(side == Side.Player1) attackedMonster = selectAttackMonster(field2);
+                if(side == Side.Player2) attackedMonster = selectAttackMonster(field1);
+
+                field.attack(attackMonster, attackedMonster);
             }
 
         }
@@ -227,4 +236,42 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         }
 
     }
+
+    private Card selectAttackMonster(Field field) {
+        ArrayList<Card> candidateMonstersList = field.getMonsterZone();
+        int monsterSize = candidateMonstersList.size();
+
+
+        if (monsterSize == 0) {
+            //TODO:直接攻撃できるメソッド
+             return null;}
+
+        if (monsterSize != 0) {
+            String[] candidateMonsterNamesArray = new String[monsterSize];
+            for (int i = 0; i < monsterSize; i++)
+                candidateMonsterNamesArray[i] = candidateMonstersList.get(i).getName();
+
+            Object selectedvalue = JOptionPane.showInputDialog(null,
+                        "攻撃するモンスターを選んでください。",
+                        "攻撃対象選択",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null,
+                        candidateMonsterNamesArray,
+                        candidateMonsterNamesArray[0]);
+
+
+            String selectedName = (String) selectedvalue;
+            ArrayList<String> tmpMonsterNamesList = new ArrayList<String>(Arrays.asList(candidateMonsterNamesArray));
+            int selectedIndex = tmpMonsterNamesList.indexOf(selectedName);
+
+            Card attackedMonsterCard = candidateMonstersList.get(selectedIndex);
+            return attackedMonsterCard;
+
+
+
+        }
+        //キャンセル
+        return null;
+    }
+
 }

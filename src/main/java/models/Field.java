@@ -127,7 +127,7 @@ public class Field extends Observable {
         }
     }
 
-    public void attack(Card card){
+    public void attack(Card attackMonster, Card attackedMonster){
 
 
     }
