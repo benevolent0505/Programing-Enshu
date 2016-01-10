@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.Position;
+
 /**
  * Created by Mikio on 2015/12/10.
  */
@@ -57,4 +59,8 @@ public class Player {
     public void activateCardEffect() {
 
     }
+
+
+
+
 }

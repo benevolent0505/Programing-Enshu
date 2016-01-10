@@ -32,7 +32,7 @@ public class FieldFrame extends JFrame {
         HandsPanel enemyHands = new HandsPanel(field2, selectedCard, Side.Player2);
         CardStatusPanel cardStatus = new CardStatusPanel(field1, field2,  selectedCard);
         PhasePanel phaseStatus = new PhasePanel(field);
-        PlayerStatusPanel playerStatus = new PlayerStatusPanel();
+        PlayerStatusPanel playerStatus = new PlayerStatusPanel(field1, field2);
 
         //以下Panelの貼り付け
         layout = new GridBagLayout();

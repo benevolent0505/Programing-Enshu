@@ -174,7 +174,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
                 if(side == Side.Player1) attackedMonster = selectAttackMonster(field2);
                 if(side == Side.Player2) attackedMonster = selectAttackMonster(field1);
 
-                field.attack(attackMonster, attackedMonster);
+
+
+                attack(attackMonster, attackedMonster);
+
             }
 
         }
@@ -243,8 +246,12 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
 
         if (monsterSize == 0) {
-            //TODO:直接攻撃できるメソッド
-             return null;}
+            //攻守か0のモンスターとしてプレイヤーを扱うことでダイレクトアタックとする
+            Card player = new Card(null, null, null, 0, 0, 0);
+            player.setPosition(Position.Attack);
+            JOptionPane.showMessageDialog(null, "相手プレイヤーに直接攻撃を行います。", "ダイレクトアタック", JOptionPane.PLAIN_MESSAGE);
+            return player;
+        }
 
         if (monsterSize != 0) {
             String[] candidateMonsterNamesArray = new String[monsterSize];
@@ -274,4 +281,41 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         return null;
     }
 
+    private void attack(Card attackMonster, Card attackedMonster){
+
+        Position attackedMonsterPosition = attackedMonster.getPosition();
+        int attackerAtkPoint = attackMonster.getAttackPoint();
+
+        if(attackedMonsterPosition == Position.Attack){
+
+            int attackeeAtkPoint = attackedMonster.getAttackPoint();
+
+            if(attackerAtkPoint >  attackeeAtkPoint){
+                field2.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                field2.destroyMonster(attackedMonster);
+            }
+            if(attackerAtkPoint <  attackeeAtkPoint){
+                field1.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                field1.destroyMonster(attackMonster);
+            }
+            if(attackerAtkPoint == attackeeAtkPoint){
+                field1.destroyMonster(attackMonster);
+                field2.destroyMonster(attackedMonster);
+            }
+        }
+
+        if(attackedMonsterPosition == Position.Deffence){
+
+            int attackeeDefPoint = attackedMonster.getDefensePoint();
+
+            if(attackerAtkPoint >  attackeeDefPoint){}
+            if(attackerAtkPoint <  attackeeDefPoint){}
+            if(attackerAtkPoint == attackeeDefPoint){}
+        }
+
+    }
+
 }
+
+
+
