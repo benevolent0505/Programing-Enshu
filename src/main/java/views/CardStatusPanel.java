@@ -10,6 +10,7 @@ import models.enums.Side;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -286,32 +287,60 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         Position attackedMonsterPosition = attackedMonster.getPosition();
         int attackerAtkPoint = attackMonster.getAttackPoint();
 
-        if(attackedMonsterPosition == Position.Attack){
+
+        if(attackedMonsterPosition == Position.Set) {
+            String selectValues[] = {"攻撃表示", "守備表示"};
+
+            int option = JOptionPane.showOptionDialog(
+                    null, "表示形式は何へ変更しますか？", "表示形式変更",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    selectValues,
+                    selectValues[0]
+            );
+            if (option == 0) {
+                field2.changePosition(attackedMonster, Position.Attack);
+                attackedMonster.setPosition(Position.Attack);
+            }
+            if (option == 1) {
+                field2.changePosition(attackedMonster, Position.Deffence);
+                attackedMonster.setPosition(Position.Deffence);
+            }
+        }
+
+
+
+        if (attackedMonsterPosition == Position.Attack) {
 
             int attackeeAtkPoint = attackedMonster.getAttackPoint();
 
-            if(attackerAtkPoint >  attackeeAtkPoint){
+            if (attackerAtkPoint > attackeeAtkPoint) {
                 field2.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
                 field2.destroyMonster(attackedMonster);
             }
-            if(attackerAtkPoint <  attackeeAtkPoint){
+            if (attackerAtkPoint < attackeeAtkPoint) {
                 field1.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
                 field1.destroyMonster(attackMonster);
             }
-            if(attackerAtkPoint == attackeeAtkPoint){
+            if (attackerAtkPoint == attackeeAtkPoint) {
                 field1.destroyMonster(attackMonster);
                 field2.destroyMonster(attackedMonster);
             }
         }
 
-        if(attackedMonsterPosition == Position.Deffence){
+        if (attackedMonsterPosition == Position.Deffence) {
 
             int attackeeDefPoint = attackedMonster.getDefensePoint();
 
-            if(attackerAtkPoint >  attackeeDefPoint){}
-            if(attackerAtkPoint <  attackeeDefPoint){}
-            if(attackerAtkPoint == attackeeDefPoint){}
+            if (attackerAtkPoint > attackeeDefPoint) field2.destroyMonster(attackedMonster);
+
+            if (attackerAtkPoint < attackeeDefPoint) field1.reflectDamage(attackerAtkPoint, attackeeDefPoint);
+
+            if (attackerAtkPoint == attackeeDefPoint) {/*何もおこらない*/}
         }
+
+
 
     }
 
