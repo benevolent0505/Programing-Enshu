@@ -10,7 +10,6 @@ import models.enums.Side;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -172,12 +171,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
                 Card attackMonster = card;
                 Card attackedMonster = null;
-                if(side == Side.Player1) attackedMonster = selectAttackMonster(field2);
-                if(side == Side.Player2) attackedMonster = selectAttackMonster(field1);
+                if(side == Side.Player1) {attackedMonster = selectAttackMonster(field2); attack(field1, field2, attackMonster, attackedMonster);}
+                if(side == Side.Player2) {attackedMonster = selectAttackMonster(field1); attack(field2, field1, attackMonster, attackedMonster);}
 
 
-
-                attack(attackMonster, attackedMonster);
 
             }
 
@@ -282,7 +279,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         return null;
     }
 
-    private void attack(Card attackMonster, Card attackedMonster){
+    private void attack(Field attackSideField, Field attackedSideField, Card attackMonster, Card attackedMonster){
 
         Position attackedMonsterPosition = attackedMonster.getPosition();
         int attackerAtkPoint = attackMonster.getAttackPoint();
@@ -300,11 +297,11 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
                     selectValues[0]
             );
             if (option == 0) {
-                field2.changePosition(attackedMonster, Position.Attack);
+                attackedSideField.changePosition(attackedMonster, Position.Attack);
                 attackedMonster.setPosition(Position.Attack);
             }
             if (option == 1) {
-                field2.changePosition(attackedMonster, Position.Deffence);
+                attackedSideField.changePosition(attackedMonster, Position.Deffence);
                 attackedMonster.setPosition(Position.Deffence);
             }
         }
@@ -316,16 +313,16 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
             int attackeeAtkPoint = attackedMonster.getAttackPoint();
 
             if (attackerAtkPoint > attackeeAtkPoint) {
-                field2.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
-                field2.destroyMonster(attackedMonster);
+                attackedSideField.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                attackedSideField.destroyMonster(attackedMonster);
             }
             if (attackerAtkPoint < attackeeAtkPoint) {
-                field1.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
-                field1.destroyMonster(attackMonster);
+                attackSideField.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                attackSideField.destroyMonster(attackMonster);
             }
             if (attackerAtkPoint == attackeeAtkPoint) {
-                field1.destroyMonster(attackMonster);
-                field2.destroyMonster(attackedMonster);
+                attackSideField.destroyMonster(attackMonster);
+                attackedSideField.destroyMonster(attackedMonster);
             }
         }
 
@@ -333,9 +330,9 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
             int attackeeDefPoint = attackedMonster.getDefensePoint();
 
-            if (attackerAtkPoint > attackeeDefPoint) field2.destroyMonster(attackedMonster);
+            if (attackerAtkPoint > attackeeDefPoint) attackedSideField.destroyMonster(attackedMonster);
 
-            if (attackerAtkPoint < attackeeDefPoint) field1.reflectDamage(attackerAtkPoint, attackeeDefPoint);
+            if (attackerAtkPoint < attackeeDefPoint) attackSideField.reflectDamage(attackerAtkPoint, attackeeDefPoint);
 
             if (attackerAtkPoint == attackeeDefPoint) {/*何もおこらない*/}
         }
