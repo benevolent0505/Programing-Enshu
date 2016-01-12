@@ -25,17 +25,17 @@ public class PhasePanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public PhasePanel(Player player1,Player player2) {
+    public PhasePanel(Player player1, Player player2) {
         // タイトル
         phase = new JLabel("Phase");
 
         // フェイズボタン作成
-        phaseLabels.add(new PhaseLabel(player1,player2, Phase.DROW_PHASE));
-        phaseLabels.add(new PhaseLabel(player1,player2, Phase.STAND_BY_PHASE));
-        phaseLabels.add(new PhaseLabel(player1,player2, Phase.MAIN_PHASE_1));
-        phaseButtons.add(new PhaseButton(player1,player2, Phase.BATTLE_PHAES));
-        phaseButtons.add(new PhaseButton(player1,player2, Phase.MAIN_PHASE_2));
-        phaseButtons.add(new PhaseButton(player1,player2, Phase.END_PHASE));
+        phaseLabels.add(new PhaseLabel(player1, player2, Phase.DROW_PHASE));
+        phaseLabels.add(new PhaseLabel(player1, player2, Phase.STAND_BY_PHASE));
+        phaseLabels.add(new PhaseLabel(player1, player2, Phase.MAIN_PHASE_1));
+        phaseButtons.add(new PhaseButton(player1, player2, Phase.BATTLE_PHAES));
+        phaseButtons.add(new PhaseButton(player1, player2, Phase.MAIN_PHASE_2));
+        phaseButtons.add(new PhaseButton(player1, player2, Phase.END_PHASE));
 
         layout = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -54,18 +54,19 @@ public class PhasePanel extends JPanel {
         layout.setConstraints(phase, gbc);
         add(phase);
 
-        for (int i = 0; i < phaseButtons.size(); i++) {
-            addComponent(phaseButtons.get(i), i, 1, 1, 1, 0.2, 0.7,
-                    GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
-            add(phaseButtons.get(i));
-        }
-
-
         for (int i = 0; i < phaseLabels.size(); i++) {
             addComponent(phaseLabels.get(i), i, 1, 1, 1, 0.2, 0.7,
                     GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
             add(phaseLabels.get(i));
         }
+
+        for (int i = 0; i < phaseButtons.size(); i++) {
+            addComponent(phaseButtons.get(i), i + phaseLabels.size(), 1, 1, 1, 0.2, 0.7,
+                    GridBagConstraints.EAST, new Insets(0, 50, 0, 50));
+            add(phaseButtons.get(i));
+        }
+
+
     }
 
     private void addComponent(JComponent comp, int gridx, int gridy, int gridwidth, int gridheight,

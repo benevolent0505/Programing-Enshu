@@ -5,6 +5,8 @@ import models.enums.Phase;
 import models.Field;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,31 +17,34 @@ import java.util.Observer;
 public class PhaseLabel extends JLabel implements Observer {
     private Phase phase;
     private Player player1, player2;
-    private Player TurnPlayer;
 
     public PhaseLabel(Player p1, Player p2, Phase ph) {
         this.phase = ph;
-        TurnPlayer = p1;
         player1 = p1;
         player2 = p2;
         setText(phase.toString());
         setBackground(Color.WHITE);
-        TurnPlayer.addObserver(this);
+        setBorder(new LineBorder(Color.black));
+        setOpaque(true);
+        player1.addObserver(this);
+        player2.addObserver(this);
     }
 
-    public void update(Observable field, Object arg) {
-        if (TurnPlayer.getPlayerTurn() == false) {
-            if (TurnPlayer == player1) {
-                TurnPlayer = player2;
-            } else TurnPlayer = player1;
+    public void update(Observable o, Object arg) {
+        Player pl = null;
+
+        if (player1.getPlayerTurn()) {
+            pl = player1;
+        } else {
+            pl = player2;
         }
 
-        Phase p2 = this.TurnPlayer.getPhase();
-        if (p2 == phase) {
-            this.setBackground(Color.BLUE);
-        } else
-            this.setBackground(Color.WHITE);
+        if (pl.getPhase() == phase) {
+            setBackground(Color.BLUE);
+        } else {
+            setBackground(Color.WHITE);
+        }
+
     }
 }
-
 

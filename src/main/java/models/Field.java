@@ -15,7 +15,7 @@ public class Field {
 
     private static final int MAX_MONSTER_ZONE_SIZE = 5;
 
-    private Phase phase;
+    private Phase phase = null;
 
 
     private ArrayList<Card> deck;

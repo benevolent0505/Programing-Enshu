@@ -86,10 +86,6 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         addComponent(actionButton2, 1.0, 0.05, 0, 7, 1, 1);
 
 
-        this.player = player;
-        this.field = player.getField();
-        player.addObserver(this);
-
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
     }
