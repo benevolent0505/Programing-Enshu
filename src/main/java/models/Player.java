@@ -55,6 +55,7 @@ public class Player extends Observable implements Observer {
 
                 System.out.print(PlayerNumber);
                 System.out.println(field.getPhase());
+
                 setChanged();
                 notifyObservers();
             }
@@ -82,7 +83,8 @@ public class Player extends Observable implements Observer {
             ProgressPhase();
         } else {
             PlayerTurn = false;
-            setPhase(Phase.DROW_PHASE);
+            setChanged();
+            notifyObservers();
         }
     }
 

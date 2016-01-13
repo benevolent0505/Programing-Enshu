@@ -31,11 +31,11 @@ public class PhaseLabel extends JLabel implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        Player pl = null;
+        Player pl = player1;
 
         if (player1.getPlayerTurn()) {
             pl = player1;
-        } else {
+        } else if (player2.getPlayerTurn()){
             pl = player2;
         }
 
