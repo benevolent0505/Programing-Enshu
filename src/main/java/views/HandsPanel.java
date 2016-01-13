@@ -1,7 +1,10 @@
 package views;
 
+import models.Card;
 import models.Field;
+import models.Player;
 import models.SelectedCard;
+import models.enums.Place;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -9,28 +12,39 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by ken on 2015/12/10.
  */
 
-public class HandsPanel extends JPanel implements MouseListener {
+public class HandsPanel extends JPanel implements MouseListener, Observer {
 
     //現実的な枚数
     private static final int MAX_HANDS = 7;
     private static final int START_HANDS = 5;
 
     //カードの画像データ
-    private ArrayList<CardButton> handsButton;
+    private ArrayList<CardButton> handButtons;
     private JLabel handsLabel;
     private JPopupMenu actionPopup;
 
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
+
     private Field field;
+    private Player player;
     private SelectedCard selectedCard;
 
-    public HandsPanel(Field field, SelectedCard selectedCard, String side) {
-        this.field = field;
+    public HandsPanel(Player player, SelectedCard selectedCard, String side) {
+        this.player = player;
+        this.field = player.getField();
+        player.addObserver(this);
         this.selectedCard = selectedCard;
+        selectedCard.addObserver(this);
+
 
         if (side.equals("self")) {
             handsLabel = new JLabel("Self Hands");
@@ -45,7 +59,7 @@ public class HandsPanel extends JPanel implements MouseListener {
         actionPopup.add(setItem);
 
 
-        handsButton = new ArrayList();
+        handButtons = new ArrayList();
 
         for (int i = 0; i < MAX_HANDS; i++) {
             CardButton tmp = new CardButton("Hand" + i);
@@ -55,54 +69,83 @@ public class HandsPanel extends JPanel implements MouseListener {
                 tmp.setCard(field.getHands().get(i));
             }
 
-            handsButton.add(tmp);
+            handButtons.add(tmp);
         }
 
-        GridBagLayout mainLayout = new GridBagLayout();
+        //初期手札のテキストを表示
+        for (int i = 0; i < START_HANDS; i++) {
+            handButtons.get(i).setText(handButtons.get(i).getCard().getName());
+        }
 
-        setLayout(mainLayout);
 
-        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+        layout = new GridBagLayout();
+        setLayout(layout);
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+
 
         //handsLabel
-        mainLayoutConstraints.weightx = 1.0;  //横の辺の比
-        mainLayoutConstraints.weighty = 0.3;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(handsLabel, mainLayoutConstraints);
+        addComponent(handsLabel, 1.0, 0.3, 0, 0, GridBagConstraints.REMAINDER, 1);
 
-        add(handsLabel);
 
         //handsButton
         for (int i = 0; i < MAX_HANDS; i++) {
-            mainLayoutConstraints.weightx = 0.144;
-            mainLayoutConstraints.weighty = 0.7;
-            mainLayoutConstraints.gridx = i;
-            mainLayoutConstraints.gridy = 1;
-            mainLayoutConstraints.gridwidth = 1;
-            mainLayoutConstraints.gridheight = 1;
-            mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-            mainLayout.setConstraints(handsButton.get(i), mainLayoutConstraints);
-            add(handsButton.get(i));
+            addComponent(handButtons.get(i), 0.144, 0.7, i, 1, 1, 1);
         }
     }
+
+
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                              int gridwidth, int gridheight) {
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+        layout.setConstraints(comp, gbc);
+        add(comp);
+    }
+
+    // fieldのphase後、draw後、summon後に呼ばれる
+    @Override
+    public void update(Observable o, Object arg) {
+
+        ArrayList<Card> hands = field.getHands();
+
+        for (int i = 0; i < hands.size(); i++) {
+            CardButton handButton = handButtons.get(i);
+
+            handButton.setCard(hands.get(i));
+            handButton.setText(hands.get(i).getName());
+        }
+
+        // 空のhandButtonの後始末
+        if (hands.size() < handButtons.size()) {
+            for (int i = hands.size(); i < handButtons.size(); i++) {
+                handButtons.get(i).setCard(null);
+                handButtons.get(i).setText("");
+            }
+        }
+    }
+
+
 
     public void mousePressed(MouseEvent e) {
         showPopup(e);
     }
 
     public void mouseClicked(MouseEvent e) {
+        CardButton button = (CardButton) e.getComponent();
+        if (button.getCard() != null) {
+            selectedCard.setPlace(Place.HAND);
+            selectedCard.setSelectedCard(button.getCard());
+
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
-        CardButton button = (CardButton) e.getComponent();
-        if (button.getCard() != null) {
-            selectedCard.setSelectedCard(button.getCard());
-        }
     }
 
     public void mouseExited(MouseEvent e) {
@@ -117,4 +160,5 @@ public class HandsPanel extends JPanel implements MouseListener {
             actionPopup.show(e.getComponent(), e.getX(), e.getY());
         }
     }
+
 }
