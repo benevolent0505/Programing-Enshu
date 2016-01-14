@@ -35,13 +35,13 @@ public class PhaseLabel extends JLabel implements Observer {
 
         if (player1.getPlayerTurn()) {
             pl = player1;
-        } else if (player2.getPlayerTurn()){
+        } else {
             pl = player2;
         }
 
         if (pl.getPhase() == phase) {
             setBackground(Color.BLUE);
-        } else {
+        } else if (pl.getPhase() != phase) {
             setBackground(Color.WHITE);
         }
 

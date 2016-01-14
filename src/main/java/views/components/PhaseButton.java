@@ -48,10 +48,9 @@ public class PhaseButton extends JButton implements Observer, ActionListener {
             pl = player2;
         }
 
-
         if (pl.getPhase() == phase) {
             setBackground(Color.BLUE);
-        } else {
+        } else if (pl.getPhase() != phase){
             setBackground(Color.WHITE);
         }
 

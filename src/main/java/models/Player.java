@@ -48,6 +48,15 @@ public class Player extends Observable implements Observer {
                 System.out.print(PlayerNumber);
                 System.out.println(field.getPhase());
 
+                try{
+                    Thread.sleep(500);
+                }catch (InterruptedException e){
+                }
+
+                PlayerTurn = false;
+                System.out.print(PlayerNumber);
+                System.out.println(PlayerTurn);
+
                 ChangeTurn();
             } else if (field.getPhase().compareTo(p) <= 0 || field.getPhase() == Phase.END_PHASE) {
                 //逆順防止
@@ -60,6 +69,7 @@ public class Player extends Observable implements Observer {
                 notifyObservers();
             }
         }
+
     }
 
     public void ProgressPhase() {
@@ -80,12 +90,15 @@ public class Player extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         if (PlayerNumber == game.getTurnPlayer()) {
             PlayerTurn = true;
-            ProgressPhase();
-        } else {
+            System.out.print(PlayerNumber);
+            System.out.println(PlayerTurn);
+        }else {
             PlayerTurn = false;
-            setChanged();
-            notifyObservers();
         }
+        if(PlayerTurn){
+            ProgressPhase();
+        }
+
     }
 
     public boolean getPlayerTurn() {
