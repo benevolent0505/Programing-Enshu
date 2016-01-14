@@ -1,4 +1,5 @@
 import models.Field;
+import models.Game;
 import models.Player;
 import views.FieldFrame;
 
@@ -11,9 +12,15 @@ public class Playing {
         Field field1 = new Field();
         Field field2 = new Field();
 
-        Player player1 = new Player(field1);
-        Player player2 = new Player(field2);
+        Player player1 = new Player(1,field1);
+        Player player2 = new Player(2,field2);
 
-        FieldFrame ff = new FieldFrame(field1, player1, field2, player2);
+        new FieldFrame(player1, player2);
+
+        Game game = new Game();
+        player1.setGame(game);
+        player2.setGame(game);
+
+        game.startGame();
     }
 }

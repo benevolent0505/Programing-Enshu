@@ -2,6 +2,7 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.Player;
 import models.SelectedCard;
 import models.enums.Place;
 import models.enums.Side;
@@ -35,13 +36,15 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
 
 
     private Field field;
+    private Player player;
     private SelectedCard selectedCard;
     private Side side;
 
-    public HandsPanel(Field field, SelectedCard selectedCard, Side side) {
 
-        this.field = field;
-        field.addObserver(this);
+    public HandsPanel(Player player, SelectedCard selectedCard, Side side) {
+        this.player = player;
+        this.field = player.getField();
+        player.addObserver(this);
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
         this.side = side;
@@ -128,7 +131,6 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
             }
         }
     }
-
 
 
     public void mousePressed(MouseEvent e) {

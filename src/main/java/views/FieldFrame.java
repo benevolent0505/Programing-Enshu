@@ -17,21 +17,20 @@ public class FieldFrame extends JFrame {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public FieldFrame(Field field1, Player player1, Field field2, Player player2) {
+    public FieldFrame(Player player1,Player player2) {
+        selectedCard = new SelectedCard();
 
-        this.field1 = field1;
-        this.field1 = field2;
+        this.field1 = player1.getField();
+        this.field2 = player2.getField();
         this.selectedCard = new SelectedCard();
 
-        Field field = new Field();
-
         //以下Panelの作成
-        FieldPanel selfField = new FieldPanel(field1, selectedCard, Side.Player1);
-        FieldPanel enemyField = new FieldPanel(field2, selectedCard, Side.Player2);
-        HandsPanel selfHands = new HandsPanel(field1, selectedCard, Side.Player1);
-        HandsPanel enemyHands = new HandsPanel(field2, selectedCard, Side.Player2);
+        FieldPanel selfField = new FieldPanel(player1, selectedCard, Side.Player1);
+        FieldPanel enemyField = new FieldPanel(player2, selectedCard, Side.Player2);
+        HandsPanel selfHands = new HandsPanel(player1, selectedCard, Side.Player1);
+        HandsPanel enemyHands = new HandsPanel(player2, selectedCard, Side.Player2);
+        PhasePanel phaseStatus = new PhasePanel(player1,player2);
         CardStatusPanel cardStatus = new CardStatusPanel(field1, field2,  selectedCard);
-        PhasePanel phaseStatus = new PhasePanel(field);
         PlayerStatusPanel playerStatus = new PlayerStatusPanel(field1, field2);
 
         //以下Panelの貼り付け
