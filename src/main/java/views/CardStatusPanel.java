@@ -290,24 +290,8 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
 
         if (attackedMonsterPosition == Position.Set) {
-            String selectValues[] = {"攻撃表示", "守備表示"};
-
-            int option = JOptionPane.showOptionDialog(
-                    null, "表示形式は何へ変更しますか？", "表示形式変更",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    selectValues,
-                    selectValues[0]
-            );
-            if (option == 0) {
-                attackedSideField.changePosition(attackedMonster, Position.Attack);
-                attackedMonster.setPosition(Position.Attack);
-            }
-            if (option == 1) {
-                attackedSideField.changePosition(attackedMonster, Position.Deffence);
-                attackedMonster.setPosition(Position.Deffence);
-            }
+            attackedMonster.setPosition(Position.Deffence);
+            attackedMonsterPosition = attackedMonster.getPosition();
         }
 
 
