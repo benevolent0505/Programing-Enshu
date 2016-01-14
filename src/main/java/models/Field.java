@@ -3,6 +3,7 @@ package models;
 import models.enums.Phase;
 import models.enums.Position;
 import utilities.CardDBManager;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.jar.Pack200;
@@ -25,7 +26,6 @@ public class Field extends Observable {
     private ArrayList<Card> fusionDeck;
 
 
-
     public Field() {
 
         lifePoint = 8000;
@@ -37,8 +37,8 @@ public class Field extends Observable {
         initDeck();
         initHand();
 
-        setPhase(Phase.DROW_PHASE);
     }
+
 
     public int getLifePoint() {
         return lifePoint;
@@ -48,16 +48,14 @@ public class Field extends Observable {
         this.lifePoint = lifePoint;
     }
 
+
     public Phase getPhase() {
         return phase;
     }
 
-    public void setPhase(Phase p) {
-        this.phase = p;
-        setChanged();
-        notifyObservers();
+    public void setPhase(Phase sp) {
+        phase = sp;
     }
-
 
     public ArrayList<Card> getHands() {
         return hands;
@@ -95,12 +93,6 @@ public class Field extends Observable {
             deck.remove(0);
         }
 
-        if (phase == Phase.DROW_PHASE) {
-            phase = Phase.STAND_BY_PHASE;
-            setChanged();
-            notifyObservers();
-        }
-
         return tmp;
     }
 
@@ -123,31 +115,32 @@ public class Field extends Observable {
             card.setPosition(Position.Attack);
             monsterZone.add(card);
 
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
         }
     }
 
-    public void set(Card card){
+    public void set(Card card) {
         // モンスターカードゾーンに召喚できる条件
         if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Set);
             monsterZone.add(card);
 
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
         }
     }
 
-    public void changePosition(Card card, Position position){
+
+    public void changePosition(Card card, Position position) {
         card.setPosition(position);
         setChanged();
         notifyObservers();
     }
 
-    public void destroyMonster(Card card){
-        if(monsterZone.size() != 0) {
+    public void destroyMonster(Card card) {
+        if (monsterZone.size() != 0) {
             monsterZone.remove(monsterZone.indexOf(card));
             cemeteryZone.add(card);
             setChanged();
@@ -155,13 +148,12 @@ public class Field extends Observable {
         }
     }
 
-    public void reflectDamage(int point1, int point2){
+    public void reflectDamage(int point1, int point2) {
         int damage = Math.abs(point1 - point2);
         this.lifePoint -= damage;
         setChanged();
         notifyObservers();
     }
-
 
 
 }

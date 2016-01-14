@@ -2,6 +2,7 @@ package views;
 
 import models.Card;
 import models.Field;
+import models.Player;
 import models.SelectedCard;
 import models.enums.CardType;
 import models.enums.Place;
