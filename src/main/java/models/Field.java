@@ -115,8 +115,8 @@ public class Field extends Observable {
             card.setPosition(Position.Attack);
             monsterZone.add(card);
 
-            //setChanged();
-            //notifyObservers();
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -127,8 +127,8 @@ public class Field extends Observable {
             card.setPosition(Position.Set);
             monsterZone.add(card);
 
-            //setChanged();
-            //notifyObservers();
+            setChanged();
+            notifyObservers();
         }
     }
 
