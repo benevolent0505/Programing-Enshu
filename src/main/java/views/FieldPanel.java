@@ -57,7 +57,9 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
         extraButton = new JButton("Extra");
         fieldMagicButton = new JButton("FieldMagic");
 
-        this.field = player.getField();
+        field = player.getField();
+        field.addObserver(this);
+
         player.addObserver(this);
         this.selectedCard = selectedCard;
 
