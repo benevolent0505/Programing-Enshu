@@ -11,13 +11,13 @@ import java.util.jar.Pack200;
 /**
  * Created by Mikio on 2015/12/17.
  */
-public class Field {
+public class Field extends Observable {
 
     private static final int MAX_MONSTER_ZONE_SIZE = 5;
 
-    private Phase phase = null;
+    private int lifePoint;
 
-
+    private Phase phase;
     private ArrayList<Card> deck;
     private ArrayList<Card> hands;
     private ArrayList<Card> monsterZone;
@@ -25,7 +25,10 @@ public class Field {
     private Card fieldMagicZone;
     private ArrayList<Card> fusionDeck;
 
+
     public Field() {
+
+        lifePoint = 8000;
         deck = new ArrayList();
         hands = new ArrayList();
         monsterZone = new ArrayList();
@@ -34,6 +37,15 @@ public class Field {
         initDeck();
         initHand();
 
+    }
+
+
+    public int getLifePoint() {
+        return lifePoint;
+    }
+
+    public void setLifePoint(int lifePoint) {
+        this.lifePoint = lifePoint;
     }
 
 
@@ -120,16 +132,28 @@ public class Field {
         }
     }
 
-    public void attack(Card card) {
-
-
-    }
-
 
     public void changePosition(Card card, Position position) {
         card.setPosition(position);
-        //setChanged();
-        //notifyObservers();
+        setChanged();
+        notifyObservers();
     }
+
+    public void destroyMonster(Card card) {
+        if (monsterZone.size() != 0) {
+            monsterZone.remove(monsterZone.indexOf(card));
+            cemeteryZone.add(card);
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    public void reflectDamage(int point1, int point2) {
+        int damage = Math.abs(point1 - point2);
+        this.lifePoint -= damage;
+        setChanged();
+        notifyObservers();
+    }
+
 
 }

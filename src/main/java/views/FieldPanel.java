@@ -6,6 +6,7 @@ import models.Field;
 import models.Player;
 import models.SelectedCard;
 import models.enums.Place;
+import models.enums.Side;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ import java.util.Observer;
 /**
  * Created by ken on 2015/12/10.
  */
-public class FieldPanel extends JPanel implements Observer, MouseListener{
+public class FieldPanel extends JPanel implements Observer, MouseListener {
 
     //フィールドの構成
     private static final int MAX_MAGICS_TRAPS = 5;
@@ -43,8 +44,9 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
 
     private Field field;
     private SelectedCard selectedCard;
+    private Side side;
 
-    public FieldPanel(Player player, SelectedCard selectedCard, String side) {
+    public FieldPanel(Player player, SelectedCard selectedCard, Side side) {
 
 
         fieldLabel = new JLabel("Player Field");
@@ -58,6 +60,8 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         this.field = player.getField();
         player.addObserver(this);
         this.selectedCard = selectedCard;
+
+        this.side = side;
 
 
         for (int i = 0; i < MAX_MONSTERS; i++) {
@@ -74,7 +78,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
 
 
         //自分サイド
-        if (side.equals("self")) {
+        if (side == Side.Player1) {
 
             layout = new GridBagLayout();
             setLayout(layout);
@@ -108,7 +112,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         }
 
         //相手サイド
-        if (side.equals("enemy")) {
+        if (side == Side.Player2) {
 
             layout = new GridBagLayout();
             setLayout(layout);
@@ -141,7 +145,6 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
             addComponent(deckButton, 0.144, 0.4, 0, 1, 1, 1);
         }
     }
-
 
 
     // fieldのphase後、draw後、summon後に呼ばれる
@@ -188,22 +191,27 @@ public class FieldPanel extends JPanel implements Observer, MouseListener{
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setPlace(Place.MONSTER_ZONE);
+            selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
 
         }
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 }
 
 

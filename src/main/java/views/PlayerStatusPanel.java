@@ -1,7 +1,12 @@
 package views;
 
+import models.Field;
+import models.Player;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -9,31 +14,45 @@ import java.awt.*;
  */
 
 
-public class PlayerStatusPanel extends JPanel {
+public class PlayerStatusPanel extends JPanel implements Observer {
     private JLabel playerLife;
     private JLabel playerName;
     private JLabel playerLabel;
     private JLabel enemyLife;
     private JLabel enemyName;
     private JFrame askPlayerNameFrame;
-    private String nameString;
+    private String name1;
+    private String name2;
+    private Field field1;
+    private Field field2;
 
-    public PlayerStatusPanel() {
 
-        //プレイヤー名を尋ねるダイアログ
-
+    public PlayerStatusPanel(Field field1, Field field2) {
 
         askPlayerNameFrame = new JFrame();
-        nameString = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player Name?");
-        if (nameString == null)
+        name1 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player1's Name?");
+        if (name1 == null)
+            System.exit(0);
+
+        askPlayerNameFrame = new JFrame();
+        name2 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player2's Name?");
+        if (name2 == null)
             System.exit(0);
 
 
+        this.field1 = field1;
+        this.field2 = field2;
+        field1.addObserver(this);
+        field2.addObserver(this);
+
         playerLabel = new JLabel("Player Status");
-        playerName = new JLabel(nameString + ":");
-        playerLife = new JLabel("8000");
-        enemyLife = new JLabel("8000");
-        enemyName = new JLabel(":EnemyName");
+        playerName = new JLabel(name1 + ":");
+        playerLife = new JLabel(Integer.toString(field1.getLifePoint()));
+        enemyLife = new JLabel(Integer.toString(field2.getLifePoint()));
+        enemyName = new JLabel(":" + name2);
+
+
+
 
         GridBagLayout mainLayout = new GridBagLayout();
         setLayout(mainLayout);
@@ -101,6 +120,11 @@ public class PlayerStatusPanel extends JPanel {
         mainLayout.setConstraints(enemyName, mainLayoutConstraints);
         add(enemyName);
 
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        playerLife.setText(Integer.toString(field1.getLifePoint()));
+        enemyLife.setText(Integer.toString(field2.getLifePoint()));
     }
 }

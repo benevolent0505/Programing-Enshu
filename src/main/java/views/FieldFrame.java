@@ -3,12 +3,15 @@ package views;
 import models.Field;
 import models.Player;
 import models.SelectedCard;
+import models.enums.Side;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FieldFrame extends JFrame {
 
+    private Field field1;
+    private Field field2;
     private SelectedCard selectedCard;
 
     private GridBagLayout layout;
@@ -17,15 +20,18 @@ public class FieldFrame extends JFrame {
     public FieldFrame(Player player1,Player player2) {
         selectedCard = new SelectedCard();
 
+        this.field1 = player1.getField();
+        this.field2 = player2.getField();
+        this.selectedCard = new SelectedCard();
+
         //以下Panelの作成
-        PlayerStatusPanel player_status = new PlayerStatusPanel();
-        FieldPanel selfField = new FieldPanel(player1, selectedCard, "self");
-        FieldPanel enemyField = new FieldPanel(player2, selectedCard, "enemy");
-        HandsPanel selfHands = new HandsPanel(player1, selectedCard, "self");
-        HandsPanel enemyHands = new HandsPanel(player2, selectedCard, "enemy");
-        CardStatusPanel cardStatus = new CardStatusPanel(player1, selectedCard);
+        FieldPanel selfField = new FieldPanel(player1, selectedCard, Side.Player1);
+        FieldPanel enemyField = new FieldPanel(player2, selectedCard, Side.Player2);
+        HandsPanel selfHands = new HandsPanel(player1, selectedCard, Side.Player1);
+        HandsPanel enemyHands = new HandsPanel(player2, selectedCard, Side.Player2);
         PhasePanel phaseStatus = new PhasePanel(player1,player2);
-        PlayerStatusPanel playerStatus = new PlayerStatusPanel();
+        CardStatusPanel cardStatus = new CardStatusPanel(field1, field2,  selectedCard);
+        PlayerStatusPanel playerStatus = new PlayerStatusPanel(field1, field2);
 
         //以下Panelの貼り付け
         layout = new GridBagLayout();

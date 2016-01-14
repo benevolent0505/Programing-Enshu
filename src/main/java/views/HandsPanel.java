@@ -5,6 +5,7 @@ import models.Field;
 import models.Player;
 import models.SelectedCard;
 import models.enums.Place;
+import models.enums.Side;
 import views.components.CardButton;
 
 import javax.swing.*;
@@ -37,20 +38,21 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
     private Field field;
     private Player player;
     private SelectedCard selectedCard;
+    private Side side;
 
-    public HandsPanel(Player player, SelectedCard selectedCard, String side) {
+
+    public HandsPanel(Player player, SelectedCard selectedCard, Side side) {
         this.player = player;
         this.field = player.getField();
         player.addObserver(this);
         this.selectedCard = selectedCard;
         selectedCard.addObserver(this);
+        this.side = side;
 
 
-        if (side.equals("self")) {
-            handsLabel = new JLabel("Self Hands");
-        } else if (side.equals("enemy")) {
-            handsLabel = new JLabel("Enemy Hands");
-        }
+        if (side == Side.Player1) handsLabel = new JLabel("Self Hands");
+        if (side == Side.Player2) handsLabel = new JLabel("Enemy Hands");
+
 
         actionPopup = new JPopupMenu();
         JMenuItem summonItem = new JMenuItem("召喚");
@@ -131,7 +133,6 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
     }
 
 
-
     public void mousePressed(MouseEvent e) {
         showPopup(e);
     }
@@ -140,6 +141,7 @@ public class HandsPanel extends JPanel implements MouseListener, Observer {
         CardButton button = (CardButton) e.getComponent();
         if (button.getCard() != null) {
             selectedCard.setPlace(Place.HAND);
+            selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
 
         }

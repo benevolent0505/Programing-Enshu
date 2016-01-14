@@ -152,4 +152,8 @@ public class Player extends Observable implements Observer {
     public void activateCardEffect() {
 
     }
+
+
+
+
 }
