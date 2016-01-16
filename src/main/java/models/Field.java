@@ -48,7 +48,6 @@ public class Field extends Observable {
         this.lifePoint = lifePoint;
     }
 
-
     public Phase getPhase() {
         return phase;
     }
@@ -150,7 +149,8 @@ public class Field extends Observable {
 
     public void reflectDamage(int point1, int point2) {
         int damage = Math.abs(point1 - point2);
-        this.lifePoint -= damage;
+        this.setLifePoint(this.lifePoint - damage);
+        if(this.lifePoint < 0) this.setLifePoint(0);
         setChanged();
         notifyObservers();
     }

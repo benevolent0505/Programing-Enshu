@@ -100,5 +100,17 @@ public class PlayerStatusPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         playerLife.setText(Integer.toString(field1.getLifePoint()));
         enemyLife.setText(Integer.toString(field2.getLifePoint()));
+
+        if(field1.getLifePoint() == 0) notifySettlement(name2);
+        if(field2.getLifePoint() == 0) notifySettlement(name1);
     }
+
+    private void notifySettlement(String name){
+        JOptionPane.showMessageDialog(null, name+"の勝利です。", "対戦結果", JOptionPane.PLAIN_MESSAGE);
+        System.exit(0);
+
+    }
+
+
+
 }
