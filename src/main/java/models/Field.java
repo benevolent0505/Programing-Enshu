@@ -84,6 +84,14 @@ public class Field extends Observable {
         this.fieldMagicZone = fieldMagicZone;
     }
 
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public void setDeck(ArrayList<Card> deck) {
+        this.deck = deck;
+    }
+
     public ArrayList draw(int number) {
         ArrayList<Card> tmp = new ArrayList();
 
@@ -125,7 +133,6 @@ public class Field extends Observable {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Set);
             monsterZone.add(card);
-
             setChanged();
             notifyObservers();
         }
