@@ -26,6 +26,9 @@ public class PlayerStatusPanel extends JPanel implements Observer {
     private Field field1;
     private Field field2;
 
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
 
     public PlayerStatusPanel(Field field1, Field field2) {
 
@@ -54,72 +57,43 @@ public class PlayerStatusPanel extends JPanel implements Observer {
 
 
 
-        GridBagLayout mainLayout = new GridBagLayout();
-        setLayout(mainLayout);
-        GridBagConstraints mainLayoutConstraints = new GridBagConstraints();
-        mainLayoutConstraints.fill = GridBagConstraints.BOTH;
+        layout= new GridBagLayout();
+        setLayout(layout);
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
 
 
         //title
-        mainLayoutConstraints.weightx = 1.0;
-        mainLayoutConstraints.weighty = 0.5;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 0;
-        mainLayoutConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(playerLabel, mainLayoutConstraints);
-        add(playerLabel);
+        addComponent(playerLabel, 1.0, 0.5, 0, 0, GridBagConstraints.REMAINDER, 1, new Insets(0,0,0,0));
 
         //playerName
-        mainLayoutConstraints.weightx = 0.25;
-        mainLayoutConstraints.weighty = 0.5;
-        mainLayoutConstraints.gridx = 0;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(playerName, mainLayoutConstraints);
-        add(playerName);
+        addComponent(playerName, 0.25, 0.5, 0, 1, 1, 1, new Insets(0,100,0,0));
+
+       //lifePoint
+        addComponent(playerLife, 0.25, 0.5, 1, 1, 1, 1, new Insets(0,100,0,0));
 
         //lifePoint
-        mainLayoutConstraints.weightx = 0.25;
-        mainLayoutConstraints.weighty = 0.5;
-        mainLayoutConstraints.gridx = 1;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(playerLife, mainLayoutConstraints);
-        add(playerLife);
+        addComponent(enemyLife, 0.25, 0.5, 3, 1, 1, 1, new Insets(0,100,0,0));
+
+        //enemyLife
+        addComponent(enemyName, 0.25, 0.5, 4, 1, 1, 1, new Insets(0,100,0,0));
 
 
-        //lifePoint
-        mainLayoutConstraints.weightx = 0.25;
-        mainLayoutConstraints.weighty = 0.5;
-        mainLayoutConstraints.gridx = 2;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(enemyLife, mainLayoutConstraints);
-        add(enemyLife);
+    }
 
 
-        mainLayoutConstraints.weightx = 0.25;
-        mainLayoutConstraints.weighty = 0.5;
-        mainLayoutConstraints.gridx = 3;
-        mainLayoutConstraints.gridy = 1;
-        mainLayoutConstraints.gridwidth = 1;
-        mainLayoutConstraints.gridheight = 1;
-        mainLayoutConstraints.insets = new Insets(0, 100, 0, 0);
-        mainLayoutConstraints.anchor = GridBagConstraints.CENTER;
-        mainLayout.setConstraints(enemyName, mainLayoutConstraints);
-        add(enemyName);
+    private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
+                              int gridwidth, int gridheight, Insets insets){
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+        gbc.insets = insets;
 
+        layout.setConstraints(comp, gbc);
+        add(comp);
     }
 
     @Override
