@@ -154,13 +154,10 @@ public class Field extends Observable {
         }
     }
 
-    public void reflectDamage(int point1, int point2) {
-        int damage = Math.abs(point1 - point2);
-        this.setLifePoint(this.lifePoint - damage);
+    public void changeLifePoint(int changePoint) {
+        this.setLifePoint(this.lifePoint + changePoint);
         if(this.lifePoint < 0) this.setLifePoint(0);
         setChanged();
         notifyObservers();
     }
-
-
 }

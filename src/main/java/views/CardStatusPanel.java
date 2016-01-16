@@ -287,7 +287,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         Position attackedMonsterPosition = attackedMonster.getPosition();
         int attackerAtkPoint = attackMonster.getAttackPoint();
-
+        int damage;
 
         if (attackedMonsterPosition == Position.Set) {
             attackedMonster.setPosition(Position.Deffence);
@@ -300,11 +300,13 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
             int attackeeAtkPoint = attackedMonster.getAttackPoint();
 
             if (attackerAtkPoint > attackeeAtkPoint) {
-                attackedSideField.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                damage = attackeeAtkPoint - attackerAtkPoint;
+                attackedSideField.changeLifePoint(damage);
                 attackedSideField.destroyMonster(attackedMonster);
             }
             if (attackerAtkPoint < attackeeAtkPoint) {
-                attackSideField.reflectDamage(attackerAtkPoint, attackeeAtkPoint);
+                damage = attackerAtkPoint - attackeeAtkPoint;
+                attackSideField.changeLifePoint(damage);
                 attackSideField.destroyMonster(attackMonster);
             }
             if (attackerAtkPoint == attackeeAtkPoint) {
@@ -319,7 +321,10 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
             if (attackerAtkPoint > attackeeDefPoint) attackedSideField.destroyMonster(attackedMonster);
 
-            if (attackerAtkPoint < attackeeDefPoint) attackSideField.reflectDamage(attackerAtkPoint, attackeeDefPoint);
+            if (attackerAtkPoint < attackeeDefPoint) {
+                damage = attackerAtkPoint - attackeeDefPoint;
+                attackSideField.changeLifePoint(damage);
+            }
 
             if (attackerAtkPoint == attackeeDefPoint) {/*何もおこらない*/}
         }

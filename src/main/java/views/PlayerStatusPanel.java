@@ -62,7 +62,7 @@ public class PlayerStatusPanel extends JPanel implements Observer {
         setLayout(layout);
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        
+
         //title
         addComponent(playerLabel, 1.0, 0.5, 0, 0, GridBagConstraints.REMAINDER, 1, new Insets(0,0,0,0));
 
