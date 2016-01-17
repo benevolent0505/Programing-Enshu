@@ -48,7 +48,6 @@ public class Field extends Observable {
         this.lifePoint = lifePoint;
     }
 
-
     public Phase getPhase() {
         return phase;
     }
@@ -83,6 +82,14 @@ public class Field extends Observable {
 
     public void setFieldMagicZone(Card fieldMagicZone) {
         this.fieldMagicZone = fieldMagicZone;
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public void setDeck(ArrayList<Card> deck) {
+        this.deck = deck;
     }
 
     public ArrayList draw(int number) {
@@ -126,7 +133,6 @@ public class Field extends Observable {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Set);
             monsterZone.add(card);
-
             setChanged();
             notifyObservers();
         }
@@ -148,12 +154,10 @@ public class Field extends Observable {
         }
     }
 
-    public void reflectDamage(int point1, int point2) {
-        int damage = Math.abs(point1 - point2);
-        this.lifePoint -= damage;
+    public void changeLifePoint(int changePoint) {
+        this.setLifePoint(this.lifePoint + changePoint);
+        if(this.lifePoint < 0) this.setLifePoint(0);
         setChanged();
         notifyObservers();
     }
-
-
 }

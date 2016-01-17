@@ -42,6 +42,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
+    private Player player;
     private Field field;
     private SelectedCard selectedCard;
     private Side side;
@@ -60,9 +61,10 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
         field = player.getField();
         field.addObserver(this);
 
+        this.player = player;
         player.addObserver(this);
-        this.selectedCard = selectedCard;
 
+        this.selectedCard = selectedCard;
         this.side = side;
 
 
@@ -170,6 +172,10 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
                 monsterButtons.get(i).setText("");
             }
         }
+
+        //ライブラリアウト確認
+        ArrayList<Card> deck = field.getDeck();
+        if(deck.size() == 0) notifyLibraryOut(player.getName());
     }
 
     private void addComponent(JComponent comp, double weightx, double weighty, int gridx, int gridy,
@@ -185,6 +191,11 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
 
         layout.setConstraints(comp, gbc);
         add(comp);
+    }
+
+    private void notifyLibraryOut(String name){
+        JOptionPane.showMessageDialog(null, name+"のデッキがなくなりました。", "ライブラリアウト", JOptionPane.PLAIN_MESSAGE);
+        System.exit(0);
     }
 
 
