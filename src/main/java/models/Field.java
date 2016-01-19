@@ -17,6 +17,9 @@ public class Field extends Observable {
 
     private int lifePoint;
 
+    private boolean PlayerTurn;
+    private boolean SummonRight = true;
+
     private Phase phase;
     private ArrayList<Card> deck;
     private ArrayList<Card> hands;
@@ -39,6 +42,29 @@ public class Field extends Observable {
 
     }
 
+    public void resetPossible() {
+        ArrayList<Card> tmp = new ArrayList<>();
+        Card monster;
+        int M = monsterZone.size();
+        for (int i = 0; i < M; i++) {
+            monster = monsterZone.get(0);
+            monster.resetPossible();
+            tmp.add(monster);
+            monsterZone.remove(0);
+        }
+        for (int j = 0; j < M; j++) {
+            monsterZone.add(tmp.get(0));
+        }
+
+    }
+
+    public void ChangeTurn(boolean b) {
+        this.PlayerTurn = b;
+    }
+
+    public void ResetSummonRight(boolean b) {
+        this.SummonRight = b;
+    }
 
     public int getLifePoint() {
         return lifePoint;
@@ -117,22 +143,28 @@ public class Field extends Observable {
 
     public void summon(Card card) {
         // モンスターカードゾーンに召喚できる条件
-        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE && (phase == Phase.MAIN_PHASE_1 || phase == Phase.MAIN_PHASE_2) && PlayerTurn == true && SummonRight == true) {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Attack);
             monsterZone.add(card);
+            SummonRight = false;
+            card.Position();
 
             setChanged();
             notifyObservers();
+
         }
     }
 
     public void set(Card card) {
         // モンスターカードゾーンに召喚できる条件
-        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
+        if (hands.contains(card) && monsterZone.size() < MAX_MONSTER_ZONE_SIZE && (phase == Phase.MAIN_PHASE_1 || phase == Phase.MAIN_PHASE_2) && PlayerTurn == true && SummonRight == true) {
             hands.remove(hands.indexOf(card));
             card.setPosition(Position.Set);
             monsterZone.add(card);
+            SummonRight = false;
+            card.Position();
+
             setChanged();
             notifyObservers();
         }
@@ -148,6 +180,7 @@ public class Field extends Observable {
     public void destroyMonster(Card card) {
         if (monsterZone.size() != 0) {
             monsterZone.remove(monsterZone.indexOf(card));
+            card.resetPossible();
             cemeteryZone.add(card);
             setChanged();
             notifyObservers();
@@ -156,7 +189,7 @@ public class Field extends Observable {
 
     public void changeLifePoint(int changePoint) {
         this.setLifePoint(this.lifePoint + changePoint);
-        if(this.lifePoint < 0) this.setLifePoint(0);
+        if (this.lifePoint < 0) this.setLifePoint(0);
         setChanged();
         notifyObservers();
     }

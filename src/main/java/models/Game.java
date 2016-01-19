@@ -9,7 +9,7 @@ import java.util.Observable;
  */
 public class Game extends Observable {
     private int TurnPlayer;
-    int turn = 1;
+    private int turn = 1;
 
     public Game() {
     }
@@ -33,5 +33,9 @@ public class Game extends Observable {
         turn++;
         setChanged();
         notifyObservers();
+    }
+
+    public int getTurn(){
+        return turn;
     }
 }
