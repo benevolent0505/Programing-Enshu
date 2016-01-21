@@ -1,7 +1,6 @@
 package models;
 
 import models.enums.DeckType;
-import models.enums.Field;
 
 /**
  * Created by Mikio on 2016/01/21.

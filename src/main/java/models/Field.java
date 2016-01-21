@@ -1,6 +1,6 @@
-package models.enums;
+package models;
 
-import models.Card;
+import models.enums.DeckType;
 import utilities.CardDBManager;
 
 import java.util.ArrayList;
