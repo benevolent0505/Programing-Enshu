@@ -2,6 +2,7 @@ package utilities;
 
 import models.Card;
 import models.enums.Attribute;
+import models.enums.DeckType;
 import models.enums.Species;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CardDBManager {
 
-    public static ArrayList<Card> getDeck(String deckname) {
+    public static ArrayList<Card> getDeck(DeckType deckType) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;

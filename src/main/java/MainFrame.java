@@ -16,12 +16,12 @@ public class MainFrame extends JFrame {
         Container contentPane = getContentPane();
         contentPane.add(new MainPanel(), BorderLayout.CENTER);
         setMinimumSize(new Dimension(400, 300));
+        setLocationRelativeTo(null);
 
         pack();
     }
 
     public static void main(String[] args) {
-        // lambda poiiiiiiint!!!!
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

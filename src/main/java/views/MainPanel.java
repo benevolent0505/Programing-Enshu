@@ -3,6 +3,7 @@ package views;
 import views.components.LoginDialog;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -11,20 +12,11 @@ import java.awt.event.WindowEvent;
  */
 public class MainPanel extends JPanel {
 
-    private JButton button;
-    private LoginDialog dialog;
+    private static FieldPanel fieldPanel = new FieldPanel();
 
     public MainPanel() {
-        button = new JButton("だせ");
-        dialog = new LoginDialog();
-        add(button);
-        button.addActionListener(e -> dialog.setVisible(true));
+        setLayout(new BorderLayout());
 
-        dialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                // TODO: プレイヤー名とDeckTypeの設定処理
-            }
-        });
+        add(fieldPanel, BorderLayout.CENTER);
     }
 }
