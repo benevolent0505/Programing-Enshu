@@ -8,6 +8,6 @@ import javax.swing.*;
 public class CardPanel extends JPanel {
 
     public CardPanel() {
-        // TODO: 枠の作成
+
     }
 }
