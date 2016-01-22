@@ -11,8 +11,7 @@ import views.components.CardButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,7 +19,7 @@ import java.util.Observer;
 /**
  * Created by ken on 2015/12/10.
  */
-public class FieldPanel extends JPanel implements Observer, MouseListener {
+public class FieldPanel extends JPanel implements Observer, MouseListener, ItemListener {
 
     //フィールドの構成
     private static final int MAX_MAGICS_TRAPS = 5;
@@ -60,6 +59,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
         extraButton = new JButton("Extra");
         fieldMagicButton = new JButton("FieldMagic");
         cemeteryBox = new JComboBox(new String[]{"cemetery"});
+        cemeteryBox.addItemListener(this);
 
         field = player.getField();
         field.addObserver(this);
@@ -183,6 +183,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
         if(itemSize < cemeterySize) {                   //墓地の枚数が増えた時の通知だけ受け取る
             cemeteryBox.addItem(cemeteryMonsters.get(cemeterySize - 1).getName());
             //TODO: リストを選択した時CardStatusPanelをそのカードに合わせる
+
         }
 
         //ライブラリアウト確認
@@ -236,6 +237,17 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
     }
+
+    @Override
+    public void itemStateChanged(ItemEvent e){
+        ArrayList<Card> cemeteryMonsters = field.getCemeteryZone();
+        int  selectedIndex = cemeteryBox.getSelectedIndex() - 1;    //"cemetery"の分を引く
+        if(selectedIndex > -1)                                      //"cemetery"が選択された場合以外
+            selectedCard.setSelectedCard(cemeteryMonsters.get(selectedIndex));
+
+    }
+
+
 }
 
 
