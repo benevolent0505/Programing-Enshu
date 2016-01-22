@@ -5,6 +5,8 @@ import models.Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Mikio on 2016/01/21.
@@ -23,7 +25,7 @@ public class FieldPanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public FieldPanel(Player player) {
+    public FieldPanel(final Player player) {
         layout = new GridBagLayout();
         setLayout(layout);
         gbc = new GridBagConstraints();
@@ -58,9 +60,13 @@ public class FieldPanel extends JPanel {
         deckZone.setBorder(new LineBorder(Color.BLUE));
         add(deckZone);
 
-        deckZone.addActionListener(e -> {
-            // TODO: フェイズチェック
-            player.drow(1);
+
+        deckZone.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: フェイズチェック
+                player.drow(1);
+            }
         });
     }
 

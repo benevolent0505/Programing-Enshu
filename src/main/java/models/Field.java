@@ -13,6 +13,7 @@ import java.util.Observable;
  */
 public class Field extends Observable {
 
+    private static final int START_HAND_SIZE = 5;
     private static final int MAX_MONSTER_ZONE_SIZE = 5;
     private static final int MAX_MAGIC_AND_TRAP_ZONE_SIZE = 5;
     private static final int DEFAULT_LIFE_POINT = 8000;
@@ -35,7 +36,7 @@ public class Field extends Observable {
         shuffle();
 
         // 手札の用意
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < START_HAND_SIZE; i++) {
             addHand(this.drow());
         }
 
