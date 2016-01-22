@@ -28,8 +28,13 @@ public class CardStatusPanel extends JPanel implements Observer {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+
         add(nameLabel);
+
+        statusLabel.setText(makeStatusStr(card));
         add(statusLabel);
+
+        atkAndDefLabel.setText(makeAtkAndDefStr(card));
         add(atkAndDefLabel);
 
         
