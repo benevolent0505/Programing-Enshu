@@ -39,6 +39,8 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
     private JButton extraButton;
     private JButton fieldMagicButton;
 
+    private JComboBox cemeteryBox;
+
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
@@ -57,6 +59,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
         cemeteryButton = new JButton("Cemetery");
         extraButton = new JButton("Extra");
         fieldMagicButton = new JButton("FieldMagic");
+        cemeteryBox = new JComboBox(new String[]{"cemetery"});
 
         field = player.getField();
         field.addObserver(this);
@@ -109,7 +112,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
             addComponent(extraButton, 0.144, 0.4, 0, 2, 1, 1);
 
             //Cemetery
-            addComponent(cemeteryButton, 0.144, 0.4, 6, 1, 1, 1);
+            addComponent(cemeteryBox, 0.144, 0.4, 6, 1, 1, 1);
 
             //Deck
             addComponent(deckButton, 0.144, 0.4, 6, 2, 1, 1);
@@ -143,7 +146,7 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
             addComponent(extraButton, 0.144, 0.4, 6, 1, 1, 1);
 
             //Cemetery
-            addComponent(cemeteryButton, 0.144, 0.4, 0, 2, 1, 1);
+            addComponent(cemeteryBox, 0.144, 0.4, 0, 2, 1, 1);
 
             //Deck
             addComponent(deckButton, 0.144, 0.4, 0, 1, 1, 1);
@@ -171,6 +174,15 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
                 monsterButtons.get(i).setCard(null);
                 monsterButtons.get(i).setText("");
             }
+        }
+
+        //墓地
+        ArrayList<Card> cemeteryMonsters = field.getCemeteryZone();
+        int itemSize = cemeteryBox.getItemCount() - 1;  //はじめの"cemetery"の分を引く
+        int cemeterySize = cemeteryMonsters.size();
+        if(itemSize < cemeterySize) {                   //墓地の枚数が増えた時の通知だけ受け取る
+            cemeteryBox.addItem(cemeteryMonsters.get(cemeterySize - 1).getName());
+            //TODO: リストを選択した時CardStatusPanelをそのカードに合わせる
         }
 
         //ライブラリアウト確認
@@ -206,7 +218,6 @@ public class FieldPanel extends JPanel implements Observer, MouseListener {
             selectedCard.setPlace(Place.MONSTER_ZONE);
             selectedCard.setSide(side);
             selectedCard.setSelectedCard(button.getCard());
-
         }
     }
 
