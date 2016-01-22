@@ -1,5 +1,8 @@
 package views;
 
+import models.Player;
+import models.enums.DeckType;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,10 +11,16 @@ import java.awt.*;
  */
 public class MainPanel extends JPanel {
 
-    private static FieldPanel fieldPanel = new FieldPanel();
+    private Player player;
+
+    private FieldPanel fieldPanel;
+    private CardStatusPanel cardStatusPanel;
 
     public MainPanel() {
         setLayout(new BorderLayout());
+
+        player = new Player("Hoge", DeckType.DECK1);
+        fieldPanel = new FieldPanel(player);
 
         add(fieldPanel, BorderLayout.CENTER);
     }

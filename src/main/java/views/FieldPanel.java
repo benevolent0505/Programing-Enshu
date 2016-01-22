@@ -1,8 +1,12 @@
 package views;
 
+import models.Player;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Mikio on 2016/01/21.
@@ -13,7 +17,7 @@ public class FieldPanel extends JPanel {
     private static MagicAndTrapZonePanel magicAndTrapZone = new MagicAndTrapZonePanel();
     private static HandsPanel handsPanel = new HandsPanel();
 
-    private static JPanel deckZone = new JPanel();
+    private static JButton deckZone = new JButton();
     private static JPanel cemeteryZone = new JPanel();
     private static JPanel fieldMagicZone = new JPanel();
     private static JPanel fusionDeckZone = new JPanel();
@@ -21,7 +25,7 @@ public class FieldPanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public FieldPanel() {
+    public FieldPanel(Player player) {
         layout = new GridBagLayout();
         setLayout(layout);
         gbc = new GridBagConstraints();
@@ -54,6 +58,11 @@ public class FieldPanel extends JPanel {
         setCompomentLayout(deckZone, 2, 1, 1, 1, 0.144, 0.4);
         deckZone.setBorder(new LineBorder(Color.black));
         add(deckZone);
+
+        deckZone.addActionListener(e -> {
+            // TODO: フェイズチェック
+            player.drow(1);
+        });
     }
 
     private void setCompomentLayout(JComponent comp, int gridx, int gridy,

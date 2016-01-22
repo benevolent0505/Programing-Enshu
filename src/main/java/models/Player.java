@@ -13,10 +13,26 @@ public class Player {
 
     private Field field;
 
+    private Card selectedCard;
+
     public Player(String name, DeckType deckType) {
         this.name = name;
 
         field = new Field(deckType);
         lifePoint = field.getLifePoint();
+    }
+
+    public void drow(int number) {
+        for (int i = 0; i < number; i++) {
+            field.drow();
+        }
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
     }
 }
