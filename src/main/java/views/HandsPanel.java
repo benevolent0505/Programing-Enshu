@@ -1,9 +1,9 @@
 package views;
 
+import models.Player;
 import views.components.CardButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,28 +13,28 @@ import java.util.Observer;
  */
 public class HandsPanel extends JPanel implements Observer {
 
-    private static final int MAX_HAND_SIZE = 7;
-    private static final int START_HAND_SIZE = 5;
+    private ArrayList<CardButton> handbuttons = new ArrayList<>();
 
-    private static ArrayList<CardButton> handbuttons = new ArrayList<>();
-    private static ArrayList<JButton> buttons = new ArrayList<>();
+    private Player player;
 
-    public HandsPanel() {
+    public HandsPanel(Player player) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
+        this.player = player;
+        player.setHandsObserver(this);
+
         // 手札の初期化
-        // List process chance!!
-        for (int i = 0; i < START_HAND_SIZE; i++) {
-            buttons.add(new JButton("Hoge"));
-        }
-        for (JButton button : buttons) {
+        player.getHands().stream().forEach(card -> {
+            CardButton button = new CardButton(card);
+            handbuttons.add(button);
             add(button);
             add(Box.createGlue());
-        }
+        });
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        // ドロー時の手札更新処理をやりたい
+        // TODO: フェイズチェック
+        
     }
 }

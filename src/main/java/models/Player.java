@@ -2,6 +2,9 @@ package models;
 
 import models.enums.DeckType;
 
+import java.util.ArrayList;
+import java.util.Observer;
+
 /**
  * Created by Mikio on 2016/01/21.
  * PlayerはFieldのラッパーようなものだととらえる.より現実の操作に近い処理を記述する.
@@ -24,8 +27,16 @@ public class Player {
 
     public void drow(int number) {
         for (int i = 0; i < number; i++) {
-            field.drow();
+            field.addHand(field.drow());
         }
+    }
+
+    public ArrayList<Card> getHands() {
+        return field.getHands();
+    }
+
+    public void setHandsObserver(Observer observer) {
+        field.addObserver(observer);
     }
 
     public Card getSelectedCard() {

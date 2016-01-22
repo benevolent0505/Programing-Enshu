@@ -5,12 +5,13 @@ import utilities.CardDBManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
 
 /**
  * Created by Mikio on 2016/01/21.
  * Fieldはプリミティブな操作を記述する.
  */
-public class Field {
+public class Field extends Observable {
 
     private static final int MAX_MONSTER_ZONE_SIZE = 5;
     private static final int MAX_MAGIC_AND_TRAP_ZONE_SIZE = 5;
@@ -72,6 +73,8 @@ public class Field {
 
     public void addHand(Card card) {
         hands.add(card);
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Card> getMonsterZone() {
