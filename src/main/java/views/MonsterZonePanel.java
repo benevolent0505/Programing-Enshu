@@ -9,6 +9,6 @@ import java.awt.*;
 public class MonsterZonePanel extends JPanel {
 
     public MonsterZonePanel() {
-        setBackground(Color.PINK);
+
     }
 }

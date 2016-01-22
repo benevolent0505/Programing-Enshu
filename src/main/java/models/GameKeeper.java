@@ -12,4 +12,12 @@ public class GameKeeper {
     public GameKeeper() {
 
     }
+
+    public Phase getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(Phase phase) {
+        this.currentPhase = phase;
+    }
 }

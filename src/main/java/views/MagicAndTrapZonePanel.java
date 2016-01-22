@@ -9,6 +9,6 @@ import java.awt.*;
 public class MagicAndTrapZonePanel extends JPanel {
 
     public MagicAndTrapZonePanel() {
-        setBackground(Color.GREEN);
+
     }
 }
