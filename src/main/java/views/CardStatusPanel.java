@@ -43,9 +43,9 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         cardIcon = new ImageIcon(getClass().getResource("../normalMonster.png"));
         cardImage = new JLabel(cardIcon);
 
-        name = new JLabel("モンスター/魔法/トラップ名");
-        status = new JLabel("星/属性/種族/効果");
-        power = new JLabel("ATK:0000/DEF:0000");
+        name = new JLabel("Monster/Magic/Trap's名");
+        status = new JLabel("Level/Species/Attribute/effect");
+        power = new JLabel("ATK:----/DEF:----");
 
 
         actionButton1 = new JButton();
