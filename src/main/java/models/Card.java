@@ -19,6 +19,8 @@ public class Card {
     private int level;
     private int attackPoint;
     private int defensePoint;
+    private boolean AttackPossible = true;
+    private boolean PositionPossible = true;
     private CardType cardType;
 
     public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint) {
@@ -28,6 +30,27 @@ public class Card {
         this.level = level;
         this.attackPoint = attackPoint;
         this.defensePoint = defensePoint;
+    }
+
+    public void resetPossible() {
+        AttackPossible = true;
+        PositionPossible = true;
+    }
+
+    public void Attack() {
+        AttackPossible = false;
+    }
+
+    public boolean getPositionNum() {
+        return PositionPossible;
+    }
+
+    public boolean getAttack() {
+        return AttackPossible;
+    }
+
+    public void Position() {
+        PositionPossible = false;
     }
 
     public String getName() {
@@ -42,7 +65,9 @@ public class Card {
         return level;
     }
 
-    public Attribute getAttribute() {return attribute;}
+    public Attribute getAttribute() {
+        return attribute;
+    }
 
     public int getDefensePoint() {
         return defensePoint;
@@ -52,11 +77,17 @@ public class Card {
         return attackPoint;
     }
 
-    public CardType getCardType() {return cardType;}
+    public CardType getCardType() {
+        return cardType;
+    }
 
-    public Position getPosition(){return position; }
+    public Position getPosition() {
+        return position;
+    }
 
-    public void setPosition(Position p) {position = p; }
+    public void setPosition(Position p) {
+        position = p;
+    }
 
 
 }

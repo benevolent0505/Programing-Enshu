@@ -38,8 +38,8 @@ public class Player extends Observable implements Observer {
     }
 
     public void setPhase(Phase p) {
-        //メイン１→メイン2禁止
-        if (!(field.getPhase() == Phase.MAIN_PHASE_1 && p == Phase.MAIN_PHASE_2)) {
+        //メイン１→メイン2禁止,1ターン目バトルフェイズ禁止
+        if (!((field.getPhase() == Phase.MAIN_PHASE_1 && p == Phase.MAIN_PHASE_2) || (game.getTurn() == 1 && p == Phase.BATTLE_PHAES))) {
             if (p == Phase.END_PHASE) {
                 field.setPhase(p);
                 setChanged();
@@ -48,9 +48,9 @@ public class Player extends Observable implements Observer {
                 System.out.print(PlayerNumber);
                 System.out.println(field.getPhase());
 
-                try{
+                try {
                     Thread.sleep(500);
-                }catch (InterruptedException e){
+                } catch (InterruptedException e) {
                 }
 
                 PlayerTurn = false;
@@ -75,14 +75,14 @@ public class Player extends Observable implements Observer {
     public void ProgressPhase() {
         setPhase(Phase.DROW_PHASE);
         draw(1);
-        try{
+        try {
             Thread.sleep(500);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
         }
         setPhase(Phase.STAND_BY_PHASE);
-        try{
+        try {
             Thread.sleep(500);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
         }
         setPhase(Phase.MAIN_PHASE_1);
     }
@@ -90,12 +90,18 @@ public class Player extends Observable implements Observer {
     public void update(Observable o, Object arg) {
         if (PlayerNumber == game.getTurnPlayer()) {
             PlayerTurn = true;
+            field.ChangeTurn(true);
+            field.ResetSummonRight(true);
             System.out.print(PlayerNumber);
             System.out.println(PlayerTurn);
-        }else {
+        } else {
             PlayerTurn = false;
+            field.ChangeTurn(false);
+            if (game.getTurn() > 1) {
+                field.resetPossible();
+            }
         }
-        if(PlayerTurn){
+        if (PlayerTurn) {
             ProgressPhase();
         }
 
@@ -152,8 +158,6 @@ public class Player extends Observable implements Observer {
     public void activateCardEffect() {
 
     }
-
-
 
 
 }
