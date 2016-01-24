@@ -30,7 +30,6 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
     private JLabel name;
     private JLabel status;
     private JLabel power;
-    private JLabel effect;
     private JButton actionButton1;
     private JButton actionButton2;
 
@@ -50,7 +49,7 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
         name = new JLabel("モンスター/魔法/トラップ名");
         status = new JLabel("星/属性/種族/効果");
         power = new JLabel("ATK:0000/DEF:0000");
-        effect = new JLabel("このカード以下の効果うんたらかんたら:");
+
 
         actionButton1 = new JButton();
         actionButton2 = new JButton();
@@ -76,10 +75,6 @@ public class CardStatusPanel extends JPanel implements Observer, ActionListener 
 
         //power
         addComponent(power, 1.0, 0.05, 0, 4, 1, 1);
-
-        //effect
-        addComponent(effect, 1.0, 0.30, 0, 5, 1, 1);
-
 
         //summonButton
         addComponent(actionButton1, 1.0, 0.05, 0, 6, 1, 1);
