@@ -9,32 +9,32 @@ import java.awt.*;
  */
 public class PhasePanel extends JPanel {
 
-    private JLabel drowLabel = new JLabel("Drow");
-    private JLabel standByLabel = new JLabel("Stand By");
-    private JLabel main1Label = new JLabel("Main 1");
-    private JLabel battleLabel = new JLabel("Battle");
-    private JLabel main2Label = new JLabel("Main 2");
-    private JLabel endLabel = new JLabel("End");
+    private JButton drowButton = new JButton("Drow");
+    private JButton standByButton = new JButton("Stand By");
+    private JButton main1Button = new JButton("Main 1");
+    private JButton battleButton = new JButton("Battle");
+    private JButton main2Button = new JButton("Main 2");
+    private JButton endButton = new JButton("End");
 
     public PhasePanel() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        add(drowLabel);
+        add(drowButton);
         add(Box.createGlue());
-        add(standByLabel);
+        add(standByButton);
         add(Box.createGlue());
-        add(main1Label);
+        add(main1Button);
         add(Box.createGlue());
-        add(battleLabel);
+        add(battleButton);
         add(Box.createGlue());
-        add(main2Label);
+        add(main2Button);
         add(Box.createGlue());
-        add(endLabel);
+        add(endButton);
 
-        setSelectBorder(drowLabel);
+        setSelectBorder(drowButton);
     }
 
-    private void setSelectBorder(JLabel label) {
-        label.setBorder(new LineBorder(new Color(144, 238, 144), 5));
+    private void setSelectBorder(JButton button) {
+        button.setForeground(new Color(194, 32, 71));
     }
 }
