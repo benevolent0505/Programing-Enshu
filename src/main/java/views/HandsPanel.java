@@ -21,6 +21,9 @@ public class HandsPanel extends JPanel implements Observer {
 
     private Player player;
 
+    public HandsPanel() {
+    }
+
     public HandsPanel(Player player) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
