@@ -2,8 +2,15 @@ package views;
 
 import models.Card;
 import models.Player;
+import models.enums.Attribute;
+import models.enums.Species;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,35 +20,117 @@ import java.util.Observer;
 public class CardStatusPanel extends JPanel implements Observer {
 
     private JLabel nameLabel = new JLabel();
-    private JLabel statusLabel = new JLabel();
-    private JLabel atkAndDefLabel = new JLabel();
+    private JLabel attrLabel = new JLabel();
+    private JLabel levelLabel = new JLabel();
+    private JLabel speciesLabel = new JLabel();
+    private JLabel atkPtLabel = new JLabel();
+    private JLabel defPtLabel = new JLabel();
 
-    private JButton setButton = new JButton();
+    private JPanel btnPanel = new JPanel();
 
-    private JButton attackButton = new JButton();
-    private JButton changePositionButton = new JButton();
+    private JButton setButton = new JButton("Set");
+    private JButton attackButton = new JButton("Attack");
+    private JButton changePosButton = new JButton("Change Pos");
 
-    private Card card;
+    private GridBagLayout layout;
+    private GridBagConstraints gbc;
+
+    private Player player;
 
     public CardStatusPanel(Player player) {
-        this.card = player.getSelectedCard();
+        this.player = player;
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // layout setting
+        layout = new GridBagLayout();
+        setLayout(layout);
 
+        // background setting for this panel
+        setBackground(new Color(195, 145, 67));
+        // border setting for this panel
+        setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
+        gbc = new GridBagConstraints();
+
+        gbc.ipadx = 10;
+        gbc.ipady = 10;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Display card name
+        nameLabel.setText(" -- ");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        nameLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        nameLabel.setOpaque(true);
+        setComponentLayout(nameLabel, 0, 0, 1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE);
         add(nameLabel);
 
-        statusLabel.setText(makeStatusStr(card));
-        add(statusLabel);
+        // Display card attribute
+        attrLabel.setText(" -- ");
+        attrLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+        attrLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        attrLabel.setOpaque(true);
+        setComponentLayout(attrLabel, 1, 0, 1, 1, GridBagConstraints.EAST, GridBagConstraints.NONE);
+        add(attrLabel);
 
-        atkAndDefLabel.setText(makeAtkAndDefStr(card));
-        add(atkAndDefLabel);
+        // Display card level
+        levelLabel = new JLabel("Level : -- ");
+        levelLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+        levelLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        levelLabel.setOpaque(true);
+        setComponentLayout(levelLabel, 0, 1, 2, 1, GridBagConstraints.EAST, GridBagConstraints.NONE);
+        add(levelLabel);
 
-        
-        // card text
-        // set (select position)
-        // do attack
-        // change position
+        // Display card illustration
+        JPanel illustPanel = new JPanel();
+        illustPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        gbc.weighty = 1.0;
+        setComponentLayout(illustPanel, 0, 2, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        add(illustPanel);
+
+        // Reset gbc val
+        gbc.weighty = 0;
+
+        // Display card species
+        speciesLabel = new JLabel(" -- ");
+        speciesLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+        speciesLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        speciesLabel.setOpaque(true);
+        setComponentLayout(speciesLabel, 0, 3, 2, 1, GridBagConstraints.WEST, GridBagConstraints.NONE);
+        add(speciesLabel);
+
+        // Display card attack point
+        atkPtLabel = new JLabel("ATK / -- ");
+        atkPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        atkPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        atkPtLabel.setOpaque(true);
+        setComponentLayout(atkPtLabel, 0, 4, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
+        add(atkPtLabel);
+
+        // Display card defense point
+        defPtLabel = new JLabel("DEF / -- ");
+        defPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        defPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        defPtLabel.setOpaque(true);
+        setComponentLayout(defPtLabel, 1, 4, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
+        add(defPtLabel);
+
+
+        // Buttons layout setting
+        setComponentLayout(btnPanel, 0, 5, 2, 2, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        add(btnPanel);
+        btnPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+        btnPanel.setLayout(layout);
+
+        // Display button to set card (select position)
+        setComponentLayout(setButton, 0, 5, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        btnPanel.add(setButton);
+
+        // Display button to attack opponent side monster or opponent player
+        setComponentLayout(attackButton, 0, 6, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
+        btnPanel.add(attackButton);
+
+        // Display button to change monster position
+        setComponentLayout(changePosButton, 1, 6, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
+        btnPanel.add(changePosButton);
     }
 
     @Override
@@ -49,19 +138,15 @@ public class CardStatusPanel extends JPanel implements Observer {
 
     }
 
-    private String makeStatusStr(Card card) {
-        if (card != null) {
-            return "レベル : " + card.getLevel() + "/ 属性 : " + card.getSpecies() + " / 種族 : " + card.getAttribute();
-        } else {
-            return "レベル : - / 属性 : - / 種族 : - ";
-        }
-    }
+    private void setComponentLayout(JComponent comp, int gridx, int gridy,
+                                    int gridweigt, int gridheight, int anchor, int fill) {
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+        gbc.gridwidth = gridweigt;
+        gbc.gridheight = gridheight;
+        gbc.anchor = anchor;
+        gbc.fill = fill;
 
-    private String makeAtkAndDefStr(Card card) {
-        if (card != null) {
-            return "ATK : " + card.getAttackPoint() + " / DEF : " + card.getDefensePoint();
-        } else {
-            return "ATK : - / DEF : - ";
-        }
+        layout.setConstraints(comp, gbc);
     }
 }
