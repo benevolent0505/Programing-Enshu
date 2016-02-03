@@ -35,7 +35,7 @@ public class GameKeeper extends Observable {
         return currentPhase;
     }
 
-    public void setCurrentPhase(Phase phase) {
+    public void setPhase(Phase phase) {
         // 現在のフェイズより後のフェイズを選択した場合のみ更新可能
         if (currentPhase.compareTo(phase) < 0) {
             this.currentPhase = phase;

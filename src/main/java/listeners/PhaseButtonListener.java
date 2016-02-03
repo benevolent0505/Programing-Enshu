@@ -21,6 +21,6 @@ public class PhaseButtonListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        keeper.setCurrentPhase(phase);
+        keeper.setPhase(phase);
     }
 }

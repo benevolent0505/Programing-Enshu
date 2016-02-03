@@ -1,7 +1,9 @@
 package views;
 
 import models.Card;
+import models.GameKeeper;
 import models.Player;
+import models.enums.Phase;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import views.components.CardButton;
@@ -19,24 +21,24 @@ import java.util.Observer;
  */
 public class HandsPanel extends JPanel implements Observer {
 
+    private GameKeeper keeper;
     private Player player;
 
     public HandsPanel() {
     }
 
-    public HandsPanel(Player player) {
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
-        this.player = player;
+    public HandsPanel(GameKeeper keeper) {
+        this.keeper = keeper;
+        this.player = keeper.getPlayer();
         player.setHandsObserver(this);
 
-        // 手札の初期化
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
         initHand();
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        // TODO: フェイズチェック
         removeAll();
         initHand();
     }

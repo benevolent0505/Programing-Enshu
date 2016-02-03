@@ -6,6 +6,7 @@ import models.enums.Phase;
 import rx.functions.Action1;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,6 +32,7 @@ public class PhasePanel extends JPanel implements Observer {
         endButton.addActionListener(new PhaseButtonListener(keeper, Phase.END_PHASE));
 
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
         add(drowButton);
         add(Box.createGlue());

@@ -19,7 +19,7 @@ public class MainPanel extends JPanel {
     private PhasePanel phasePanel;
     private CardStatusPanel cardStatusPanel;
     private GameStatusPanel gameStatusPanel;
-    private OpponentFieldPanel opponetFieldPanel;
+    private OpponentFieldPanel opponentFieldPanel;
 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
@@ -33,8 +33,8 @@ public class MainPanel extends JPanel {
         phasePanel = new PhasePanel(keeper);
         cardStatusPanel = new CardStatusPanel(player);
         gameStatusPanel = new GameStatusPanel(keeper);
-        fieldPanel = new FieldPanel(player);
-        opponetFieldPanel = new OpponentFieldPanel();
+        fieldPanel = new FieldPanel(keeper);
+        opponentFieldPanel = new OpponentFieldPanel();
 
 
         // 以下レイアウト
@@ -83,8 +83,8 @@ public class MainPanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        layout.setConstraints(opponetFieldPanel, gbc);
-        add(opponetFieldPanel);
+        layout.setConstraints(opponentFieldPanel, gbc);
+        add(opponentFieldPanel);
     }
 
     private void setComponentLayout(JComponent comp, int gridx, int gridy,
