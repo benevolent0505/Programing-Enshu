@@ -35,11 +35,11 @@ public class PlayerStatusPanel extends JPanel implements Observer {
     public PlayerStatusPanel(Player player1, Player player2) {
 
         askPlayerNameFrame = new JFrame();
-        name1 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player1's Name?");
+        name1 = JOptionPane.showInputDialog(askPlayerNameFrame, "プレイヤー１の名前を入力");
         if (name1 == null) System.exit(0);
 
         askPlayerNameFrame = new JFrame();
-        name2 = JOptionPane.showInputDialog(askPlayerNameFrame, "What is Player2's Name?");
+        name2 = JOptionPane.showInputDialog(askPlayerNameFrame, "プレイヤー２の名前を入力");
         if (name2 == null) System.exit(0);
 
         this.player1 = player1;
