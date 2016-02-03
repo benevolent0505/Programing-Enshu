@@ -59,6 +59,7 @@ public class FieldPanel extends JPanel {
         cemeteryZone = new JPanel();
         cemeteryZone.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         cemeteryBox = new JComboBox<>();
+        cemeteryZone.add(new JLabel("墓地"));
         cemeteryZone.add(cemeteryBox);
         setComponentLayout(cemeteryZone, 2, 0, 1, 1);
         add(cemeteryZone);
@@ -79,7 +80,7 @@ public class FieldPanel extends JPanel {
         gbc.weightx = 0;
 
         deckZone = new JPanel();
-        deck = new JButton("Deck");
+        deck = new JButton("デッキ");
         deckZone.add(deck);
         deckZone.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         setComponentLayout(deckZone, 2, 1, 1, 1);

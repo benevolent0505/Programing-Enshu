@@ -1,5 +1,6 @@
 package models;
 
+import models.enums.CardStatus;
 import models.enums.DeckType;
 import models.enums.Phase;
 
@@ -41,9 +42,10 @@ public class Player extends Observable {
         field.addObserver(observer);
     }
 
-    public void summon(Card card) {
+    public void summon(Card card, CardStatus status) {
         if (keeper.getCurrentPhase() == Phase.MAIN_PHASE_1 || keeper.getCurrentPhase() == Phase.MAIN_PHASE_2) {
             if (!isSummoned) {
+                card.setStatus(status);
                 field.addMonster(card);
                 field.removeHand(card);
                 isSummoned = true;

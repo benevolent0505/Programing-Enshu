@@ -1,5 +1,6 @@
 package models;
 
+import models.enums.CardStatus;
 import models.enums.DeckType;
 import utilities.CardDBManager;
 
@@ -73,6 +74,7 @@ public class Field extends Observable {
     }
 
     public void addHand(Card card) {
+        card.setStatus(CardStatus.HAND);
         hands.add(card);
         setChanged();
         notifyObservers();

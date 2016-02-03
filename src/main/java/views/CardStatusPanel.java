@@ -2,6 +2,7 @@ package views;
 
 import models.Card;
 import models.Player;
+import models.enums.CardStatus;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -28,12 +29,14 @@ public class CardStatusPanel extends JPanel implements Observer {
 
     private JPanel btnPanel = new JPanel();
 
-    private JButton setButton = new JButton("Set");
-    private JButton attackButton = new JButton("Attack");
-    private JButton changePosButton = new JButton("Change Pos");
+    private JButton setButton = new JButton("召喚");
+    private JButton attackButton = new JButton("攻撃");
+    private JButton changePosButton = new JButton("表示形式変更");
 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
+
+    private JPanel parent = this;
 
     public CardStatusPanel(Player player) {
         this.player = player;
@@ -158,7 +161,18 @@ public class CardStatusPanel extends JPanel implements Observer {
     private class SetButtonClickListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            player.summon(selectedCard);
+            if (selectedCard.getStatus() == CardStatus.HAND) {
+                String values[] = {"攻撃表示", "裏側守備表示"};
+                int res = JOptionPane.showOptionDialog(parent, "", "表示形式を選んでください",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, values, values[0]);
+
+                // valuesの順番に対応 (0 = 攻撃表示, 1 = 裏側守備表示)
+                if (res == 0) {
+                    player.summon(selectedCard, CardStatus.ATTACK_POSITION);
+                } else if (res == 1) {
+                    player.summon(selectedCard, CardStatus.FACE_DOWN_DEFENSE_POSITION);
+                }
+            }
         }
     }
 }

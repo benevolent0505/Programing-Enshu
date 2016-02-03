@@ -1,6 +1,7 @@
 package models;
 
 import models.enums.Attribute;
+import models.enums.CardStatus;
 import models.enums.Species;
 
 /**
@@ -14,6 +15,8 @@ public class Card {
     private int level;
     private int attackPoint;
     private int defensePoint;
+
+    private CardStatus status;
 
     public Card(String name, Species species, Attribute attribute, int level, int attackPoint, int defensePoint) {
         this.name = name;
@@ -46,5 +49,13 @@ public class Card {
 
     public int getAttackPoint() {
         return attackPoint;
+    }
+
+    public CardStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CardStatus status) {
+        this.status = status;
     }
 }
