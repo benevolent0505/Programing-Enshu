@@ -22,10 +22,7 @@ public class PhasePanel extends JPanel implements Observer {
     private JButton main2Button = new JButton("Main 2");
     private JButton endButton = new JButton("End");
 
-    private GameKeeper keeper;
-
     public PhasePanel(GameKeeper keeper) {
-        this.keeper = keeper;
         keeper.addObserver(this);
 
         main1Button.addActionListener(new PhaseButtonListener(keeper, Phase.MAIN_PHASE_1));
