@@ -37,6 +37,7 @@ public class HandsPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         removeAll();
         initHand();
+        revalidate();
     }
 
     private void initHand() {

@@ -30,7 +30,9 @@ public class MonsterZonePanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        removeAll();
         setMonsters();
+        revalidate();
     }
 
     private void setMonsters() {

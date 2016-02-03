@@ -2,11 +2,12 @@ package views;
 
 import models.Card;
 import models.Player;
-import rx.functions.Action1;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,12 +16,15 @@ import java.util.Observer;
  */
 public class CardStatusPanel extends JPanel implements Observer {
 
-    private JLabel nameLabel = new JLabel();
-    private JLabel attrLabel = new JLabel();
-    private JLabel levelLabel = new JLabel();
-    private JLabel speciesLabel = new JLabel();
-    private JLabel atkPtLabel = new JLabel();
-    private JLabel defPtLabel = new JLabel();
+    private Player player;
+    private Card selectedCard;
+
+    private JLabel nameLabel = new JLabel(" -- ");
+    private JLabel attrLabel = new JLabel(" -- ");
+    private JLabel levelLabel = new JLabel("Level : -- ");
+    private JLabel speciesLabel = new JLabel(" -- ");
+    private JLabel atkPtLabel = new JLabel("ATK / -- ");
+    private JLabel defPtLabel = new JLabel("DEF / -- ");
 
     private JPanel btnPanel = new JPanel();
 
@@ -31,8 +35,6 @@ public class CardStatusPanel extends JPanel implements Observer {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    private Player player;
-
     public CardStatusPanel(Player player) {
         this.player = player;
         player.addObserver(this);
@@ -41,9 +43,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         layout = new GridBagLayout();
         setLayout(layout);
 
-        // background setting for this panel
         setBackground(new Color(195, 145, 67));
-        // border setting for this panel
         setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
         gbc = new GridBagConstraints();
@@ -53,7 +53,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Display card name
-        nameLabel.setText(" -- ");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         nameLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -62,7 +61,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         add(nameLabel);
 
         // Display card attribute
-        attrLabel.setText(" -- ");
         attrLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         attrLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         attrLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -71,7 +69,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         add(attrLabel);
 
         // Display card level
-        levelLabel = new JLabel("Level : -- ");
         levelLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         levelLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         levelLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -90,7 +87,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         gbc.weighty = 0;
 
         // Display card species
-        speciesLabel = new JLabel(" -- ");
         speciesLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         speciesLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         speciesLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -99,7 +95,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         add(speciesLabel);
 
         // Display card attack point
-        atkPtLabel = new JLabel("ATK / -- ");
         atkPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         atkPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         atkPtLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -108,7 +103,6 @@ public class CardStatusPanel extends JPanel implements Observer {
         add(atkPtLabel);
 
         // Display card defense point
-        defPtLabel = new JLabel("DEF / -- ");
         defPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         defPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         defPtLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -124,6 +118,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         btnPanel.setLayout(layout);
 
         // Display button to set card (select position)
+        setButton.addActionListener(new SetButtonClickListener());
         setComponentLayout(setButton, 0, 5, 2, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         btnPanel.add(setButton);
 
@@ -138,7 +133,7 @@ public class CardStatusPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Card selectedCard = player.getSelectedCard();
+        selectedCard = player.getSelectedCard();
 
         nameLabel.setText(selectedCard.getName());
         attrLabel.setText(selectedCard.getAttribute().toString());
@@ -158,5 +153,12 @@ public class CardStatusPanel extends JPanel implements Observer {
         gbc.fill = fill;
 
         layout.setConstraints(comp, gbc);
+    }
+
+    private class SetButtonClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            player.summon(selectedCard);
+        }
     }
 }

@@ -1,7 +1,9 @@
 package models;
 
 import models.enums.DeckType;
+import models.enums.Phase;
 
+import java.awt.image.Kernel;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,16 +16,18 @@ public class Player extends Observable {
 
     private String name;
     private int lifePoint;
-
+    private GameKeeper keeper;
     private Field field;
-
     private Card selectedCard;
+    private boolean isSummoned;
 
     public Player(String name, DeckType deckType) {
         this.name = name;
 
         field = new Field(deckType);
         lifePoint = field.getLifePoint();
+
+        isSummoned = false;
     }
 
     public String getName() {
@@ -38,9 +42,23 @@ public class Player extends Observable {
         field.addObserver(observer);
     }
 
+    public void summon(Card card) {
+        if (keeper.getCurrentPhase() == Phase.MAIN_PHASE_1 || keeper.getCurrentPhase() == Phase.MAIN_PHASE_2) {
+            if (!isSummoned) {
+                field.addMonster(card);
+                field.removeHand(card);
+                isSummoned = true;
+            }
+        }
+    }
+
     public void drow(int number) {
-        for (int i = 0; i < number; i++) {
-            field.addHand(field.drow());
+        if (keeper.getCurrentPhase() == Phase.DROW_PHASE) {
+            for (int i = 0; i < number; i++) {
+                field.addHand(field.drow());
+            }
+
+            keeper.setPhase(Phase.STAND_BY_PHASE);
         }
     }
 
@@ -68,5 +86,9 @@ public class Player extends Observable {
         this.selectedCard = selectedCard;
         setChanged();
         notifyObservers();
+    }
+
+    public void setGameKeeper(GameKeeper keeper) {
+        this.keeper = keeper;
     }
 }

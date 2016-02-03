@@ -25,6 +25,7 @@ public class GameKeeper extends Observable {
 
     public void setPlayer(Player player) {
         this.player = player;
+        player.setGameKeeper(this);
     }
 
     public Player getOpponent() {

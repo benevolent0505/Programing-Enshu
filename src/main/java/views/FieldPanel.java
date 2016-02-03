@@ -106,13 +106,11 @@ public class FieldPanel extends JPanel {
         deck.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (keeper.getCurrentPhase() == Phase.DROW_PHASE) {
-                    player.drow(1);
+                player.drow(1);
 
-                    // 本当はここにこの処理を書きたくないから別の場所に移動させるかも(Playerのdrowメソッド内に書きたい)
-                    // でもListenerだから別にいいかも
-                    keeper.setPhase(Phase.STAND_BY_PHASE);
-                }
+                // 本当はここにこの処理を書きたくないから別の場所に移動させるかも(Playerのdrowメソッド内に書きたい)
+                // でもListenerだから別にいいかも
+                keeper.setPhase(Phase.STAND_BY_PHASE);
             }
         });
     }

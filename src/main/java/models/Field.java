@@ -78,6 +78,12 @@ public class Field extends Observable {
         notifyObservers();
     }
 
+    public void removeHand(Card card) {
+        hands.remove(card);
+        setChanged();
+        notifyObservers();
+    }
+
     public ArrayList<Card> getMonsterZone() {
         return monsterZone;
     }
@@ -85,6 +91,8 @@ public class Field extends Observable {
     public void addMonster(Card card) {
         if (monsterZone.size() < MAX_MONSTER_ZONE_SIZE) {
             monsterZone.add(card);
+            setChanged();
+            notifyObservers();
         }
     }
 
