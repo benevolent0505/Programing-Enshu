@@ -49,7 +49,7 @@ public class FieldPanel extends JPanel {
         setComponentLayout(fieldMagicZone, 0, 0, 1, 1);
         add(fieldMagicZone);
 
-        monsterZone = new MonsterZonePanel();
+        monsterZone = new MonsterZonePanel(keeper);
         monsterZone.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         gbc.weightx = 1;
         setComponentLayout(monsterZone, 1, 0, 1, 1);
