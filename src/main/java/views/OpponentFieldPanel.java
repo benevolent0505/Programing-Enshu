@@ -9,7 +9,6 @@ import java.awt.*;
  */
 public class OpponentFieldPanel extends JPanel {
 
-    private static MonsterZonePanel monsterZone = new MonsterZonePanel();
     private static MagicAndTrapZonePanel magicAndTrapZone = new MagicAndTrapZonePanel();
     private static HandsPanel handsPanel;
 
@@ -39,10 +38,6 @@ public class OpponentFieldPanel extends JPanel {
         setComponentLayout(handsPanel, 0, 2, 3, 1, 0.7, 0.1);
         handsPanel.setBorder(new LineBorder(Color.black));
         add(handsPanel);
-
-        setComponentLayout(monsterZone, 1, 0, 1, 1, 0.7, 0.2);
-        monsterZone.setBorder(new LineBorder(Color.black));
-        add(monsterZone);
 
         setComponentLayout(magicAndTrapZone, 1, 1, 1, 1, 0.7, 0.2);
         magicAndTrapZone.setBorder(new LineBorder(Color.black));
