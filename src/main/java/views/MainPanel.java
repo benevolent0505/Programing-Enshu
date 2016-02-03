@@ -24,8 +24,8 @@ public class MainPanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public MainPanel() {
-        player = new Player("Hoge", DeckType.DECK1);
+    public MainPanel(String playerName, DeckType deckType) {
+        player = new Player(playerName, deckType);
 
         keeper = new GameKeeper();
         keeper.setPlayer(player);
