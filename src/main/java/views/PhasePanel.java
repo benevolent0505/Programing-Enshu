@@ -1,5 +1,9 @@
 package views;
 
+import listeners.PhaseButtonListener;
+import models.GameKeeper;
+import models.enums.Phase;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +19,16 @@ public class PhasePanel extends JPanel {
     private JButton main2Button = new JButton("Main 2");
     private JButton endButton = new JButton("End");
 
-    public PhasePanel() {
+    private GameKeeper keeper;
+
+    public PhasePanel(GameKeeper keeper) {
+        this.keeper = keeper;
+
+        main1Button.addActionListener(new PhaseButtonListener(keeper, Phase.MAIN_PHASE_1));
+        battleButton.addActionListener(new PhaseButtonListener(keeper, Phase.BATTLE_PHAES));
+        main2Button.addActionListener(new PhaseButtonListener(keeper, Phase.MAIN_PHASE_2));
+        endButton.addActionListener(new PhaseButtonListener(keeper, Phase.END_PHASE));
+
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         add(drowButton);

@@ -13,12 +13,11 @@ import java.awt.event.ActionListener;
  */
 public class FieldPanel extends JPanel {
 
-    private static MonsterZonePanel monsterZone = new MonsterZonePanel();
-    private static MagicAndTrapZonePanel magicAndTrapZone = new MagicAndTrapZonePanel();
     private static HandsPanel handsPanel;
-
     private static JButton deckZone = new JButton("Deck");
+    private static MonsterZonePanel monsterZone = new MonsterZonePanel();
     private static JPanel cemeteryZone = new JPanel();
+    private static MagicAndTrapZonePanel magicAndTrapZone = new MagicAndTrapZonePanel();
     private static JPanel fieldMagicZone = new JPanel();
     private static JPanel fusionDeckZone = new JPanel();
 

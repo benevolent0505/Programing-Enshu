@@ -1,15 +1,9 @@
 package views;
 
-import models.Card;
 import models.Player;
-import models.enums.Attribute;
-import models.enums.Species;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;

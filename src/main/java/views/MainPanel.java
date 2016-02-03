@@ -1,5 +1,6 @@
 package views;
 
+import models.GameKeeper;
 import models.Player;
 import models.enums.DeckType;
 
@@ -11,6 +12,7 @@ import java.awt.*;
  */
 public class MainPanel extends JPanel {
 
+    private GameKeeper keeper;
     private Player player;
 
     private FieldPanel fieldPanel;
@@ -23,9 +25,10 @@ public class MainPanel extends JPanel {
     private GridBagConstraints gbc;
 
     public MainPanel() {
+        keeper = new GameKeeper();
         player = new Player("Hoge", DeckType.DECK1);
 
-        phasePanel = new PhasePanel();
+        phasePanel = new PhasePanel(keeper);
         cardStatusPanel = new CardStatusPanel(player);
         gameStatusPanel = new GameStatusPanel();
         fieldPanel = new FieldPanel(player);
