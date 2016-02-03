@@ -3,13 +3,14 @@ package models;
 import models.enums.DeckType;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Observer;
 
 /**
  * Created by Mikio on 2016/01/21.
  * PlayerはFieldのラッパーようなものだととらえる.より現実の操作に近い処理を記述する.
  */
-public class Player {
+public class Player extends Observable {
 
     private String name;
     private int lifePoint;
@@ -61,5 +62,7 @@ public class Player {
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
+        setChanged();
+        notifyObservers();
     }
 }

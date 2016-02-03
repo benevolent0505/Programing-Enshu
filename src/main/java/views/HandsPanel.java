@@ -54,9 +54,24 @@ public class HandsPanel extends JPanel implements Observer {
                 .subscribe(new Action1<CardButton>() {
                     @Override
                     public void call(CardButton cardButton) {
+                        cardButton.addActionListener(new CardButtonClickListener(cardButton));
                         add(cardButton);
                         add(Box.createGlue());  // 間隔調節用
                     }
                 });
+    }
+
+    private class CardButtonClickListener implements ActionListener {
+
+        private Card card;
+
+        public CardButtonClickListener(CardButton cardButton) {
+            card = cardButton.getCard();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            player.setSelectedCard(card);
+        }
     }
 }

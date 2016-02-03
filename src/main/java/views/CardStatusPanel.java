@@ -1,5 +1,6 @@
 package views;
 
+import models.Card;
 import models.Player;
 import rx.functions.Action1;
 
@@ -34,6 +35,7 @@ public class CardStatusPanel extends JPanel implements Observer {
 
     public CardStatusPanel(Player player) {
         this.player = player;
+        player.addObserver(this);
 
         // layout setting
         layout = new GridBagLayout();
@@ -136,7 +138,14 @@ public class CardStatusPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        Card selectedCard = player.getSelectedCard();
 
+        nameLabel.setText(selectedCard.getName());
+        attrLabel.setText(selectedCard.getAttribute().toString());
+        levelLabel.setText("Level : " + selectedCard.getLevel());
+        speciesLabel.setText(selectedCard.getSpecies().toString());
+        atkPtLabel.setText("ATK / " + selectedCard.getAttackPoint());
+        defPtLabel.setText("DEF / " + selectedCard.getDefensePoint());
     }
 
     private void setComponentLayout(JComponent comp, int gridx, int gridy,
