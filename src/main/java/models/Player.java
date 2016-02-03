@@ -34,10 +34,6 @@ public class Player extends Observable {
         return lifePoint;
     }
 
-    public void setLifePoint(int lifePoint) {
-        this.lifePoint = lifePoint;
-    }
-
     public void setLifePointObserver(Observer observer) {
         field.addObserver(observer);
     }
@@ -53,6 +49,14 @@ public class Player extends Observable {
     }
 
     public void setHandsObserver(Observer observer) {
+        field.addObserver(observer);
+    }
+
+    public ArrayList<Card> getMonsterZone() {
+        return field.getMonsterZone();
+    }
+
+    public void setMonsterZoneObserver(Observer observer) {
         field.addObserver(observer);
     }
 
