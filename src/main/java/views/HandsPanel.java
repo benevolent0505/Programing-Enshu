@@ -1,18 +1,14 @@
 package views;
 
+import listeners.CardButtonClickListener;
 import models.Card;
 import models.GameKeeper;
 import models.Player;
-import models.enums.Phase;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import views.components.CardButton;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -54,24 +50,10 @@ public class HandsPanel extends JPanel implements Observer {
                 .subscribe(new Action1<CardButton>() {
                     @Override
                     public void call(CardButton cardButton) {
-                        cardButton.addActionListener(new CardButtonClickListener(cardButton));
+                        cardButton.addActionListener(new CardButtonClickListener(player, cardButton));
                         add(cardButton);
                         add(Box.createGlue());  // 間隔調節用
                     }
                 });
-    }
-
-    private class CardButtonClickListener implements ActionListener {
-
-        private Card card;
-
-        public CardButtonClickListener(CardButton cardButton) {
-            card = cardButton.getCard();
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            player.setSelectedCard(card);
-        }
     }
 }
