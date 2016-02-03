@@ -20,6 +20,7 @@ public class GameKeeper extends Observable {
     }
 
     public void setCurrentPhase(Phase phase) {
+          
         this.currentPhase = phase;
         setChanged();
         notifyObservers();
