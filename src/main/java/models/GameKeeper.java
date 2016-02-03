@@ -1,5 +1,6 @@
 package models;
 
+import models.enums.DeckType;
 import models.enums.Phase;
 
 import java.util.Observable;
@@ -11,8 +12,23 @@ public class GameKeeper extends Observable {
 
     private Phase currentPhase;
 
+    private Player player;
+    private Player opponent = new Player("Opponent", DeckType.DECK2);
+
     public GameKeeper() {
         currentPhase = Phase.DROW_PHASE;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getOpponent() {
+        return opponent;
     }
 
     public Phase getCurrentPhase() {

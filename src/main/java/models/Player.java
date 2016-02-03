@@ -25,6 +25,22 @@ public class Player {
         lifePoint = field.getLifePoint();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getLifePoint() {
+        return lifePoint;
+    }
+
+    public void setLifePoint(int lifePoint) {
+        this.lifePoint = lifePoint;
+    }
+
+    public void setLifePointObserver(Observer observer) {
+        field.addObserver(observer);
+    }
+
     public void drow(int number) {
         for (int i = 0; i < number; i++) {
             field.addHand(field.drow());

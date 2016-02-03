@@ -19,20 +19,22 @@ public class MainPanel extends JPanel {
     private PhasePanel phasePanel;
     private CardStatusPanel cardStatusPanel;
     private GameStatusPanel gameStatusPanel;
-    private OpponetFieldPanel opponetFieldPanel;
+    private OpponentFieldPanel opponetFieldPanel;
 
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
     public MainPanel() {
-        keeper = new GameKeeper();
         player = new Player("Hoge", DeckType.DECK1);
+
+        keeper = new GameKeeper();
+        keeper.setPlayer(player);
 
         phasePanel = new PhasePanel(keeper);
         cardStatusPanel = new CardStatusPanel(player);
-        gameStatusPanel = new GameStatusPanel();
+        gameStatusPanel = new GameStatusPanel(keeper);
         fieldPanel = new FieldPanel(player);
-        opponetFieldPanel = new OpponetFieldPanel();
+        opponetFieldPanel = new OpponentFieldPanel();
 
 
         // 以下レイアウト

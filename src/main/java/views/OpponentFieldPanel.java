@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Created by Mikio on 2016/01/28.
  */
-public class OpponetFieldPanel extends JPanel {
+public class OpponentFieldPanel extends JPanel {
 
     private static MonsterZonePanel monsterZone = new MonsterZonePanel();
     private static MagicAndTrapZonePanel magicAndTrapZone = new MagicAndTrapZonePanel();
@@ -21,7 +21,7 @@ public class OpponetFieldPanel extends JPanel {
     private GridBagLayout layout;
     private GridBagConstraints gbc;
 
-    public OpponetFieldPanel() {
+    public OpponentFieldPanel() {
         layout = new GridBagLayout();
         setLayout(layout);
         gbc = new GridBagConstraints();

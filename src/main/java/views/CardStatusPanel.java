@@ -1,6 +1,7 @@
 package views;
 
 import models.Player;
+import rx.functions.Action1;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -53,6 +54,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         nameLabel.setText(" -- ");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         nameLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
         nameLabel.setOpaque(true);
         setComponentLayout(nameLabel, 0, 0, 1, 1, GridBagConstraints.WEST, GridBagConstraints.NONE);
         add(nameLabel);
@@ -61,6 +63,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         attrLabel.setText(" -- ");
         attrLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         attrLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        attrLabel.setHorizontalAlignment(JLabel.CENTER);
         attrLabel.setOpaque(true);
         setComponentLayout(attrLabel, 1, 0, 1, 1, GridBagConstraints.EAST, GridBagConstraints.NONE);
         add(attrLabel);
@@ -69,6 +72,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         levelLabel = new JLabel("Level : -- ");
         levelLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         levelLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        levelLabel.setHorizontalAlignment(JLabel.CENTER);
         levelLabel.setOpaque(true);
         setComponentLayout(levelLabel, 0, 1, 2, 1, GridBagConstraints.EAST, GridBagConstraints.NONE);
         add(levelLabel);
@@ -87,6 +91,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         speciesLabel = new JLabel(" -- ");
         speciesLabel.setFont(new Font("Arial", Font.PLAIN, 10));
         speciesLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        speciesLabel.setHorizontalAlignment(JLabel.CENTER);
         speciesLabel.setOpaque(true);
         setComponentLayout(speciesLabel, 0, 3, 2, 1, GridBagConstraints.WEST, GridBagConstraints.NONE);
         add(speciesLabel);
@@ -95,6 +100,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         atkPtLabel = new JLabel("ATK / -- ");
         atkPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         atkPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        atkPtLabel.setHorizontalAlignment(JLabel.CENTER);
         atkPtLabel.setOpaque(true);
         setComponentLayout(atkPtLabel, 0, 4, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
         add(atkPtLabel);
@@ -103,6 +109,7 @@ public class CardStatusPanel extends JPanel implements Observer {
         defPtLabel = new JLabel("DEF / -- ");
         defPtLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         defPtLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        defPtLabel.setHorizontalAlignment(JLabel.CENTER);
         defPtLabel.setOpaque(true);
         setComponentLayout(defPtLabel, 1, 4, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE);
         add(defPtLabel);
