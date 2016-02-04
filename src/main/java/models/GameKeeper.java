@@ -42,6 +42,13 @@ public class GameKeeper extends Observable {
             this.currentPhase = phase;
             setChanged();
             notifyObservers();
+        } else if (currentPhase == Phase.END_PHASE && phase == Phase.DROW_PHASE) {
+            currentPhase = phase;
+            setChanged();
+            notifyObservers();
         }
+    }
+
+    private void forwardPhase() {
     }
 }

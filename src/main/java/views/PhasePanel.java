@@ -26,6 +26,7 @@ public class PhasePanel extends JPanel implements Observer {
     public PhasePanel(GameKeeper keeper) {
         keeper.addObserver(this);
 
+        drowButton.addActionListener(new PhaseButtonListener(keeper, Phase.DROW_PHASE));
         main1Button.addActionListener(new PhaseButtonListener(keeper, Phase.MAIN_PHASE_1));
         battleButton.addActionListener(new PhaseButtonListener(keeper, Phase.BATTLE_PHAES));
         main2Button.addActionListener(new PhaseButtonListener(keeper, Phase.MAIN_PHASE_2));
