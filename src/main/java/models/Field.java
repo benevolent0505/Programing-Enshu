@@ -31,7 +31,7 @@ public class Field extends Observable {
 
     public Field() {
 
-        lifePoint = 8000;
+        lifePoint = 2000;
         deck = new ArrayList();
         hands = new ArrayList();
         monsterZone = new ArrayList();
